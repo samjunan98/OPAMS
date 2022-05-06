@@ -797,3 +797,201 @@ session_start();
                         </div>
                         <!-- /.col -->
                     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                          <!-- Main content -->
+      <div class="container-xl">
+        <div class="table-title">
+          <form action="" method="GET">
+            <div class="row">
+              <div class="col-sm-auto">
+                <label for="category">Product Search:</label>
+              </div>
+              <div class="col-sm-4">
+                <input type="text" placeholder="Name" name="productName" value="<?php if (isset($_GET['productName'])) {
+                                                                                  echo $_GET['productName'];
+                                                                                } ?>" class="form-control">
+              </div>
+              <div class="col-sm-auto">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="product_edit.php"><button type="button" class="btn btn-primary">Reset</button>
+              </div>
+
+              <div class="col-sm-auto">
+                <a href="add_product.php"><button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> New Product</button></a>
+              </div>
+            </div>
+          </form>
+          <br>
+          <div class="row">
+            <div class="col-sm-auto">
+              <label for="category">Product Categories:</label>
+            </div>
+            <div class="col-sm-3">
+              <?php
+              $query = "SELECT * FROM category";
+              $result1 = mysqli_query($db, $query);
+              ?>
+              <select class="form-control">
+                <?php while ($row1 = mysqli_fetch_array($result1)) :; ?>
+                  <option value="<?php echo $row1[0]; ?>"><?php echo $row1[1]; ?></option>
+                <?php endwhile; ?>
+              </select>
+            </div>
+            <div class="col-sm-auto">
+              <a href="cat_filter.php"><button type="button" class="btn btn-info add-new"></i> Filter </button></a>
+            </div>
+            <div class="col-sm-auto">
+              <a href="add_product.php"><button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> New Category</button></a>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="card mt-12">
+          <div class="card-body">
+            <table class="table table-bordered" style="width:100%">
+              <thead class="thead-dark">
+                <tr>
+                  <th style="width:5%"> ID </th>
+                  <th style="width:20%"> Photo </th>
+                  <th> Name </th>
+                  <th style="width:10%"> Quantity </th>
+                  <th style="width:30%"> Description </th>
+                  <th> SKU </th>
+                  <th style="width:15%"> Action </th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                if (isset($_GET['productName'])) {
+                  $productName = $_GET['productName'];
+                  $query = "SELECT productID, productPhoto, productName, productQuantity, productDesc, productSKU FROM product WHERE '$productName' = productName";
+                  $query_run = mysqli_query($db, $query);
+                  if (mysqli_num_rows($query_run) > 0) {
+                    foreach ($query_run as $row) {
+                ?>
+                      <tr style="height:200px">
+                        <td><?= $row['productID']; ?></td>
+                        <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 100px; height:100px;">'; ?></td>
+                        <td><?= $row['productName']; ?></td>
+                        <td><?= $row['productQuantity']; ?></td>
+                        <td><?= $row['productDesc']; ?></td>
+                        <td><?= $row['productSKU']; ?></td>
+                        <td>
+                          <a href="update.php?productID=<?php echo $row['productID']; ?>" class="edit" title="Edit"><i class="fa fa-edit"></i></a>
+                          <a href="delete.php?productID=<?php echo $row['productID']; ?>" class="delete" title="Delete"><i class="fa fa-trash"></i></a>
+                        </td>
+                      </tr>
+                    <?php
+                    }
+                  } else {
+                    echo '<script type="text/javascript">
+                                      alert("Product Not Found");
+                                      </script>';
+                  }
+                } else {
+                  $query = "SELECT productID, productPhoto, productName, productQuantity, productDesc, productSKU FROM product";
+                  $query_run = mysqli_query($db, $query);
+                  if (mysqli_num_rows($query_run) > 0) {
+                    foreach ($query_run as $row) {
+                    ?>
+                      <tr class="clickable" data-href="productinfo.php?productID=<?php echo $row['productID']; ?>" style="height:100px; cursor:pointer;">
+                        <td><?= $row['productID']; ?></td>
+                        <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
+                        <td><?= $row['productName']; ?></td>
+                        <td><?= $row['productQuantity']; ?></td>
+                        <td><?= $row['productDesc']; ?></td>
+                        <td><?= $row['productSKU']; ?></td>
+                        <td>
+                          <a href="updateprod.php?productID=<?php echo $row['productID']; ?>" class="edit" title="Edit"><i class="fa fa-edit"></i></a>
+                          <a href="deleteprod.php?productID=<?php echo $row['productID']; ?>" class="delete" title="Delete"><i class="fa fa-trash"></i></a>
+                        </td>
+                      </tr>
+                <?php
+                    }
+                  } else {
+                    echo '<script type="text/javascript">
+                                      alert("Product Not Found");
+                                      </script>';
+                  }
+                }
+                ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href="css/register.css" rel="stylesheet">
+   <title>Product Adding</title> 
+</head>
+<body>
+<div class="center"> 
+      <h1> Add Product</h1>
+      <form method="POST" action="product_store.php" enctype="multipart/form-data">
+                <div class="forminput-DOB">
+                <label>Photo:</label>
+                  <input type="file" class="form-control" name="productPhoto" required>
+               </div>
+               <div class="forminput">
+                  <label>Name:</label>
+                  <input type="text" class="form-control" name="productName" required>
+               </div>
+
+               <div class="forminput">
+                  <label>Quantity:</label>
+                  <input type="number" class="form-control" name="productQuantity" required>
+               </div>
+               <div class="forminput">
+                  <label>Description:</label>
+                  <input type="text" class="form-control" name="productDesc">
+               </div>
+               <div class="forminput">
+                  <label>SKU:</label>
+                  <input type="text" class="form-control"name="productSKU" required>
+               </div>
+               <div class="forminput-DOB">
+                  <label>Product Category:</label>
+                    <?php
+                    include("config.php");
+                    $query = "SELECT * FROM category";
+                    $result1= mysqli_query($db, $query);
+                    ?>
+                    <select name="categoryID" required>
+                    <option disabled selected value> -- select an option -- </option>
+                    <?php while($row1= mysqli_fetch_array($result1)):;?>
+                    <option value="<?php echo $row1[0];?>"><?php echo $row1[1];?></option>
+                    <?php endwhile;?>
+                    </select>
+                    </div>
+               <div class="btn">
+                  <input type="submit" value="Add" name="add_product">
+               </div>
+            </form>
+    </div>
+</html>
+

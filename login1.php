@@ -25,6 +25,7 @@
             <label>Password</label>
          </div>
          <input type="submit" value="Login" name="adminLogin">
+         <div class="regg"> Not yet member? <a href="admin_register.php">Sign Up Now</a></div>
       </form>
    </div>
 </body>

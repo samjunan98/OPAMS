@@ -24,7 +24,7 @@ include("config.php");
                 header('location: product_edit.php');
                 }
         else {
-                echo " <script> alert('ERROR') </script> ";
+                echo  mysqli_error($db);
              }
         }
 }

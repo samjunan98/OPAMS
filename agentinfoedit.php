@@ -4,18 +4,18 @@ include('config.php');
 $agentID = $_SESSION['agentID'];
 $agentSessionid = $_SESSION['agentSessionid'];
 if ($_SESSION["agentID"] == NULL) {
-  header("location: index.html");
+    header("location: index.html");
 } else {
-  $checkk = "SELECT * FROM agent WHERE agentID='$agentID'";
-  $resultt = mysqli_query($db, $checkk) or die('Error querying database. ' .  mysqli_error($db));
-  foreach ($resultt as $row) {
-    if ($_SESSION['agentSessionid'] != $row['agentSessionid']) {
-      echo '<script type="text/javascript">';
-      echo 'alert("New login is detected");';
-      echo 'window.location.href = "index.html";';
-      echo '</script>';
+    $checkk = "SELECT * FROM agent WHERE agentID='$agentID'";
+    $resultt = mysqli_query($db, $checkk) or die('Error querying database. ' .  mysqli_error($db));
+    foreach ($resultt as $row) {
+        if ($_SESSION['agentSessionid'] != $row['agentSessionid']) {
+            echo '<script type="text/javascript">';
+            echo 'alert("New login is detected");';
+            echo 'window.location.href = "index.html";';
+            echo '</script>';
+        }
     }
-  }
 }
 ?>
 <!DOCTYPE html>
@@ -189,7 +189,7 @@ if ($_SESSION["agentID"] == NULL) {
                                                 <label for="inputEmail3" class="col-sm-2 col-form-label">Profile Photo</label>
                                                 <div class="col-sm-10">
                                                     <?php echo '<img src="data:image;base64,' . base64_encode($row['agentPhoto']) . '"alt="Image" id="blah" style="width: 200px; height:200px;">'; ?><br>
-                                                    
+
                                                     <input type="file" class="form-control" name="agentPhoto" style="height:50px" onchange="readURL(this);">
                                                 </div>
                                             </div>
@@ -245,18 +245,18 @@ if ($_SESSION["agentID"] == NULL) {
                                                 <label class="col-sm-2 col-form-label">Location</label>
                                                 <div class="col-sm-10">
                                                     <select class="form-control" name="agentLocation">
-                                                        <option value="Perlis"<?php if ($row['agentLocation'] == "Perlis") { ?> selected <?php } ?>>Perlis</option>
-                                                        <option value="Kedah"<?php if ($row['agentLocation'] == "Kedah") { ?> selected <?php } ?>>Kedah</option>
-                                                        <option value="Kelantan"<?php if ($row['agentLocation'] == "Kelantan") { ?> selected <?php } ?>>Kelantan</option>
-                                                        <option value="Penang"<?php if ($row['agentLocation'] == "Penang") { ?> selected <?php } ?>>Penang</option>
-                                                        <option value="Pahang"<?php if ($row['agentLocation'] == "Pahang") { ?> selected <?php } ?>>Pahang</option>
-                                                        <option value="Perak"<?php if ($row['agentLocation'] == "Perak") { ?> selected <?php } ?>>Perak</option>
-                                                        <option value="Selangor"<?php if ($row['agentLocation'] == "Selangor") { ?> selected <?php } ?>>Selangor</option>
-                                                        <option value="Terengganu"<?php if ($row['agentLocation'] == "Terengganu") { ?> selected <?php } ?>>Terengganu</option>
-                                                        <option value="Malacca"<?php if ($row['agentLocation'] == "Malacca") { ?> selected <?php } ?>>Malacca</option>
-                                                        <option value="Johor"<?php if ($row['agentLocation'] == "Johor") { ?> selected <?php } ?>>Johor</option>
-                                                        <option value="Negeri Sembilan"<?php if ($row['agentLocation'] == "Negeri Sembilan") { ?> selected <?php } ?>>Negeri Sembilan</option>
-                                                        <option value="Sabah"<?php if ($row['agentLocation'] == "Sabah") { ?> selected <?php } ?>>Sabah</option>
+                                                        <option value="Perlis" <?php if ($row['agentLocation'] == "Perlis") { ?> selected <?php } ?>>Perlis</option>
+                                                        <option value="Kedah" <?php if ($row['agentLocation'] == "Kedah") { ?> selected <?php } ?>>Kedah</option>
+                                                        <option value="Kelantan" <?php if ($row['agentLocation'] == "Kelantan") { ?> selected <?php } ?>>Kelantan</option>
+                                                        <option value="Penang" <?php if ($row['agentLocation'] == "Penang") { ?> selected <?php } ?>>Penang</option>
+                                                        <option value="Pahang" <?php if ($row['agentLocation'] == "Pahang") { ?> selected <?php } ?>>Pahang</option>
+                                                        <option value="Perak" <?php if ($row['agentLocation'] == "Perak") { ?> selected <?php } ?>>Perak</option>
+                                                        <option value="Selangor" <?php if ($row['agentLocation'] == "Selangor") { ?> selected <?php } ?>>Selangor</option>
+                                                        <option value="Terengganu" <?php if ($row['agentLocation'] == "Terengganu") { ?> selected <?php } ?>>Terengganu</option>
+                                                        <option value="Malacca" <?php if ($row['agentLocation'] == "Malacca") { ?> selected <?php } ?>>Malacca</option>
+                                                        <option value="Johor" <?php if ($row['agentLocation'] == "Johor") { ?> selected <?php } ?>>Johor</option>
+                                                        <option value="Negeri Sembilan" <?php if ($row['agentLocation'] == "Negeri Sembilan") { ?> selected <?php } ?>>Negeri Sembilan</option>
+                                                        <option value="Sabah" <?php if ($row['agentLocation'] == "Sabah") { ?> selected <?php } ?>>Sabah</option>
                                                         <option value="Sarawak" <?php if ($row['agentLocation'] == "Sarawak") { ?> selected <?php } ?>>Sarawak</option>
                                                     </select>
                                                 </div>
@@ -266,37 +266,37 @@ if ($_SESSION["agentID"] == NULL) {
                                             <div class="card-footer">
                                                 <button type="submit" class="btn btn-info">Save Changes</button>
                                                 <button type="button" onclick="document.location='agentinfo.php'" class="btn btn-default float-right">Cancel</button>
-                                            </div>
-                                            <!-- /.card-footer -->
-
+                                            </div> <!-- /.card-footer -->
                                     </form>
-                                </div><!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
+                                </div>
+
+                            </div><!-- /.card-body -->
                         </div>
-                        <!-- /.col -->
+                        <!-- /.card -->
                     </div>
+                    <!-- /.col -->
                 </div>
-            </section>
-
-            <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
-                <i class="fas fa-chevron-up"></i>
-            </a>
         </div>
-        <!-- /.content-wrapper -->
+        </section>
 
-        <footer class="main-footer">
-            <div class="float-right d-none d-sm-block">
-                <b>Version</b> 3.2.0
-            </div>
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-        </footer>
+        <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
+            <i class="fas fa-chevron-up"></i>
+        </a>
+    </div>
+    <!-- /.content-wrapper -->
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+    <footer class="main-footer">
+        <div class="float-right d-none d-sm-block">
+            <b>Version</b> 3.2.0
+        </div>
+        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">

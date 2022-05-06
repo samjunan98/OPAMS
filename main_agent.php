@@ -216,12 +216,12 @@ if ($_SESSION["agentID"] == NULL) {
                 <div class="inner">
                   <?php $fromdate = mysqli_query($db, "SELECT * FROM agent WHERE agentID='$agentID'");
                   $row = mysqli_fetch_array($fromdate);
-                  $from = new DateTime($row['agentCreatedate']);
+                  $from1 = new DateTime($row['agentCreatedate']);
                   $today1 = new DateTime();
-                  $interval = $today1->diff($from);
-                  $elapsed = $interval->format('%a Days');
+                  $interval1 = $today1->diff($from1);
+                  $elapsed1 = $interval1->format('%a Days');
                   ?>
-                  <h3><?php echo $elapsed; ?></h3>
+                  <h3><?php echo $elapsed1; ?></h3>
                   <p>Agent For</p>
                 </div>
                 <div class="icon">
@@ -266,50 +266,48 @@ if ($_SESSION["agentID"] == NULL) {
                   </div>
                 </div>
                 <!-- /.card-header -->
-                <div class="card-body p-0">
-                  <div class="table-responsive">
-                    <table class="table m-0">
-                      <thead>
-                        <tr>
-                          <th>Order ID</th>
-                          <th>Item</th>
-                          <th>Status</th>
-                          <th>Popularity</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                          <td>Call of Duty IV</td>
-                          <td><span class="badge badge-success">Shipped</span></td>
-                          <td>
-                            <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                          <td>Samsung Smart TV</td>
-                          <td><span class="badge badge-warning">Pending</span></td>
-                          <td>
-                            <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                          <td>iPhone 6 Plus</td>
-                          <td><span class="badge badge-danger">Delivered</span></td>
-                          <td>
-                            <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                <?php $query = "SELECT orderlist.orderID, product.productName,SUM(order_product.order_productSubtotal) AS grandtotal ,GROUP_CONCAT(order_product.productID) AS productID ,GROUP_CONCAT(order_product.order_productQuantity) AS quantity,orderlist.orderCreatedate,orderlist.orderStatus AS orderStatus FROM orderlist INNER JOIN order_product ON orderlist.orderID = order_product.orderID INNER JOIN product ON order_product.productID = product.productID WHERE '$agentID' = agentID GROUP BY orderlist.orderID DESC LIMIT 5";
+                $query_run = mysqli_query($db, $query);
+                echo mysqli_error($db);
+                if (mysqli_num_rows($query_run) > 0) { ?>
+                  <div class="card-body p-0">
+                    <div class="table-responsive">
+                      <table class="table m-0">
+                        <thead>
+                          <tr>
+                            <th>Order ID</th>
+                            <th>Product</th>
+                            <th>Order Created Time</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php foreach ($query_run as $row) { ?>
+                            <tr>
+                              <td><a href="pages/examples/invoice.html"><?php echo $row['orderID']; ?></a></td>
+                              <td><?php $productID = explode(',', $row['productID']);
+                                  foreach ($productID as $productID1) {
+                                    echo $productID1 . '<br />';
+                                  } ?></td>
+                                  <td><?= $row['orderCreatedate']; ?></td>
+                              <td><span class="badge badge-success"><?php echo $row['orderStatus']; ?></span></td>
+                            </tr>
+                          <?php
+                          } ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  <?php } else { ?>
+                    <div class="empty-cart-cls text-center"> <img src="https://www.kindpng.com/picc/m/280-2801416_customer-order-orders-icon-clipart-png-download-order.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                      <h3><strong>Order Not Found</strong></h3>
+                    </div>
+                  <?php
+                } ?>
                   <!-- /.table-responsive -->
-                </div>
-                <!-- /.card-body -->
+                  </div>
+                  <!-- /.card-body -->
               </div>
-            
+
               <!-- /.card-footer -->
             </div>
           </div>
