@@ -83,7 +83,7 @@ if ($_SESSION["adminID"] == NULL) {
                   <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                   <li class="nav-item">
-                     <a href="main_admin.php" class="nav-link active">
+                     <a href="main_admin.php" class="nav-link">
                         <i class="nav-icon fa fa-home"></i>
                         <p>
                            Home
@@ -117,7 +117,7 @@ if ($_SESSION["adminID"] == NULL) {
                   </li>
                   </li>
                   <li class="nav-item">
-                     <a href="#" class="nav-link">
+                     <a href="#" class="nav-link active">
                         <i class="nav-icon fa fa-shopping-bag"></i>
                         <p>
                            Product
@@ -134,7 +134,7 @@ if ($_SESSION["adminID"] == NULL) {
                      </ul>
                      <ul class="nav nav-treeview">
                         <li class="nav-item">
-                           <a href="product_edit.php" class="nav-link">
+                           <a href="product_edit.php" class="nav-link active">
                               <i class="far fa-circle nav-icon"></i>
                               <p>Add Product</p>
                            </a>
@@ -273,6 +273,7 @@ if ($_SESSION["adminID"] == NULL) {
                   </div>
                   <div class="col-md-2"></div>
                </div>
+            </div>
          </section>
 
          <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
@@ -282,11 +283,11 @@ if ($_SESSION["adminID"] == NULL) {
       <!-- /.content-wrapper -->
 
       <footer class="main-footer">
-      <div class="float-right d-none d-sm-block">
-        <b>Version</b> 1.0
-      </div>
-      <strong>SAM JUN AN 181021172</a></strong>
-    </footer>
+         <div class="float-right d-none d-sm-block">
+            <b>Version</b> 1.0
+         </div>
+         <strong>SAM JUN AN 181021172</a></strong>
+      </footer>
 
       <!-- Control Sidebar -->
       <aside class="control-sidebar control-sidebar-dark">

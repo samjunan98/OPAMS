@@ -1057,3 +1057,149 @@ session_start();
    </div>
 
 </html>
+
+
+
+
+
+
+
+
+
+<section class="content">
+        <div class="container-fluid">
+          <div class="table-title">
+            <div class="card mt-12">
+              <div class="card-body">
+                <form action="" method="GET">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <input type="text" placeholder="Name" name="productName" value="<?php if (isset($_GET['productName'])) {
+                                                                                        echo $_GET['productName'];
+                                                                                      } ?>" class="form-control"><br>
+                    </div>
+                    <div class="col-sm-1">
+                      <button type="submit" title="Search" class="btn btn-block btn-info btn-md"><i class="fa fa-search"></i></button><br>
+                    </div>
+                    <div class="col-sm-1"><button onclick="document.location='product.php'" type="button" title="Refresh" class="btn btn-block btn-secondary btn-md"><i class="fa-solid fa-arrows-rotate"></i></button></div>
+                    <div class="col-sm-6"></div><br>
+                    <div class="col-sm-1">
+                      <div class="text-right"><button onclick="document.location='cart.php'" type="button" title="Cart" class="btn btn-block btn-success btn-md"><i class="fa-solid fa-cart-shopping"></i> <span class='badge badge-danger' id='lblCartCount'> <?php include('track_cart.php'); ?> </span></button></div>
+                    </div>
+                  </div>
+                </form>
+                <form method="GET" action="">
+                  <div class="row">
+                    <div class="col-sm-auto"><label for="category">Product Categories:</label><br></div>
+                    <div class="col-sm-3"><?php
+                                          $query = "SELECT * FROM category";
+                                          $result1 = mysqli_query($db, $query);
+                                          ?>
+                      <select id="box1" class="form-control" name="taskOption">
+                        <option disabled selected value> Showing: <?php if (isset($_GET['taskOption'])) {
+                                                                    $categoryID = $_GET['taskOption'];
+                                                                    $query22 = "SELECT * FROM category WHERE '$categoryID' = categoryID";
+
+                                                                    $query_run22 = mysqli_query($db, $query22);
+                                                                    while ($row =  mysqli_fetch_array($query_run22)) {
+                                                                      $categoryName = $row['categoryName'];
+                                                                    }
+                                                                    echo $categoryName;
+                                                                  } else {
+                                                                    echo " All ";
+                                                                  } ?> </option>
+                        <?php while ($row1 = mysqli_fetch_array($result1)) :; ?>
+                          <option value="<?php echo $row1[0]; ?>"><?php echo $row1[1]; ?></option>
+                        <?php endwhile; ?>
+                      </select>
+                    </div>
+                    <div class="col-sm-1"><button type="submit" title="Filter" class="btn btn-block bg-gradient-info btn"></i> <i class="fa-solid fa-filter"></i> </button></a></div>
+                  </div>
+                  <?php
+                  $option = isset($_POST['taskOption']) ? $_POST['taskOption'] : false;
+                  ?>
+                </form>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="card mt-12">
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead class="thead-dark">
+                  <tr>
+                    <th> ID </th>
+                    <th> Name </th>
+                    <th> Email </th>
+                    <th> Age </th>
+                    <th> Phone Number </th>
+                    <th> Gender</th>
+                    <th> Date of Birth </th>
+                    <th> Location </th>
+                    <th> Action </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  include('config.php');
+                  if (isset($_GET['agentName'])) {
+                    $agentName = $_GET['agentName'];
+                    $query = "SELECT agentID, agentName, agentEmail, agentAge, agentPhone, agentGender, agentDOB, agentLocation FROM agent WHERE '$agentName' = agentName";
+                    $query_run = mysqli_query($db, $query);
+                    if (mysqli_num_rows($query_run) > 0) {
+                      foreach ($query_run as $row) {
+                  ?>
+                        <tr>
+                          <td><?= $row['agentID']; ?></td>
+                          <td><?= $row['agentName']; ?></td>
+                          <td><?= $row['agentEmail']; ?></td>
+                          <td><?= $row['agentAge']; ?></td>
+                          <td><?= $row['agentPhone']; ?></td>
+                          <td><?= $row['agentGender']; ?></td>
+                          <td><?= $row['agentDOB']; ?></td>
+                          <td><?= $row['agentLocation']; ?></td>
+                          <td>
+                            <a href="update.php?agentID=<?php echo $row['agentID']; ?>" class="edit" title="Edit"><i class="fa fa-edit">&#xE254;</i></a>
+                            <a href="delete.php?agentID=<?php echo $row['agentID']; ?>" class="delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+                          </td>
+                        </tr>
+                      <?php
+                      }
+                    } else {
+                      echo "No Record Found";
+                    }
+                  } else {
+                    $query = "SELECT agentID, agentName, agentEmail, agentAge, agentPhone, agentGender, agentDOB, agentLocation FROM agent";
+                    $query_run = mysqli_query($db, $query);
+                    if (mysqli_num_rows($query_run) > 0) {
+                      foreach ($query_run as $row) {
+                      ?>
+                        <tr>
+                          <td><?= $row['agentID']; ?></td>
+                          <td><?= $row['agentName']; ?></td>
+                          <td><?= $row['agentEmail']; ?></td>
+                          <td><?= $row['agentAge']; ?></td>
+                          <td><?= $row['agentPhone']; ?></td>
+                          <td><?= $row['agentGender']; ?></td>
+                          <td><?= $row['agentDOB']; ?></td>
+                          <td><?= $row['agentLocation']; ?></td>
+                          <td>
+                            <a href="update.php?agentID=<?php echo $row['agentID']; ?>" class="edit" title="Edit"><i class="fa fa-edit"></i></a>
+                            <a href="delete.php?agentID=<?php echo $row['agentID']; ?>" class="delete" title="Delete"><i class="fa fa-trash"></i></a>
+                          </td>
+                        </tr>
+                  <?php
+                      }
+                    } else {
+                      echo "No Record Found";
+                    }
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>
