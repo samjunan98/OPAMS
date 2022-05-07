@@ -8,6 +8,7 @@ include("config.php");
         $categoryID = mysqli_real_escape_string($db, $_POST['categoryID']);
         $productName = mysqli_real_escape_string($db, $_POST['productName']);
         $productQuantity = mysqli_real_escape_string($db, $_POST['productQuantity']);
+        $productPrice = mysqli_real_escape_string($db, $_POST['productPrice']);
         $productDesc = mysqli_real_escape_string($db, $_POST['productDesc']);
         $productSKU = mysqli_real_escape_string($db, $_POST['productSKU']);
         $adminID = $_SESSION['adminID'];
@@ -18,7 +19,7 @@ include("config.php");
         if(mysqli_num_rows($result)>0)
         {echo " <script> alert('SKU Existed') </script> ";}
         else{
-        $query = "INSERT INTO product(productID, adminID, categoryID, productName, productPhoto, productQuantity, productDesc, productSKU, productCreatedate) VALUES ('0', '$adminID', '$categoryID', '$productName', '$productPhoto', '$productQuantity' ,'$productDesc' ,'$productSKU', now())";
+        $query = "INSERT INTO product(productID, adminID, categoryID, productName, productPhoto, productQuantity, productPrice, productDesc, productSKU, productCreatedate) VALUES ('0', '$adminID', '$categoryID', '$productName', '$productPhoto', '$productQuantity', '$productPrice' ,'$productDesc' ,'$productSKU', now())";
         $rs = mysqli_query($db, $query);
         if($rs){ 
                 header('location: product_edit.php');

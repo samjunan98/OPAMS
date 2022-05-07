@@ -1,6 +1,22 @@
 <?php
 session_start();
 include("config.php");
+$adminID = $_SESSION['adminID'];
+$adminSessionid = $_SESSION['adminSessionid'];
+if ($_SESSION["adminID"] == NULL) {
+   header("location: index.html");
+} else {
+   $checkk = "SELECT * FROM admin WHERE adminID='$adminID'";
+   $resultt = mysqli_query($db, $checkk) or die('Error querying database. ' .  mysqli_error($db));
+   foreach ($resultt as $row) {
+      if ($_SESSION['adminSessionid'] != $row['adminSessionid']) {
+         echo '<script type="text/javascript">';
+         echo 'alert("New login is detected");';
+         echo 'window.location.href = "index.html";';
+         echo '</script>';
+      }
+   }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -249,7 +265,7 @@ include("config.php");
               <?php
               if (isset($_GET['productName'])) {
                 $productName = $_GET['productName'];
-                $query = "SELECT productID, productPhoto, productName, productQuantity, productDesc, productSKU FROM product WHERE '$productName' = productName";
+                $query = "SELECT productID, productPhoto, productName, productPrice, productQuantity, productDesc, productSKU FROM product WHERE '$productName' = productName";
                 $query_run = mysqli_query($db, $query);
                 if (mysqli_num_rows($query_run) > 0) {
               ?>
@@ -260,6 +276,7 @@ include("config.php");
                           <th> Photo </th>
                           <th> Name </th>
                           <th width=10%;> Quantity </th>
+                          <th> Price </th>
                           <th> Description </th>
                           <th> SKU </th>
                           <th> Action </th>
@@ -271,6 +288,7 @@ include("config.php");
                             <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
                             <td><?= $row['productName']; ?></td>
                             <td><?= $row['productQuantity']; ?></td>
+                            <td><?php echo "RM". $row['productPrice']; ?></td>
                             <td><?= $row['productDesc']; ?></td>
                             <td><?= $row['productSKU']; ?></td>
                             <td width="50" height="40">
@@ -290,7 +308,7 @@ include("config.php");
                       }
                     } else if (isset($_GET['taskOption'])) {
                       $categoryID = $_GET['taskOption'];
-                      $query = "SELECT productID, productPhoto, productName, productQuantity, productDesc, productSKU FROM product WHERE '$categoryID' = categoryID";
+                      $query = "SELECT productID, productPhoto, productName, productPrice, productQuantity, productDesc, productSKU FROM product WHERE '$categoryID' = categoryID";
                       $query_run = mysqli_query($db, $query);
                       if (mysqli_num_rows($query_run) > 0) {
                       ?>
@@ -301,6 +319,7 @@ include("config.php");
                                 <th> Photo </th>
                                 <th> Name </th>
                                 <th width=10%;> Quantity </th>
+                                <th> Price </th>
                                 <th> Description </th>
                                 <th> SKU </th>
                                 <th> Action </th>
@@ -313,6 +332,7 @@ include("config.php");
                                   <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
                                   <td><?= $row['productName']; ?></td>
                                   <td><?= $row['productQuantity']; ?></td>
+                                  <td><?php echo "RM". $row['productPrice']; ?></td>
                                   <td><?= $row['productDesc']; ?></td>
                                   <td><?= $row['productSKU']; ?></td>
                                   <td width="50" height="40">
@@ -331,7 +351,7 @@ include("config.php");
                             <?php
                             }
                           } else {
-                            $query = "SELECT productID, productPhoto, productName, productQuantity, productDesc, productSKU FROM product";
+                            $query = "SELECT productID, productPhoto, productName, productPrice, productQuantity, productDesc, productSKU FROM product";
                             $query_run = mysqli_query($db, $query);
                             if (mysqli_num_rows($query_run) > 0) {
                             ?>
@@ -342,6 +362,7 @@ include("config.php");
                                       <th> Photo </th>
                                       <th> Name </th>
                                       <th width=10%;> Quantity </th>
+                                      <th> Price </th>
                                       <th> Description </th>
                                       <th> SKU </th>
                                       <th> Action </th>
@@ -354,6 +375,7 @@ include("config.php");
                                         <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
                                         <td><?= $row['productName']; ?></td>
                                         <td><?= $row['productQuantity']; ?></td>
+                                        <td><?php echo "RM". $row['productPrice']; ?></td>
                                         <td><?= $row['productDesc']; ?></td>
                                         <td><?= $row['productSKU']; ?></td>
                                         <td width="50" height="40">

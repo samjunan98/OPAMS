@@ -230,6 +230,12 @@ if ($_SESSION["adminID"] == NULL) {
                                     </div>
                                  </div>
                                  <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Product Price</label>
+                                    <div class="col-sm-10">
+                                       <input type="number" min="1" name="productPrice" class="form-control" placeholder="Enter Product Price">
+                                    </div>
+                                 </div>
+                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Product Description</label>
                                     <div class="col-sm-10">
                                        <input type="text" name="productDesc" class="form-control" placeholder="Enter Product Description">
@@ -256,8 +262,8 @@ if ($_SESSION["adminID"] == NULL) {
                                  </div>
                                  <!-- /.card-body -->
                                  <div class="card-footer">
-                                    <button type="submit" class="btn btn-info">Save Changes</button>
-                                    <button type="button" onclick="document.location='agentinfo.php'" class="btn btn-default float-right">Cancel</button>
+                                    <button type="submit" class="btn btn-info" name="update_product">Save Changes</button>
+                                    <button type="button" onclick="document.location='product_edit.php'" class="btn btn-default float-right">Cancel</button>
                                  </div>
                                  <!-- /.card-footer -->
                            </form>
@@ -276,11 +282,11 @@ if ($_SESSION["adminID"] == NULL) {
       <!-- /.content-wrapper -->
 
       <footer class="main-footer">
-         <div class="float-right d-none d-sm-block">
-            <b>Version</b> 3.2.0
-         </div>
-         <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-      </footer>
+      <div class="float-right d-none d-sm-block">
+        <b>Version</b> 1.0
+      </div>
+      <strong>SAM JUN AN 181021172</a></strong>
+    </footer>
 
       <!-- Control Sidebar -->
       <aside class="control-sidebar control-sidebar-dark">
