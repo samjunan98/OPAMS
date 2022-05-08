@@ -1,6 +1,22 @@
 <?php
 session_start();
-include("config.php");
+include('config.php');
+$adminID = $_SESSION['adminID'];
+$adminSessionid = $_SESSION['adminSessionid'];
+if ($_SESSION["adminID"] == NULL) {
+  header("location: index.html");
+} else {
+  $checkk = "SELECT * FROM admin WHERE adminID='$adminID'";
+  $resultt = mysqli_query($db, $checkk) or die('Error querying database. ' .  mysqli_error($db));
+  foreach ($resultt as $row) {
+    if ($_SESSION['adminSessionid'] != $row['adminSessionid']) {
+      echo '<script type="text/javascript">';
+      echo 'alert("New login is detected");';
+      echo 'window.location.href = "index.html";';
+      echo '</script>';
+    }
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -134,7 +150,7 @@ include("config.php");
               </ul>
             </li>
             <li class="nav-item">
-              <a href="agentlist.php" class="nav-link">
+              <a href="admin_order.php" class="nav-link">
                 <i class="nav-icon fa fa-check-square"></i>
                 <p>
                   Order

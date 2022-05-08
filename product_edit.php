@@ -292,8 +292,8 @@ if ($_SESSION["adminID"] == NULL) {
                             <td><?= $row['productDesc']; ?></td>
                             <td><?= $row['productSKU']; ?></td>
                             <td width="50" height="40">
-                              <div class="btn-group"><button type="button" title="Edit Product" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button>
-                                <button type="button" value="add2cart" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                              <div class="btn-group"><a href="updateprod.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Edit Product" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button type="button" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
                               </div>
                             </td>
                           </tr>
@@ -336,8 +336,8 @@ if ($_SESSION["adminID"] == NULL) {
                                   <td><?= $row['productDesc']; ?></td>
                                   <td><?= $row['productSKU']; ?></td>
                                   <td width="50" height="40">
-                                    <div class="btn-group"><button type="button" title="Edit Product" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button>
-                                      <button type="button" value="add2cart" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                                    <div class="btn-group"><a href="updateprod.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Edit Product" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button>
+                                      <button type="button" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
                                     </div>
                                   </td>
                                 </tr>
@@ -380,7 +380,7 @@ if ($_SESSION["adminID"] == NULL) {
                                         <td><?= $row['productSKU']; ?></td>
                                         <td width="50" height="40">
                                           <div class="btn-group"><a href="updateprod.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Edit Product" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button>
-                                          <a href="updateprod.php?productID=<?php echo $row['productID']; ?>"><button type="button" value="add2cart" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                                          <a href="updateprod.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
                                           </div>
                                         </td>
                                       </tr>

@@ -1,9 +1,21 @@
 <?php
 session_start();
 include('config.php');
-$agentID = $_SESSION['agentID'];
-if ($_SESSION["agentID"] == NULL) {
+$adminID = $_SESSION['adminID'];
+$adminSessionid = $_SESSION['adminSessionid'];
+if ($_SESSION["adminID"] == NULL) {
     header("location: index.html");
+} else {
+    $checkk = "SELECT * FROM admin WHERE adminID='$adminID'";
+    $resultt = mysqli_query($db, $checkk) or die('Error querying database. ' .  mysqli_error($db));
+    foreach ($resultt as $row) {
+        if ($_SESSION['adminSessionid'] != $row['adminSessionid']) {
+            echo '<script type="text/javascript">';
+            echo 'alert("New login is detected");';
+            echo 'window.location.href = "index.html";';
+            echo '</script>';
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -48,82 +60,132 @@ if ($_SESSION["agentID"] == NULL) {
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="getImage.php" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
+                        <img src="" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
                     </div>
                     <div class="info">
-                        <?php $agentID = $_SESSION['agentID'];
-                        $query = "SELECT agentName FROM agent WHERE '$agentID' = agentID";
+                        <?php $adminID = $_SESSION['adminID'];
+                        $query = "SELECT adminName FROM admin WHERE '$adminID' = adminID";
                         $query_run = mysqli_query($db, $query);
                         if (mysqli_num_rows($query_run) > 0) {
                             foreach ($query_run as $row) { ?>
-                                <a href="#" class="d-block"><?php echo $row['agentName']; ?></a>
-                    </div>
-                </div> <?php }
+                                <a href="#" class="d-block"><?php echo $row['adminName']; ?></a>
+                        <?php }
                         } else {
                             echo "error";
                         } ?>
+                    </div>
+                </div>
 
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                <li class="nav-item">
-                    <a href="main_agent.php" class="nav-link">
-                        <i class="nav-icon fa fa-home"></i>
-                        <p>
-                            Home
-                        </p>
-                    </a>
-                </li>
-                </li>
-                <li class="nav-item">
-                    <a href="product.php" class="nav-link">
-                        <i class="nav-icon fa fa-shopping-bag"></i>
-                        <p>
-                            Product
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="order.php" class="nav-link active">
-                        <i class="nav-icon fa fa-check-square"></i>
-                        <p>
-                            Order
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="salesrpt.php" class="nav-link ">
-                        <i class="nav-icon ion ion-stats-bars"></i>
-                        <p>
-                            Sales Report
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="agentinfo.php" class="nav-link">
-                        <i class="nav-icon fa fa-user-circle"></i>
-                        <p>
-                            Info
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="logout.php" class="nav-link">
-                        <i class="nav-icon ion ion-log-out"></i>
-                        <p>
-                            Logout
-                        </p>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
+                        <li class="nav-item">
+                            <a href="main_admin.php" class="nav-link">
+                                <i class="nav-icon fa fa-home"></i>
+                                <p>
+                                    Home
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa fa-users"></i>
+                                <p>
+                                    Agent
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="agentlist.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>View Agent List</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="agentlist.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add New Agent</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa fa-shopping-bag"></i>
+                                <p>
+                                    Product
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="product_edit.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>View Product List</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="product_add.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add New Product</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="product_edit.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Manage Category</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="admin_order.php" class="nav-link active">
+                                <i class="nav-icon fa fa-check-square"></i>
+                                <p>
+                                    Order
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="agentlist.php" class="nav-link">
+                                <i class="nav-icon ion ion-stats-bars"></i>
+                                <p>
+                                    Sales Report
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="info.php" class="nav-link">
+                                <i class="nav-icon fa fa-user-circle"></i>
+                                <p>
+                                    Info
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="logout.php" class="nav-link">
+                                <i class="nav-icon ion ion-log-out"></i>
+                                <p>
+                                    Logout
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
         </aside>
-
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
@@ -137,9 +199,10 @@ if ($_SESSION["agentID"] == NULL) {
             </section>
             <?php
             $orderID = $_GET['orderID'];
-            $query1 = mysqli_query($db, "SELECT order_product.productID,orderlist.orderGrandtotal,orderlist.orderCreatedate  FROM order_product INNER JOIN orderlist ON order_product.orderID = orderlist.orderID WHERE '$orderID'= order_product.orderID AND '$agentID' = agentID") or die('Error querying database. ' .  mysqli_error($db));
+            $query1 = mysqli_query($db, "SELECT order_product.productID,orderlist.agentID,orderlist.orderGrandtotal,orderlist.orderCreatedate  FROM order_product INNER JOIN orderlist ON order_product.orderID = orderlist.orderID WHERE '$orderID'= order_product.orderID") or die('Error querying database. ' .  mysqli_error($db));
             while ($row = mysqli_fetch_array($query1)) {
                 $productID = $row['productID'];
+                $agentID = $row['agentID'];
                 $orderGrandtotal = $row['orderGrandtotal'];
                 $orderCreatedate = $row['orderCreatedate'];
                 $query2 = "SELECT * FROM product INNER JOIN order_product ON product.productID = order_product.productID WHERE'$orderID' = orderID";
@@ -220,6 +283,9 @@ if ($_SESSION["agentID"] == NULL) {
                             </div>
                         </div>
 
+                       <?php $query23 = "SELECT * FROM agent WHERE'$agentID' = agentID";
+                $query_run23 = mysqli_query($db, $query23) or die('Error querying database. ' .  mysqli_error($db)); 
+                $row = mysqli_fetch_array($query_run23); ?>
                         <div class="col-md-6">
                             <div class="text-center">
                                 <div class="card">
@@ -233,12 +299,26 @@ if ($_SESSION["agentID"] == NULL) {
                                                     <div class=grandt><?php echo "RM" . $orderGrandtotal; ?></div>
                                                 </th>
                                             </tr>
+                                            <td>
+                                                    <div class=grandt><?php echo "Order ID"; ?></div>
+                                                </td>
+                                                <td>
+                                                    <div class=grandt><?php echo $orderID; ?></div>
+                                                </td>
                                             <tr>
                                                 <td>
                                                     <div class=grandt><?php echo "Order Created Time"; ?></div>
                                                 </td>
                                                 <td>
                                                     <div class=grandt><?php echo $orderCreatedate; ?></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class=grandt><?php echo "Order Created By Agent"; ?></div>
+                                                </td>
+                                                <td>
+                                                    <div class=grandt><?php  echo "Agent ID: [".$row['agentID']."]";?> <br> <?php echo $row['agentName']; ?></div>
                                                 </td>
                                             </tr>
                                         </table>
@@ -271,14 +351,18 @@ if ($_SESSION["agentID"] == NULL) {
     </div>
     <!-- ./wrapper -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-    </script>
-    <!-- bootstrap 4 popper js -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-    </script>
-    <!-- bootstrap 4 js -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-    </script>
-    <script src="dist/js/adminlte.min.js"></script>
+  </script>
+  <!-- bootstrap 4 popper js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <!-- bootstrap 4 js -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+  </script>
+  <script src="plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="dist/js/adminlte.min.js"></script>
 
 </body>
 

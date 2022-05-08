@@ -210,23 +210,19 @@ if ($_SESSION["adminID"] == NULL) {
                 <form action="" method="GET">
                   <div class="row">
                     <div class="col-sm-3">
-                      <input type="text" placeholder="Name" name="productName" value="<?php if (isset($_GET['productName'])) {
-                                                                                        echo $_GET['productName'];
+                      <input type="text" placeholder="Name" name="agentName" value="<?php if (isset($_GET['agentName'])) {
+                                                                                        echo $_GET['agentName'];
                                                                                       } ?>" class="form-control"><br>
                     </div>
                     <div class="col-sm-1">
                       <button type="submit" title="Search" class="btn btn-block btn-info btn-md"><i class="fa fa-search"></i></button><br>
                     </div>
                     <div class="col-sm-1"><button onclick="document.location='product.php'" type="button" title="Refresh" class="btn btn-block btn-secondary btn-md"><i class="fa-solid fa-arrows-rotate"></i></button></div>
-                    <div class="col-sm-6"></div><br>
-                    <div class="col-sm-1">
-                      <div class="text-right"><button onclick="document.location='cart.php'" type="button" title="Cart" class="btn btn-block btn-success btn-md"><i class="fa-solid fa-cart-shopping"></i> <span class='badge badge-danger' id='lblCartCount'> <?php include('track_cart.php'); ?> </span></button></div>
-                    </div>
+                    <div class="col-sm-7"></div><br>
                   </div>
                 </form>
                 <form method="GET" action="">
                   <div class="row">
-                    <div class="col-sm-auto"><label for="category">Product Categories:</label><br></div>
                     <div class="col-sm-3"><?php
                                           $query = "SELECT * FROM category";
                                           $result1 = mysqli_query($db, $query);
@@ -260,114 +256,109 @@ if ($_SESSION["adminID"] == NULL) {
           </div>
           <div class="card mt-12">
             <div class="card-body">
-          <div class="table-responsive">
-            <table class="table border table-hover">
-              <thead style="text-align: center">
+              <div class="table-responsive">
+                <table class="table border table-hover">
+                  <thead style="text-align: center">
 
-                <tr class="bg-dark text-white">
-                  <th> ID </th>
-                  <th> Photo </th>
-                  <th> Name </th>
-                  <th> Email </th>
-                  <th> Age </th>
-                  <th> Phone Number </th>
-                  <th> Gender</th>
-                  <th> Date of Birth </th>
-                  <th> Location </th>
-                  <th> Joined Time </th>
-                  <th> Action </th>
-                </tr>
-              </thead>
+                    <tr class="bg-dark text-white">
+                      <th> ID </th>
+                      <th> Photo </th>
+                      <th> Name </th>
+                      <th> Email </th>
+                      <th> Age </th>
+                      <th> Phone Number </th>
+                      <th> Gender</th>
+                      <th> Date of Birth </th>
+                      <th> Location </th>
+                      <th> Joined Time </th>
+                      <th> Action </th>
+                    </tr>
+                  </thead>
 
-              <tbody style="text-align: center">
-                <?php
-                if (isset($_GET['agentName'])) {
-                  $agentName = $_GET['agentName'];
-                  $query = "SELECT agentID, agentPhoto, agentName, agentEmail, agentAge, agentPhone, agentGender, agentDOB, agentLocation, agentCreatedate FROM agent WHERE '$agentName' = agentName";
-                  $query_run = mysqli_query($db, $query);
-                  if (mysqli_num_rows($query_run) > 0) {
-                    foreach ($query_run as $row) {
-                ?>
-                      <tr>
-                        <td><?= $row['agentID']; ?></td>
-                        <td><?php echo '<img src="data:image;base64,' . base64_encode($row['agentPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
-                        <td><?= $row['agentName']; ?></td>
-                        <td><?= $row['agentEmail']; ?></td>
-                        <td><?= $row['agentAge']; ?></td>
-                        <td><?= $row['agentPhone']; ?></td>
-                        <td><?= $row['agentGender']; ?></td>
-                        <td><?= $row['agentDOB']; ?></td>
-                        <td><?= $row['agentLocation']; ?></td>
-                        <td><?= $row['agentCreatedate']; ?></td>
-                        <td width="50" height="40">
-                          <div class="btn-group"><button type="button" title="Edit Product" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button type="button" value="add2cart" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
-                          </div>
-                        </td>
-                      </tr>
+                  <tbody style="text-align: center">
                     <?php
-                    }
-                  } else {
-                    echo "No Record Found";
-                  }
-                } else {
-                  $query = "SELECT agentID, agentPhoto, agentName, agentEmail, agentAge, agentPhone, agentGender, agentDOB, agentLocation, agentCreatedate FROM agent";
-                  $query_run = mysqli_query($db, $query);
-                  if (mysqli_num_rows($query_run) > 0) {
-                    foreach ($query_run as $row) {
+                    if (isset($_GET['agentName'])) {
+                      $agentName = $_GET['agentName'];
+                      $query = "SELECT agentID, agentPhoto, agentName, agentEmail, agentAge, agentPhone, agentGender, agentDOB, agentLocation, agentCreatedate FROM agent WHERE '$agentName' = agentName";
+                      $query_run = mysqli_query($db, $query);
+                      if (mysqli_num_rows($query_run) > 0) {
+                        foreach ($query_run as $row) {
                     ?>
-                      <tr>
-                        <td><?= $row['agentID']; ?></td>
-                        <td><?php echo '<img src="data:image;base64,' . base64_encode($row['agentPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
-                        <td><?= $row['agentName']; ?></td>
-                        <td><?= $row['agentEmail']; ?></td>
-                        <td><?= $row['agentAge']; ?></td>
-                        <td><?= $row['agentPhone']; ?></td>
-                        <td><?= $row['agentGender']; ?></td>
-                        <td><?= $row['agentDOB']; ?></td>
-                        <td><?= $row['agentLocation']; ?></td>
-                        <td><?= $row['agentCreatedate']; ?></td>
-                        <td width="50" height="40">
-                          <div class="btn-group"><button type="button" title="Edit Product" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button type="button" value="add2cart" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
-                          </div>
-                        </td>
-                      </tr>
-                <?php
+                          <tr>
+                            <td><?= $row['agentID']; ?></td>
+                            <td><?php echo '<img src="data:image;base64,' . base64_encode($row['agentPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
+                            <td><?= $row['agentName']; ?></td>
+                            <td><?= $row['agentEmail']; ?></td>
+                            <td><?= $row['agentAge']; ?></td>
+                            <td><?= $row['agentPhone']; ?></td>
+                            <td><?= $row['agentGender']; ?></td>
+                            <td><?= $row['agentDOB']; ?></td>
+                            <td><?= $row['agentLocation']; ?></td>
+                            <td><?= $row['agentCreatedate']; ?></td>
+                            <td width="50" height="40">
+                            <a href="update.php?agentID=<?php echo $row['agentID']; ?>"><button type="button" title="Edit Agent Info" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button>
+                            </td>
+                          </tr>
+                        <?php
+                        }
+                      } else {
+                        echo "No Record Found";
+                      }
+                    } else {
+                      $query = "SELECT agentID, agentPhoto, agentName, agentEmail, agentAge, agentPhone, agentGender, agentDOB, agentLocation, agentCreatedate FROM agent";
+                      $query_run = mysqli_query($db, $query);
+                      if (mysqli_num_rows($query_run) > 0) {
+                        foreach ($query_run as $row) {
+                        ?>
+                          <tr>
+                            <td><?= $row['agentID']; ?></td>
+                            <td><?php echo '<img src="data:image;base64,' . base64_encode($row['agentPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
+                            <td><?= $row['agentName']; ?></td>
+                            <td><?= $row['agentEmail']; ?></td>
+                            <td><?= $row['agentAge']; ?></td>
+                            <td><?= $row['agentPhone']; ?></td>
+                            <td><?= $row['agentGender']; ?></td>
+                            <td><?= $row['agentDOB']; ?></td>
+                            <td><?= $row['agentLocation']; ?></td>
+                            <td><?= $row['agentCreatedate']; ?></td>
+                            <td width="50" height="40">
+                            <a href="update.php?agentID=<?php echo $row['agentID']; ?>"><button type="button" title="Edit Agent Info" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button>
+                            </td>
+                          </tr>
+                    <?php
+                        }
+                      } else {
+                        echo "No Record Found";
+                      }
                     }
-                  } else {
-                    echo "No Record Found";
-                  }
-                }
-                ?>
-              </tbody>
-            </table>
+                    ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
+
+      </section>
+
+      <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+      </a>
     </div>
-  </div>
+    <!-- /.content-wrapper -->
 
-  </div>
-  </section>
+    <footer class="main-footer">
+      <div class="float-right d-none d-sm-block">
+        <b>Version</b> 1.0
+      </div>
+      <strong>SAM JUN AN 181021172</a></strong>
+    </footer>
 
-  <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
-    <i class="fas fa-chevron-up"></i>
-  </a>
-  </div>
-  <!-- /.content-wrapper -->
-
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 1.0
-    </div>
-    <strong>SAM JUN AN 181021172</a></strong>
-  </footer>
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">

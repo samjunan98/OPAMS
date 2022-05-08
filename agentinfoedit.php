@@ -260,13 +260,13 @@ if ($_SESSION["agentID"] == NULL) {
                                                         <option value="Sarawak" <?php if ($row['agentLocation'] == "Sarawak") { ?> selected <?php } ?>>Sarawak</option>
                                                     </select>
                                                 </div>
-
                                             </div>
-                                            <!-- /.card-body -->
-                                            <div class="card-footer">
-                                                <button type="submit" class="btn btn-info">Save Changes</button>
-                                                <button type="button" onclick="document.location='agentinfo.php'" class="btn btn-default float-right">Cancel</button>
-                                            </div> <!-- /.card-footer -->
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-info">Save Changes</button>
+                                            <button type="button" onclick="document.location='agentinfo.php'" class="btn btn-default float-right">Cancel</button>
+                                        </div> <!-- /.card-footer -->
                                     </form>
                                 </div>
 
@@ -286,10 +286,10 @@ if ($_SESSION["agentID"] == NULL) {
     <!-- /.content-wrapper -->
 
     <footer class="main-footer">
-      <div class="float-right d-none d-sm-block">
-        <b>Version</b> 1.0
-      </div>
-      <strong>SAM JUN AN 181021172</a></strong>
+        <div class="float-right d-none d-sm-block">
+            <b>Version</b> 1.0
+        </div>
+        <strong>SAM JUN AN 181021172</a></strong>
     </footer>
 
     <!-- Control Sidebar -->

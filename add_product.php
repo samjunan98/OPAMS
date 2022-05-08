@@ -260,12 +260,13 @@ if ($_SESSION["adminID"] == NULL) {
                                        </select>
                                     </div>
                                  </div>
-                                 <!-- /.card-body -->
-                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-info" name="update_product">Save Changes</button>
-                                    <button type="button" onclick="document.location='product_edit.php'" class="btn btn-default float-right">Cancel</button>
-                                 </div>
-                                 <!-- /.card-footer -->
+                              </div>
+                              <!-- /.card-body -->
+                              <div class="card-footer">
+                                 <button type="submit" class="btn btn-info" name="update_product">Save Changes</button>
+                                 <button type="button" onclick="document.location='product_edit.php'" class="btn btn-default float-right">Cancel</button>
+                              </div>
+                              <!-- /.card-footer -->
                            </form>
                         </div><!-- /.card-body -->
 
