@@ -188,154 +188,167 @@ if ($_SESSION["agentID"] == NULL) {
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="card mt-12">
-                    <div class="card-body">
-                        <?php
-                        if (isset($_GET['orderID'])) {
-                            $orderID = $_GET['orderID'];
-                            $query = "SELECT orderlist.orderID,SUM(order_product.order_productSubtotal) AS grandtotal ,GROUP_CONCAT(order_product.productID) AS productID ,GROUP_CONCAT(order_product.order_productQuantity) AS quantity,orderlist.orderCreatedate,orderlist.orderStatus AS orderStatus FROM orderlist INNER JOIN order_product ON orderlist.orderID = order_product.orderID WHERE '$agentID' = agentID AND '$orderID'= order_product.orderID  GROUP BY orderlist.orderID";
-                            $query_run = mysqli_query($db, $query);
-                            echo mysqli_error($db);
-                            if (mysqli_num_rows($query_run) > 0) {
-                        ?>
-                                <div class="table-responsive">
-                                    <table class="table border table-hover">
-                                        <thead style="text-align: center">
-                                            <tr class="bg-dark text-white">
-                                                <th> ID </th>
-                                                <th> Product </th>
-                                                <th width=10%;> Quantity </th>
-                                                <th> Grandtotal </th>
-                                                <th> Created At </th>
-                                                <th> Status </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody style="text-align: center">
-                                            <?php foreach ($query_run as $row) { ?>
-                                                <tr data-href="orderinfo.php?orderID=<?php echo $row['orderID']; ?>" style="height:100px; cursor:pointer;">
-                                                    <td><?= $row['orderID']; ?></td>
-                                                    <td><?php $productID = explode(',', $row['productID']);
-                                                        foreach ($productID as $productID1) {
-                                                            echo $productID1 . '<br />';
-                                                        } ?></td>
-                                                    <td><?php $quantity = explode(',', $row['quantity']);
-                                                        foreach ($quantity as $quantity1) {
-                                                            echo "x" . $quantity1 . '<br />';
-                                                        } ?></td>
-                                                    <td><?= $row['grandtotal']; ?></td>
-                                                    <td><?= $row['orderCreatedate']; ?></td>
-                                                    <td><?= $row['orderStatus']; ?></td>
-                                                </tr>
-                                            <?php
-                                            } ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+
+                    <div class="card mt-12">
+                        <div class="card-body">
                             <?php
-                            } else { ?>
-                                <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://www.kindpng.com/picc/m/280-2801416_customer-order-orders-icon-clipart-png-download-order.png" width="130" height="130" class="img-fluid mb-4 mr-3">
-                                    <h3><strong>Order Not Found</strong></h3>
-                                </div>
-                            <?php
-                            }
-                        } else if (isset($_GET['date1'], $_GET['date2'])) {
-                            $date1 = date("Y-m-d", strtotime($_GET['date1']));
-                            $date2 = date("Y-m-d", strtotime($_GET['date2']));
-                            $query = "SELECT orderlist.orderID,SUM(order_product.order_productSubtotal) AS grandtotal ,GROUP_CONCAT(order_product.productID) AS productID ,GROUP_CONCAT(order_product.order_productQuantity) AS quantity,orderlist.orderCreatedate,orderlist.orderStatus AS orderStatus FROM orderlist INNER JOIN order_product ON orderlist.orderID = order_product.orderID WHERE '$agentID' = agentID AND orderlist.orderCreatedate BETWEEN '$date1' AND '$date2'  GROUP BY orderlist.orderID";
-                            $query_run = mysqli_query($db, $query);
-                            echo mysqli_error($db);
-                            if (mysqli_num_rows($query_run) > 0) {
+                            if (isset($_GET['orderID'])) {
+                                $orderID = $_GET['orderID'];
+                                $query = "SELECT orderlist.orderID,orderlist.orderOption,SUM(order_product.order_productSubtotal) AS grandtotal ,GROUP_CONCAT(order_product.productID) AS productID ,GROUP_CONCAT(order_product.order_productQuantity) AS quantity,orderlist.orderCreatedate,orderlist.orderStatus AS orderStatus FROM orderlist INNER JOIN order_product ON orderlist.orderID = order_product.orderID WHERE '$agentID' = agentID AND '$orderID'= order_product.orderID  GROUP BY orderlist.orderID ORDER BY orderID DESC";
+                                $query_run = mysqli_query($db, $query);
+                                echo mysqli_error($db);
+                                if (mysqli_num_rows($query_run) > 0) {
                             ?>
-                                <div class="table-responsive">
-                                    <table class="table border table-hover">
-                                        <thead style="text-align: center">
-                                            <tr class="bg-dark text-white">
-                                                <th> ID </th>
-                                                <th> Product </th>
-                                                <th width=10%;> Quantity </th>
-                                                <th> Grandtotal </th>
-                                                <th> Created At </th>
-                                                <th> Status </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody style="text-align: center">
-                                            <?php foreach ($query_run as $row) { ?>
-                                                <tr data-url="orderinfo.php?orderID=<?php echo $row['orderID']; ?>" style="height:100px; cursor:pointer;">
-                                                    <td><?= $row['orderID']; ?></td>
-                                                    <td><?php $productID = explode(',', $row['productID']);
-                                                        foreach ($productID as $productID1) {
-                                                            echo $productID1 . '<br />';
-                                                        } ?></td>
-                                                    <td><?php $quantity = explode(',', $row['quantity']);
-                                                        foreach ($quantity as $quantity1) {
-                                                            echo "x" . $quantity1 . '<br />';
-                                                        } ?></td>
-                                                    <td><?= $row['grandtotal']; ?></td>
-                                                    <td><?= $row['orderCreatedate']; ?></td>
-                                                    <td><?= $row['orderStatus']; ?></td>
+                                    <div class="table-responsive">
+                                        <table class="table border table-hover">
+                                            <thead style="text-align: center">
+                                                <tr class="bg-dark text-white">
+                                                    <th> ID </th>
+                                                    <th> Product </th>
+                                                    <th width=10%;> Quantity </th>
+                                                    <th> Grandtotal </th>
+                                                    <th> Created At </th>
+                                                    <th> Method </th>
+                                                    <th> Status </th>
                                                 </tr>
-                                            <?php
-                                            } ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            <?php
-                            } else { ?>
-                                <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://www.kindpng.com/picc/m/280-2801416_customer-order-orders-icon-clipart-png-download-order.png" width="130" height="130" class="img-fluid mb-4 mr-3">
-                                    <h3><strong>Order Not Found</strong></h3>
-                                </div>
-                    </div>
-                <?php
-                            }
-                        } else {
-                            $query = "SELECT orderlist.orderID,SUM(order_product.order_productSubtotal) AS grandtotal ,GROUP_CONCAT(order_product.productID) AS productID ,GROUP_CONCAT(order_product.order_productQuantity) AS quantity,orderlist.orderCreatedate,orderlist.orderStatus AS orderStatus FROM orderlist INNER JOIN order_product ON orderlist.orderID = order_product.orderID WHERE '$agentID' = agentID GROUP BY orderlist.orderID";
-                            $query_run = mysqli_query($db, $query);
-                            echo mysqli_error($db);
-                            if (mysqli_num_rows($query_run) > 0) {
-                ?>
-                    <div class="table-responsive">
-                        <table class="table border table-hover">
-                            <thead style="text-align: center">
-                                <tr class="bg-dark text-white">
-                                    <th> ID </th>
-                                    <th> Product </th>
-                                    <th width=10%;> Quantity </th>
-                                    <th> Grandtotal </th>
-                                    <th> Created At </th>
-                                    <th> Status </th>
-                                </tr>
-                            </thead>
-                            <tbody style="text-align: center">
-                                <?php foreach ($query_run as $row) { ?>
-                                    <tr data-url="orderinfo.php?orderID=<?php echo $row['orderID']; ?>" style="height:100px; cursor:pointer;">
-                                        <td><?= $row['orderID']; ?></td>
-                                        <td><?php $productID = explode(',', $row['productID']);
-                                            foreach ($productID as $productID1) {
-                                                echo $productID1 . '<br />';
-                                            } ?></td>
-                                        <td><?php $quantity = explode(',', $row['quantity']);
-                                            foreach ($quantity as $quantity1) {
-                                                echo "x" . $quantity1 . '<br />';
-                                            } ?></td>
-                                        <td><?= $row['grandtotal']; ?></td>
-                                        <td><?= $row['orderCreatedate']; ?></td>
-                                        <td><?= $row['orderStatus']; ?></td>
-                                    </tr>
+                                            </thead>
+                                            <tbody style="text-align: center">
+                                                <?php foreach ($query_run as $row) { ?>
+                                                    <tr data-href="orderinfo.php?orderID=<?php echo $row['orderID']; ?>" style="height:100px; cursor:pointer;">
+                                                        <td><?= $row['orderID']; ?></td>
+                                                        <td><?php $productID = explode(',', $row['productID']);
+                                                            foreach ($productID as $productID1) {
+                                                                $rsp = mysqli_query($db,  "SELECT * FROM product WHERE productID='$productID1'") or die('Error querying database. ' .  mysqli_error($db));
+                                                                $row1 = mysqli_fetch_array($rsp);
+                                                                echo  '[' . $row1['productName'] . ']<br />';
+                                                            } ?></td>
+                                                        <td><?php $quantity = explode(',', $row['quantity']);
+                                                            foreach ($quantity as $quantity1) {
+                                                                echo "x" . $quantity1 . '<br />';
+                                                            } ?></td>
+                                                        <td><?php echo "RM" .  $row['grandtotal']; ?></td>
+                                                        <td><?= $row['orderCreatedate']; ?></td>
+                                                        <td><?= $row['orderOption']; ?></td>
+                                                        <td><span <?php if ($row['orderStatus'] == 'Pending') { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php echo $row['orderStatus']; ?></span></td>
+                                                    </tr>
+                                                <?php
+                                                } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 <?php
-                                } ?>
-                            </tbody>
-                        </table>
+                                } else { ?>
+                                    <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://www.kindpng.com/picc/m/280-2801416_customer-order-orders-icon-clipart-png-download-order.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                                        <h3><strong>Order Not Found</strong></h3>
+                                    </div>
+                                <?php
+                                }
+                            } else if (isset($_GET['date1'], $_GET['date2'])) {
+                                $date1 = date("Y-m-d", strtotime($_GET['date1']));
+                                $date2 = date("Y-m-d", strtotime($_GET['date2']));
+                                $query = "SELECT orderlist.orderID,orderlist.orderOption,SUM(order_product.order_productSubtotal) AS grandtotal ,GROUP_CONCAT(order_product.productID) AS productID ,GROUP_CONCAT(order_product.order_productQuantity) AS quantity,orderlist.orderCreatedate,orderlist.orderStatus AS orderStatus FROM orderlist INNER JOIN order_product ON orderlist.orderID = order_product.orderID WHERE '$agentID' = agentID AND orderlist.orderCreatedate BETWEEN '$date1' AND '$date2'  GROUP BY orderlist.orderID ORDER BY orderID DESC";
+                                $query_run = mysqli_query($db, $query);
+                                echo mysqli_error($db);
+                                if (mysqli_num_rows($query_run) > 0) {
+                                ?>
+                                    <div class="table-responsive">
+                                        <table class="table border table-hover">
+                                            <thead style="text-align: center">
+                                                <tr class="bg-dark text-white">
+                                                    <th> ID </th>
+                                                    <th> Product </th>
+                                                    <th width=10%;> Quantity </th>
+                                                    <th> Grandtotal </th>
+                                                    <th> Created At </th>
+                                                    <th> Method </th>
+                                                    <th> Status </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="text-align: center">
+                                                <?php foreach ($query_run as $row) { ?>
+                                                    <tr data-url="orderinfo.php?orderID=<?php echo $row['orderID']; ?>" style="height:100px; cursor:pointer;">
+                                                        <td><?= $row['orderID']; ?></td>
+                                                        <td><?php $productID = explode(',', $row['productID']);
+                                                            foreach ($productID as $productID1) {
+                                                                $rsp = mysqli_query($db,  "SELECT * FROM product WHERE productID='$productID1'") or die('Error querying database. ' .  mysqli_error($db));
+                                                                $row1 = mysqli_fetch_array($rsp);
+                                                                echo  '[' . $row1['productName'] . ']<br />';
+                                                            } ?></td>
+                                                        <td><?php $quantity = explode(',', $row['quantity']);
+                                                            foreach ($quantity as $quantity1) {
+                                                                echo "x" . $quantity1 . '<br />';
+                                                            } ?></td>
+                                                        <td><?php echo "RM" .  $row['grandtotal']; ?></td>
+                                                        <td><?= $row['orderCreatedate']; ?></td>
+                                                        <td><?= $row['orderOption']; ?></td>
+                                                        <td><span <?php if ($row['orderStatus'] == 'Pending') { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php echo $row['orderStatus']; ?></span></td>
+                                                    </tr>
+                                                <?php
+                                                } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                <?php
+                                } else { ?>
+                                    <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://www.kindpng.com/picc/m/280-2801416_customer-order-orders-icon-clipart-png-download-order.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                                        <h3><strong>Order Not Found</strong></h3>
+                                    </div>
+                        </div>
+                    <?php
+                                }
+                            } else {
+                                $query = "SELECT orderlist.orderID,orderlist.orderOption,SUM(order_product.order_productSubtotal) AS grandtotal ,GROUP_CONCAT(order_product.productID) AS productID ,GROUP_CONCAT(order_product.order_productQuantity) AS quantity,orderlist.orderCreatedate,orderlist.orderStatus AS orderStatus FROM orderlist INNER JOIN order_product ON orderlist.orderID = order_product.orderID WHERE '$agentID' = agentID GROUP BY orderlist.orderID ORDER BY orderID DESC";
+                                $query_run = mysqli_query($db, $query);
+                                echo mysqli_error($db);
+                                if (mysqli_num_rows($query_run) > 0) {
+                    ?>
+                        <div class="table-responsive">
+                            <table class="table border table-hover">
+                                <thead style="text-align: center">
+                                    <tr class="bg-dark text-white">
+                                        <th> ID </th>
+                                        <th> Product </th>
+                                        <th width=10%;> Quantity </th>
+                                        <th> Grandtotal </th>
+                                        <th> Created At </th>
+                                        <th> Method </th>
+                                        <th> Status </th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align: center">
+                                    <?php foreach ($query_run as $row) { ?>
+                                        <tr data-url="orderinfo.php?orderID=<?php echo $row['orderID']; ?>" style="height:100px; cursor:pointer;">
+                                            <td><?= $row['orderID']; ?></td>
+                                            <td><?php $productID = explode(',', $row['productID']);
+                                                foreach ($productID as $productID1) {
+                                                    $rsp = mysqli_query($db,  "SELECT * FROM product WHERE productID='$productID1'") or die('Error querying database. ' .  mysqli_error($db));
+                                                    $row1 = mysqli_fetch_array($rsp);
+                                                    echo  '[' . $row1['productName'] . ']<br />';
+                                                } ?></td>
+                                            <td><?php $quantity = explode(',', $row['quantity']);
+                                                foreach ($quantity as $quantity1) {
+                                                    echo "x" . $quantity1 . '<br />';
+                                                } ?></td>
+                                            <td><?php echo "RM" .  $row['grandtotal']; ?></td>
+                                            <td><?= $row['orderCreatedate']; ?></td>
+                                            <td><?= $row['orderOption']; ?></td>
+                                            <td><span <?php if ($row['orderStatus'] == 'Pending') { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php echo $row['orderStatus']; ?></span></td>
+                                        </tr>
+                                    <?php
+                                    } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php  } else { ?>
+                        <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://www.kindpng.com/picc/m/280-2801416_customer-order-orders-icon-clipart-png-download-order.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                            <h3><strong>Order Not Found</strong></h3>
+                        </div>
+                <?php
+                                }
+                            } ?>
                     </div>
-                <?php  } else { ?>
-                    <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://www.kindpng.com/picc/m/280-2801416_customer-order-orders-icon-clipart-png-download-order.png" width="130" height="130" class="img-fluid mb-4 mr-3">
-                        <h3><strong>Order Not Found</strong></h3>
-                    </div>
-            <?php
-                            }
-                        } ?>
-
+                </div>
             </section>
             <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
                 <i class="fas fa-chevron-up"></i>

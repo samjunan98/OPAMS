@@ -165,15 +165,15 @@ if ($_SESSION["agentID"] == NULL) {
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Name</label>
-                                            <input type="text" class="form-control" placeholder="Enter Name" name="deliveryName">
+                                            <input type="text" class="form-control" placeholder="Enter Name" name="deliveryName" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Phone Number</label>
-                                            <input type="text" class="form-control" placeholder="Enter Phone Number" name="deliveryPhone">
+                                            <input type="text" class="form-control" placeholder="Enter Phone Number" name="deliveryPhone" required>
                                         </div>
                                         <div class="form-group">
-                                            <label>Delivery Option</label>
-                                            <select class="form-control" onchange="showDiv('hidden_div', this)" name="orderStatus">
+                                            <label>Order Option</label>
+                                            <select class="form-control" onchange='toggleDropdown(this);' name="orderOption" required>
                                                 <option value="Pickup">Self-Pickup</option>
                                                 <option value="Delivery">Courier Delivery</option>
                                             </select>
@@ -280,9 +280,12 @@ if ($_SESSION["agentID"] == NULL) {
     </script>
     <script src="dist/js/adminlte.min.js"></script>
     <script>
-        function showDiv(divId, element) {
-            document.getElementById(divId).style.display = element.value == "Delivery" ? 'block' : 'none';
-        }
+ const ac = document.getElementById("hidden_div");
+ac.style.display = "none";
+
+function toggleDropdown(selObj) {
+  ac.style.display = selObj.value === "Delivery" ? "block" : "none";
+}
     </script>
 
     <script>
@@ -303,6 +306,7 @@ if ($_SESSION["agentID"] == NULL) {
             }
         }, 1000);
     </script>
+
 
 
 

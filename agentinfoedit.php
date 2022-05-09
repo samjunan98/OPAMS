@@ -153,7 +153,6 @@ if ($_SESSION["agentID"] == NULL) {
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-4">
-
                             <!-- Profile Image -->
                             <div class="card card-primary card-outline">
                                 <div class="card-body box-profile">
@@ -276,27 +275,27 @@ if ($_SESSION["agentID"] == NULL) {
                     </div>
                     <!-- /.col -->
                 </div>
+
+            </section>
+
+            <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
+                <i class="fas fa-chevron-up"></i>
+            </a>
         </div>
-        </section>
+        <!-- /.content-wrapper -->
 
-        <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
-            <i class="fas fa-chevron-up"></i>
-        </a>
-    </div>
-    <!-- /.content-wrapper -->
+        <footer class="main-footer">
+            <div class="float-right d-none d-sm-block">
+                <b>Version</b> 1.0
+            </div>
+            <strong>SAM JUN AN 181021172</a></strong>
+        </footer>
 
-    <footer class="main-footer">
-        <div class="float-right d-none d-sm-block">
-            <b>Version</b> 1.0
-        </div>
-        <strong>SAM JUN AN 181021172</a></strong>
-    </footer>
-
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">

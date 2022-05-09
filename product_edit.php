@@ -4,18 +4,18 @@ include("config.php");
 $adminID = $_SESSION['adminID'];
 $adminSessionid = $_SESSION['adminSessionid'];
 if ($_SESSION["adminID"] == NULL) {
-   header("location: index.html");
+  header("location: index.html");
 } else {
-   $checkk = "SELECT * FROM admin WHERE adminID='$adminID'";
-   $resultt = mysqli_query($db, $checkk) or die('Error querying database. ' .  mysqli_error($db));
-   foreach ($resultt as $row) {
-      if ($_SESSION['adminSessionid'] != $row['adminSessionid']) {
-         echo '<script type="text/javascript">';
-         echo 'alert("New login is detected");';
-         echo 'window.location.href = "index.html";';
-         echo '</script>';
-      }
-   }
+  $checkk = "SELECT * FROM admin WHERE adminID='$adminID'";
+  $resultt = mysqli_query($db, $checkk) or die('Error querying database. ' .  mysqli_error($db));
+  foreach ($resultt as $row) {
+    if ($_SESSION['adminSessionid'] != $row['adminSessionid']) {
+      echo '<script type="text/javascript">';
+      echo 'alert("New login is detected");';
+      echo 'window.location.href = "index.html";';
+      echo '</script>';
+    }
+  }
 }
 ?>
 <!DOCTYPE html>
@@ -288,12 +288,12 @@ if ($_SESSION["adminID"] == NULL) {
                             <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
                             <td><?= $row['productName']; ?></td>
                             <td><?= $row['productQuantity']; ?></td>
-                            <td><?php echo "RM". $row['productPrice']; ?></td>
+                            <td><?php echo "RM" . $row['productPrice']; ?></td>
                             <td><?= $row['productDesc']; ?></td>
                             <td><?= $row['productSKU']; ?></td>
                             <td width="50" height="40">
                               <div class="btn-group"><a href="updateprod.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Edit Product" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button>
-                                <button type="button" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                                  <button type="button" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
                               </div>
                             </td>
                           </tr>
@@ -332,12 +332,12 @@ if ($_SESSION["adminID"] == NULL) {
                                   <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
                                   <td><?= $row['productName']; ?></td>
                                   <td><?= $row['productQuantity']; ?></td>
-                                  <td><?php echo "RM". $row['productPrice']; ?></td>
+                                  <td><?php echo "RM" . $row['productPrice']; ?></td>
                                   <td><?= $row['productDesc']; ?></td>
                                   <td><?= $row['productSKU']; ?></td>
                                   <td width="50" height="40">
                                     <div class="btn-group"><a href="updateprod.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Edit Product" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button>
-                                      <button type="button" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                                        <button type="button" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
                                     </div>
                                   </td>
                                 </tr>
@@ -375,12 +375,12 @@ if ($_SESSION["adminID"] == NULL) {
                                         <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
                                         <td><?= $row['productName']; ?></td>
                                         <td><?= $row['productQuantity']; ?></td>
-                                        <td><?php echo "RM". $row['productPrice']; ?></td>
+                                        <td><?php echo "RM" . $row['productPrice']; ?></td>
                                         <td><?= $row['productDesc']; ?></td>
                                         <td><?= $row['productSKU']; ?></td>
                                         <td width="50" height="40">
                                           <div class="btn-group"><a href="updateprod.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Edit Product" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button>
-                                          <a href="updateprod.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                                              <a href="updateprod.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
                                           </div>
                                         </td>
                                       </tr>
@@ -400,6 +400,8 @@ if ($_SESSION["adminID"] == NULL) {
                         </div>
                   </div>
             </div>
+          </div>
+        </div>
       </section>
 
       <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">

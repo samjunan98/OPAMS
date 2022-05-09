@@ -200,7 +200,9 @@ if ($_SESSION["adminID"] == NULL) {
           </div>
         </div><!-- /.container-fluid -->
       </section>
-
+      <?php
+      $ress = mysqli_query($db, "SELECT * FROM orderlist");
+      ?>
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
@@ -211,8 +213,7 @@ if ($_SESSION["adminID"] == NULL) {
               <!-- small card -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h3>150</h3>
-
+                  <h3><?php echo mysqli_num_rows($ress); ?></h3>
                   <p>New Orders</p>
                 </div>
                 <div class="icon">

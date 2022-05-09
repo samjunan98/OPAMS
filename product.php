@@ -313,7 +313,7 @@ if ($_SESSION["agentID"] == NULL) {
                                           <td><input type="number" class="form-control" name="quantity" min="1" max="<?= $row['productQuantity']; ?>" step="1" value="1"></td>
                                           <td><?= $row['productDesc']; ?></td>
                                           <td><?= $row['productSKU']; ?></td>
-                                          <td align="center" width="50" height="40"><?php if ($row['productQuantity'] == '0')  { ?> <i style="color:red; font-weight:bold;">Sold Out </i> <?php } else { ?>
+                                          <td align="center" width="50" height="40"><?php if ($row['productQuantity'] == '0') { ?> <i style="color:red; font-weight:bold;">Sold Out </i> <?php } else { ?>
                                               <button type="submit" value="add2cart" title="Add to Cart" class="btn btn-primary btn-block"><i class="fa-solid fa-cart-plus"></i></button></a> <?php } ?>
                                           </td>
                                         </tr>
@@ -334,6 +334,8 @@ if ($_SESSION["agentID"] == NULL) {
                         </div>
                   </div>
             </div>
+          </div>
+        </div>
       </section>
 
       <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">

@@ -199,12 +199,13 @@ if ($_SESSION["adminID"] == NULL) {
             </section>
             <?php
             $orderID = $_GET['orderID'];
-            $query1 = mysqli_query($db, "SELECT order_product.productID,orderlist.agentID,orderlist.orderGrandtotal,orderlist.orderCreatedate  FROM order_product INNER JOIN orderlist ON order_product.orderID = orderlist.orderID WHERE '$orderID'= order_product.orderID") or die('Error querying database. ' .  mysqli_error($db));
+            $query1 = mysqli_query($db, "SELECT order_product.productID,orderlist.orderStatus,orderlist.agentID,orderlist.orderGrandtotal,orderlist.orderCreatedate  FROM order_product INNER JOIN orderlist ON order_product.orderID = orderlist.orderID WHERE '$orderID'= order_product.orderID") or die('Error querying database. ' .  mysqli_error($db));
             while ($row = mysqli_fetch_array($query1)) {
                 $productID = $row['productID'];
                 $agentID = $row['agentID'];
                 $orderGrandtotal = $row['orderGrandtotal'];
                 $orderCreatedate = $row['orderCreatedate'];
+                $orderStatus = $row['orderStatus'];
                 $query2 = "SELECT * FROM product INNER JOIN order_product ON product.productID = order_product.productID WHERE'$orderID' = orderID";
                 $query_run2 = mysqli_query($db, $query2) or die('Error querying database. ' .  mysqli_error($db));
             }
@@ -283,9 +284,9 @@ if ($_SESSION["adminID"] == NULL) {
                             </div>
                         </div>
 
-                       <?php $query23 = "SELECT * FROM agent WHERE'$agentID' = agentID";
-                $query_run23 = mysqli_query($db, $query23) or die('Error querying database. ' .  mysqli_error($db)); 
-                $row = mysqli_fetch_array($query_run23); ?>
+                        <?php $query23 = "SELECT * FROM agent WHERE'$agentID' = agentID";
+                        $query_run23 = mysqli_query($db, $query23) or die('Error querying database. ' .  mysqli_error($db));
+                        $row = mysqli_fetch_array($query_run23); ?>
                         <div class="col-md-6">
                             <div class="text-center">
                                 <div class="card">
@@ -300,11 +301,11 @@ if ($_SESSION["adminID"] == NULL) {
                                                 </th>
                                             </tr>
                                             <td>
-                                                    <div class=grandt><?php echo "Order ID"; ?></div>
-                                                </td>
-                                                <td>
-                                                    <div class=grandt><?php echo $orderID; ?></div>
-                                                </td>
+                                                <div class=grandt><?php echo "Order ID"; ?></div>
+                                            </td>
+                                            <td>
+                                                <div class=grandt><?php echo $orderID; ?></div>
+                                            </td>
                                             <tr>
                                                 <td>
                                                     <div class=grandt><?php echo "Order Created Time"; ?></div>
@@ -318,7 +319,15 @@ if ($_SESSION["adminID"] == NULL) {
                                                     <div class=grandt><?php echo "Order Created By Agent"; ?></div>
                                                 </td>
                                                 <td>
-                                                    <div class=grandt><?php  echo "Agent ID: [".$row['agentID']."]";?> <br> <?php echo $row['agentName']; ?></div>
+                                                    <div class=grandt><?php echo "Agent ID: [" . $row['agentID'] . "]"; ?> <br> <?php echo $row['agentName']; ?></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class=grandt><?php echo "Order Status"; ?></div>
+                                                </td>
+                                                <td>
+                                                    <div class=grandt><span class="badge badge-success"><?php echo $orderStatus; ?></span></div>
                                                 </td>
                                             </tr>
                                         </table>
@@ -327,8 +336,7 @@ if ($_SESSION["adminID"] == NULL) {
                             </div>
                         </div>
                     </div>
-
-
+                </div>
             </section>
             <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
                 <i class="fas fa-chevron-up"></i>
@@ -351,18 +359,18 @@ if ($_SESSION["adminID"] == NULL) {
     </div>
     <!-- ./wrapper -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-  </script>
-  <!-- bootstrap 4 popper js -->
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-  </script>
-  <!-- bootstrap 4 js -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-  </script>
-  <script src="plugins/jquery/jquery.min.js"></script>
-  <!-- Bootstrap 4 -->
-  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- AdminLTE App -->
-  <script src="dist/js/adminlte.min.js"></script>
+    </script>
+    <!-- bootstrap 4 popper js -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <!-- bootstrap 4 js -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/adminlte.min.js"></script>
 
 </body>
 

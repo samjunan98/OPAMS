@@ -284,12 +284,14 @@ if ($_SESSION["agentID"] == NULL) {
                         <tbody>
                           <?php foreach ($query_run as $row) { ?>
                             <tr>
-                              <td><a href="pages/examples/invoice.html"><?php echo $row['orderID']; ?></a></td>
+                              <td><a href="orderinfo.php?orderID=<?php echo $row['orderID']; ?>"><?php echo $row['orderID']; ?></a></td>
                               <td><?php $productID = explode(',', $row['productID']);
                                   foreach ($productID as $productID1) {
-                                    echo $productID1 . '<br />';
+                                    $rsp = mysqli_query($db,  "SELECT * FROM product WHERE productID='$productID1'") or die('Error querying database. ' .  mysqli_error($db));
+                                    $row1 = mysqli_fetch_array($rsp);
+                                    echo $row1['productName'] . '<br />';
                                   } ?></td>
-                                  <td><?= $row['orderCreatedate']; ?></td>
+                              <td><?= $row['orderCreatedate']; ?></td>
                               <td><span class="badge badge-success"><?php echo $row['orderStatus']; ?></span></td>
                             </tr>
                           <?php

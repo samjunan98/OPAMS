@@ -17,6 +17,7 @@ if (mysqli_num_rows($result) > 0) {
         $productQuantity = $row['productQuantity'];
         if ($productQuantity >= $quantity) {
             $quantity_new = $productQuantity - $quantity;
+            mysqli_query($db, "UPDATE product SET productQuantity='$quantity_new'WHERE productID='{$productID}'") or die('Error querying database. ' .  mysqli_error($db));
         } else {
             $dltcart = "DELETE FROM agent WHERE productID='{$productID}'";
 	        mysqli_query($db,$dltcart);
@@ -27,6 +28,6 @@ if (mysqli_num_rows($result) > 0) {
             exit();
         }
     }
-    mysqli_query($db, "UPDATE product SET productQuantity='$quantity_new'WHERE productID='{$productID}'") or die('Error querying database. ' .  mysqli_error($db));
+    
     header("location:checkout.php");
 }
