@@ -34,7 +34,6 @@ if ($_SESSION["adminID"] == NULL) {
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
-
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
@@ -187,229 +186,155 @@ if ($_SESSION["adminID"] == NULL) {
             </div>
             <!-- /.sidebar -->
         </aside>
-
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Order List</h1>
+                            <h1>Order Info</h1>
                         </div>
                     </div>
                 </div><!-- /.container-fluid -->
             </section>
+            <?php
+            $orderID = $_GET['orderID'];
+            $query1 = mysqli_query($db, "SELECT order_product.productID,orderlist.orderStatus,orderlist.agentID,orderlist.orderGrandtotal,orderlist.orderCreatedate  FROM order_product INNER JOIN orderlist ON order_product.orderID = orderlist.orderID WHERE '$orderID'= order_product.orderID") or die('Error querying database. ' .  mysqli_error($db));
+            while ($row = mysqli_fetch_array($query1)) {
+                $productID = $row['productID'];
+                $agentID = $row['agentID'];
+                $orderGrandtotal = $row['orderGrandtotal'];
+                $orderCreatedate = $row['orderCreatedate'];
+                $orderStatus = $row['orderStatus'];
+                $query2 = "SELECT * FROM product INNER JOIN order_product ON product.productID = order_product.productID WHERE'$orderID' = orderID";
+                $query_run2 = mysqli_query($db, $query2) or die('Error querying database. ' .  mysqli_error($db));
+            }
+            ?>
             <section class="content">
                 <div class="container-fluid">
-                    <div class="table-title">
-                        <div class="card mt-12">
-                            <div class="card-body">
-                                <form action="" method="GET">
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <input type="text" placeholder="Order ID" name="orderID" value="<?php if (isset($_GET['orderID'])) {
-                                                                                                                echo $_GET['orderID'];
-                                                                                                            } ?>" class="form-control"><br>
-                                        </div>
-                                        <div class="col-sm-1">
-                                            <button type="submit" title="Search" class="btn btn-block btn-info btn-md"><i class="fa fa-search"></i></button><br>
-                                        </div>
-                                        <div class="col-sm-1"><button onclick="document.location='admin_order.php'" type="button" title="Refresh" class="btn btn-block btn-secondary btn-md"><i class="fa-solid fa-arrows-rotate"></i></button></div>
-                                        <div class="col-sm-7"></div>
-                                    </div>
-                                </form>
-                                <form method="GET" action="">
-                                    <div class="row">
-                                        <div class="col-sm-auto"><label>Date:</label></div>
-                                        <div class="col-sm-3">
-                                            <input type="date" class="form-control" placeholder="Start" value="<?php if (isset($_GET['date1'])) {
-                                                                                                                    echo $_GET['date1'];
-                                                                                                                } ?>" name="date1" />
-                                        </div>
-                                        <div class="col-sm-auto"><label>To</label></div>
-                                        <div class="col-sm-3">
-                                            <input type="date" class="form-control" placeholder="End" value="<?php if (isset($_GET['date2'])) {
-                                                                                                                    echo $_GET['date2'];
-                                                                                                                } ?>" name="date2" />
-                                        </div>
-                                        <div class="col-sm-1">
-                                            <button class="btn btn-block btn-info btn-md" type="submit" name="date_search"><span class="fa-solid fa-filter"></span></button>
+                    <?php foreach ($query_run2 as $row) { ?>
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="media">
+                                            <div class="sq align-self-center "> <img class="img-fluid  my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0" src="getimage_order.php?productID=<?php echo $row['productID']; ?>" style="height:100px; width:100px; cursor:pointer;" /> </div>
+                                            <div class="media-body my-auto text-right">
+                                                <div class="row  my-auto flex-column flex-md-row">
+                                                    <div class="col my-auto">
+                                                        <h6 class="mb-0">SKU : <strong><?php echo $row['productSKU']; ?></strong></h6>
+                                                    </div>
+                                                    <div class="col my-auto">Name : <strong><?php echo $row['productName']; ?></strong></div>
+                                                    <div class="col my-auto"> Price : <strong>RM <?php echo $row['productPrice']; ?></strong></div>
+                                                    <div class="col my-auto"> Qty : <strong><?php echo $row['order_productQuantity']; ?></strong></div>
+                                                    <div class="col my-auto">
+                                                        <h6 class="mb-0">Subtotal : <strong>RM <?php echo $row['order_productSubtotal']; ?></strong></h6>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <?php } ?>
 
-                    <div class="card mt-12">
-                        <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
                             <?php
-                            if (isset($_GET['orderID'])) {
-                                $orderID = $_GET['orderID'];
-                                $query = "SELECT orderlist.orderID,orderlist.orderOption,orderlist.agentID,SUM(order_product.order_productSubtotal) AS grandtotal ,GROUP_CONCAT(order_product.productID) AS productID ,GROUP_CONCAT(order_product.order_productQuantity) AS quantity,orderlist.orderCreatedate,orderlist.orderStatus AS orderStatus FROM orderlist INNER JOIN order_product ON orderlist.orderID = order_product.orderID WHERE  '$orderID'= order_product.orderID  GROUP BY orderlist.orderID ORDER BY orderID DESC";
-                                $query_run = mysqli_query($db, $query);
-                                echo mysqli_error($db);
-                                if (mysqli_num_rows($query_run) > 0) {
-                            ?>
-                                    <div class="table-responsive">
-                                        <table class="table border table-hover">
-                                            <thead style="text-align: center">
-                                                <tr class="bg-dark text-white">
-                                                    <th> Order ID </th>
-                                                    <th> Agent ID </th>
-                                                    <th> Product </th>
-                                                    <th width=10%;> Quantity </th>
-                                                    <th> Grandtotal </th>
-                                                    <th> Created At </th>
-                                                    <th> Method </th>
-                                                    <th> Status </th>
-                                                    <th> Action </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody style="text-align: center">
-                                                <?php foreach ($query_run as $row) { ?>
-                                                    <tr data-href="admin_orderinfo.php?orderID=<?php echo $row['orderID']; ?>" style="height:100px; cursor:pointer;">
-                                                        <td><?= $row['orderID']; ?></td>
-                                                        <td><?= $row['agentID']; ?></td>
-                                                        <td><?php $productID = explode(',', $row['productID']);
-                                                            foreach ($productID as $productID1) {
-                                                                $rsp = mysqli_query($db,  "SELECT * FROM product WHERE productID='$productID1'") or die('Error querying database. ' .  mysqli_error($db));
-                                                                $row1 = mysqli_fetch_array($rsp);
-                                                                echo '[' . $row1['productName'] . ']<br />';
-                                                            } ?></td>
-                                                        <td><?php $quantity = explode(',', $row['quantity']);
-                                                            foreach ($quantity as $quantity1) {
-                                                                echo "x" . $quantity1 . '<br />';
-                                                            } ?></td>
-                                                        <td><?php echo "RM" . $row['grandtotal']; ?></td>
-                                                        <td><?= $row['orderCreatedate']; ?></td>
-                                                        <td><?= $row['orderOption']; ?></td>
-                                                        <td><span <?php if ($row['orderStatus'] == 'Pending') { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php echo $row['orderStatus']; ?></span></td>
-                                                        <td><a href="process_order.php?orderID=<?php echo $row['orderID']; ?>"><button <?php if ($row['orderStatus'] == 'Completed') { ?> style="display: none;" <?php } ?> type="submit" class="btn btn-block btn-success btn-md"> Process Order </button></td>
-                                                    </tr>
-                                                <?php
-                                                } ?>
-                                            </tbody>
+                            $orderID = $_GET['orderID'];
+                            $query = mysqli_query($db, "SELECT * FROM delivery WHERE orderID='$orderID'");
+                            $row = mysqli_fetch_array($query); ?>
+                            <div class="card ">
+                                <div class="card-body">
+                                    <form class="form-horizontal">
+                                        <fieldset disabled="disabled">
+                                            <div class="card-body">
+                                                <div class="form-group row">
+                                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Delivery Name</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" value="<?php echo $row['deliveryName']; ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Phone</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="number" class="form-control" value="<?php echo $row['deliveryPhone']; ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Courier</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="phone" class="form-control" value="<?php echo $row['deliveryCourier']; ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Address</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="email" class="form-control" value="<?php echo $row['deliveryAddress']; ?>">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.card-body -->
+                                            <!-- /.card-footer -->
+                                        </fieldset>
+                                    </form>
+                                </div><!-- /.card-body -->
+                            </div>
+                        </div>
+
+                        <?php $query23 = "SELECT * FROM agent WHERE'$agentID' = agentID";
+                        $query_run23 = mysqli_query($db, $query23) or die('Error querying database. ' .  mysqli_error($db));
+                        $row = mysqli_fetch_array($query_run23); ?>
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th>
+                                                    <div class=grandt><?php echo "Grand Total"; ?></div>
+                                                </th>
+                                                <th>
+                                                    <div class=grandt><?php echo "RM" . $orderGrandtotal; ?></div>
+                                                </th>
+                                            </tr>
+                                            <td>
+                                                <div class=grandt><?php echo "Order ID"; ?></div>
+                                            </td>
+                                            <td>
+                                                <div class=grandt><?php echo $orderID; ?></div>
+                                            </td>
+                                            <tr>
+                                                <td>
+                                                    <div class=grandt><?php echo "Order Created Time"; ?></div>
+                                                </td>
+                                                <td>
+                                                    <div class=grandt><?php echo $orderCreatedate; ?></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class=grandt><?php echo "Order Created By Agent"; ?></div>
+                                                </td>
+                                                <td>
+                                                    <div class=grandt><?php echo "Agent ID: [" . $row['agentID'] . "]"; ?> <br> <?php echo $row['agentName']; ?></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class=grandt><?php echo "Order Status"; ?></div>
+                                                </td>
+                                                <td>
+                                                    <div class=grandt><span class="badge badge-success"><?php echo $orderStatus; ?></span></div>
+                                                </td>
+                                            </tr>
                                         </table>
                                     </div>
-                                <?php
-                                } else { ?>
-                                    <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://www.kindpng.com/picc/m/280-2801416_customer-order-orders-icon-clipart-png-download-order.png" width="130" height="130" class="img-fluid mb-4 mr-3">
-                                        <h3><strong>Order Not Found</strong></h3>
-                                    </div>
-                                <?php
-                                }
-                            } else if (isset($_GET['date1'], $_GET['date2'])) {
-                                $date1 = date("Y-m-d", strtotime($_GET['date1']));
-                                $date2 = date("Y-m-d", strtotime($_GET['date2']));
-                                $query = "SELECT orderlist.orderID,orderlist.orderOption,orderlist.agentID,SUM(order_product.order_productSubtotal) AS grandtotal ,GROUP_CONCAT(order_product.productID) AS productID ,GROUP_CONCAT(order_product.order_productQuantity) AS quantity,orderlist.orderCreatedate,orderlist.orderStatus AS orderStatus FROM orderlist INNER JOIN order_product ON orderlist.orderID = order_product.orderID WHERE  orderlist.orderCreatedate BETWEEN '$date1' AND '$date2'  GROUP BY orderlist.orderID ORDER BY orderID DESC";
-                                $query_run = mysqli_query($db, $query);
-                                echo mysqli_error($db);
-                                if (mysqli_num_rows($query_run) > 0) {
-                                ?>
-                                    <div class="table-responsive">
-                                        <table class="table border table-hover">
-                                            <thead style="text-align: center">
-                                                <tr class="bg-dark text-white">
-                                                    <th> Order ID </th>
-                                                    <th> Agent ID </th>
-                                                    <th> Product </th>
-                                                    <th width=10%;> Quantity </th>
-                                                    <th> Grandtotal </th>
-                                                    <th> Created At </th>
-                                                    <th> Method </th>
-                                                    <th> Status </th>
-                                                    <th> Action </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody style="text-align: center">
-                                                <?php foreach ($query_run as $row) { ?>
-                                                    <tr data-url="admin_orderinfo.php?orderID=<?php echo $row['orderID']; ?>" style="height:100px; cursor:pointer;">
-                                                        <td><?= $row['orderID']; ?></td>
-                                                        <td><?= $row['agentID']; ?></td>
-                                                        <td><?php $productID = explode(',', $row['productID']);
-                                                            foreach ($productID as $productID1) {
-                                                                $rsp = mysqli_query($db,  "SELECT * FROM product WHERE productID='$productID1'") or die('Error querying database. ' .  mysqli_error($db));
-                                                                $row1 = mysqli_fetch_array($rsp);
-                                                                echo  '[' . $row1['productName'] . ']<br />';
-                                                            } ?></td>
-                                                        <td><?php $quantity = explode(',', $row['quantity']);
-                                                            foreach ($quantity as $quantity1) {
-                                                                echo "x" . $quantity1 . '<br />';
-                                                            } ?></td>
-                                                        <td><?php echo "RM" . $row['grandtotal']; ?></td>
-                                                        <td><?= $row['orderCreatedate']; ?></td>
-                                                        <td><?= $row['orderOption']; ?></td>
-                                                        <td><span <?php if ($row['orderStatus'] == 'Pending') { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php echo $row['orderStatus']; ?></span></td>
-                                                        <td><a href="process_order.php?orderID=<?php echo $row['orderID']; ?>"><button <?php if ($row['orderStatus'] == 'Completed') { ?> style="display: none;" <?php } ?> type="submit" class="btn btn-block btn-success btn-md"> Process Order </button></td>
-                                                    </tr>
-                                                <?php
-                                                } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                <?php
-                                } else { ?>
-                                    <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://www.kindpng.com/picc/m/280-2801416_customer-order-orders-icon-clipart-png-download-order.png" width="130" height="130" class="img-fluid mb-4 mr-3">
-                                        <h3><strong>Order Not Found</strong></h3>
-                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    <?php
-                                }
-                            } else {
-                                $query = "SELECT orderlist.orderID,orderlist.orderOption,orderlist.agentID,SUM(order_product.order_productSubtotal) AS grandtotal ,GROUP_CONCAT(order_product.productID) AS productID ,GROUP_CONCAT(order_product.order_productQuantity) AS quantity,orderlist.orderCreatedate,orderlist.orderStatus AS orderStatus FROM orderlist INNER JOIN order_product ON orderlist.orderID = order_product.orderID GROUP BY orderlist.orderID ORDER BY orderID DESC";
-                                $query_run = mysqli_query($db, $query);
-                                echo mysqli_error($db);
-                                if (mysqli_num_rows($query_run) > 0) {
-                    ?>
-                        <div class="table-responsive">
-                            <table class="table border table-hover">
-                                <thead style="text-align: center">
-                                    <tr class="bg-dark text-white">
-                                        <th> Order ID </th>
-                                        <th> Agent ID </th>
-                                        <th> Product </th>
-                                        <th width=10%;> Quantity </th>
-                                        <th> Grandtotal </th>
-                                        <th> Created At </th>
-                                        <th> Method </th>
-                                        <th> Status </th>
-                                        <th> Action </th>
-                                    </tr>
-                                </thead>
-                                <tbody style="text-align: center">
-                                    <?php foreach ($query_run as $row) { ?>
-                                        <tr data-url="admin_orderinfo.php?orderID=<?php echo $row['orderID']; ?>" style="height:100px; cursor:pointer;">
-                                            <td><?= $row['orderID']; ?></td>
-                                            <td><?= $row['agentID']; ?></td>
-                                            <td><?php $productID = explode(',', $row['productID']);
-                                                foreach ($productID as $productID1) {
-                                                    $rsp = mysqli_query($db,  "SELECT * FROM product WHERE productID='$productID1'") or die('Error querying database. ' .  mysqli_error($db));
-                                                    $row1 = mysqli_fetch_array($rsp);
-                                                    echo  '[' . $row1['productName'] . ']<br />';
-                                                } ?></td>
-                                            <td><?php $quantity = explode(',', $row['quantity']);
-                                                foreach ($quantity as $quantity1) {
-                                                    echo "x" . $quantity1 . '<br />';
-                                                } ?></td>
-                                            <td><?php echo "RM" . $row['grandtotal']; ?></td>
-                                            <td><?= $row['orderCreatedate']; ?></td>
-                                            <td><?= $row['orderOption']; ?></td>
-                                            <td><span <?php if ($row['orderStatus'] == 'Pending') { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php echo $row['orderStatus']; ?></span></td>
-                                            <td><a href="process_order.php?orderID=<?php echo $row['orderID']; ?>"><button <?php if ($row['orderStatus'] == 'Completed') { ?> style="display: none;" <?php } ?> type="submit" class="btn btn-block btn-success btn-md"> Process Order </button></td>
-                                        </tr>
-                                    <?php
-                                    } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    <?php  } else { ?>
-                        <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://www.kindpng.com/picc/m/280-2801416_customer-order-orders-icon-clipart-png-download-order.png" width="130" height="130" class="img-fluid mb-4 mr-3">
-                            <h3><strong>Order Not Found</strong></h3>
-                        </div>
-                <?php
-                                }
-                            } ?>
                     </div>
                 </div>
             </section>
@@ -425,6 +350,7 @@ if ($_SESSION["adminID"] == NULL) {
             </div>
             <strong>SAM JUN AN 181021172</a></strong>
         </footer>
+
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
@@ -445,13 +371,7 @@ if ($_SESSION["adminID"] == NULL) {
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.min.js"></script>
-    <script>
-        $(function() {
-            $('table.table tr').click(function() {
-                window.location.href = $(this).data('url');
-            });
-        })
-    </script>
+
 </body>
 
 </html>

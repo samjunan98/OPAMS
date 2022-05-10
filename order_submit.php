@@ -2,17 +2,27 @@
 session_start();
 include("config.php");
 $orderOption = $_POST['orderOption'];
-$deliveryAddress = $_POST['deliveryAddress'];
+if (empty($_POST['deliveryAddress'])) {
+    $deliveryAddress = "NULL";
+} else {
+    $deliveryAddress = $_POST['deliveryAddress'];
+}
 $deliveryPhone = $_POST['deliveryPhone'];
+$deliveryName = $_POST['deliveryName'];
+if (empty($_POST['pickupLocation'])) {
+    $pickupLocation = "NULL";
+} else {
+    $pickupLocation = $_POST['pickupLocation'];
+}
 $deliveryName = $_POST['deliveryName'];
 $agentID = $_SESSION['agentID'];
 $cartID = $_SESSION['agentID'];
 
 $query7 = "SELECT * FROM cart WHERE agentID='$agentID'";
-            $result7 = mysqli_query($db, $query7) or die('Error querying database. ' .  mysqli_error($db));
-            while ($row = mysqli_fetch_array($result7)) {
-                $grandtotal = $row['grandtotal'];
-            }
+$result7 = mysqli_query($db, $query7) or die('Error querying database. ' .  mysqli_error($db));
+while ($row = mysqli_fetch_array($result7)) {
+    $grandtotal = $row['grandtotal'];
+}
 $query = "INSERT into orderlist(orderID,agentID, orderOption, orderStatus, orderCreatedate, orderGrandtotal) VALUES ('0','$agentID','$orderOption','Pending',now(),'$grandtotal') ";
 $rs = mysqli_query($db, $query);
 if ($rs) {
@@ -27,7 +37,7 @@ if ($rs) {
         while ($row = mysqli_fetch_array($result4)) {
             $orderID = $row['orderID'];
         }
-        $query3 = "INSERT into delivery(deliveryID,orderID,deliveryName,deliveryPhone,deliveryAddress) values ('0', '$orderID','$deliveryName','$deliveryPhone','$deliveryAddress') ";
+        $query3 = "INSERT into delivery(deliveryID,orderID,deliveryName,pickupLocation,deliveryPhone,deliveryAddress) values ('0', '$orderID','$deliveryName','$pickupLocation','$deliveryPhone','$deliveryAddress') ";
         if ($db->query($query3) == TRUE) {
             $salesGenerated_new = $grandtotal;
             $query6 = "SELECT * FROM salesreport WHERE agentID='$agentID'";
@@ -55,7 +65,7 @@ if ($rs) {
                 $query10 = "INSERT INTO order_product(order_productID,orderID,productID,order_productQuantity,order_productSubtotal) VALUES ('0','$orderID', '$productID','$order_productQuantity','$order_productSubtotal')";
                 mysqli_query($db, $query10);
             }
-            
+
             $sqlquery2 = "DELETE FROM cart_product WHERE cartID='{$agentID}'";
             mysqli_query($db, $sqlquery2);
             $sqlquery3 = "UPDATE cart SET grandtotal = $grandtotal WHERE agentID ='{$agentID}'";

@@ -137,12 +137,13 @@ if ($_SESSION["agentID"] == NULL) {
             </section>
             <?php
             $orderID = $_GET['orderID'];
-            $query1 = mysqli_query($db, "SELECT order_product.productID,orderlist.orderStatus,orderlist.orderGrandtotal,orderlist.orderCreatedate  FROM order_product INNER JOIN orderlist ON order_product.orderID = orderlist.orderID WHERE '$orderID'= order_product.orderID AND '$agentID' = agentID") or die('Error querying database. ' .  mysqli_error($db));
+            $query1 = mysqli_query($db, "SELECT order_product.productID,orderlist.orderOption,orderlist.orderStatus,orderlist.orderGrandtotal,orderlist.orderCreatedate  FROM order_product INNER JOIN orderlist ON order_product.orderID = orderlist.orderID WHERE '$orderID'= order_product.orderID AND '$agentID' = agentID") or die('Error querying database. ' .  mysqli_error($db));
             while ($row = mysqli_fetch_array($query1)) {
                 $productID = $row['productID'];
                 $orderGrandtotal = $row['orderGrandtotal'];
                 $orderCreatedate = $row['orderCreatedate'];
                 $orderStatus = $row['orderStatus'];
+                $orderOption = $row['orderOption'];
                 $query2 = "SELECT * FROM product INNER JOIN order_product ON product.productID = order_product.productID WHERE'$orderID' = orderID";
                 $query_run2 = mysqli_query($db, $query2) or die('Error querying database. ' .  mysqli_error($db));
             }
@@ -185,33 +186,58 @@ if ($_SESSION["agentID"] == NULL) {
                             $row = mysqli_fetch_array($query); ?>
                             <div class="card ">
                                 <div class="card-body">
+                                    <section class="content-header">
+                                        <div class="container-fluid">
+                                            <div class="row mb-2">
+                                                <div class="col-sm-6">
+                                                    <h1>Delivery Info</h1>
+                                                </div>
+                                            </div>
+                                        </div><!-- /.container-fluid -->
+                                    </section>
                                     <form class="form-horizontal">
                                         <fieldset disabled="disabled">
                                             <div class="card-body">
                                                 <div class="form-group row">
-                                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Delivery Name</label>
+                                                    <label class="col-sm-2 col-form-label">Name</label>
                                                     <div class="col-sm-10">
                                                         <input type="text" class="form-control" value="<?php echo $row['deliveryName']; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Phone</label>
+                                                    <label class="col-sm-2 col-form-label">Phone</label>
                                                     <div class="col-sm-10">
                                                         <input type="number" class="form-control" value="<?php echo $row['deliveryPhone']; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Courier</label>
+                                                    <label class="col-sm-2 col-form-label">Method</label>
                                                     <div class="col-sm-10">
-                                                        <input type="phone" class="form-control" value="<?php echo $row['deliveryCourier']; ?>">
+                                                        <input type="text" class="form-control" value="<?php echo $orderOption ?>">
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Address</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="email" class="form-control" value="<?php echo $row['deliveryAddress']; ?>">
+                                                <?php if ($orderOption == 'Delivery') { ?>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-2 col-form-label">Courier</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" value="<?php echo $row['deliveryCourier']; ?>">
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-2 col-form-label">Address</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" value="<?php echo $row['deliveryAddress']; ?>">
+                                                        </div>
+                                                    </div>
+                                                <?php } else { ?>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-2 col-form-label">Pickup Location</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" value="<?php echo $row['pickupLocation']; ?>">
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
+                                                }
                                             </div>
                                             <!-- /.card-body -->
                                             <!-- /.card-footer -->

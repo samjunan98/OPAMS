@@ -69,7 +69,7 @@ if ($_SESSION["agentID"] == NULL) {
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
         <li class="nav-item">
-          <a href="main_agent.php" class="nav-link active">
+          <a href="main_agent.php" class="nav-link">
             <i class="nav-icon fa fa-home"></i>
             <p>
               Home
@@ -78,7 +78,7 @@ if ($_SESSION["agentID"] == NULL) {
         </li>
         </li>
         <li class="nav-item">
-          <a href="product.php" class="nav-link">
+          <a href="product.php" class="nav-link active">
             <i class="nav-icon fa fa-shopping-bag"></i>
             <p>
               Product

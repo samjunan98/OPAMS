@@ -4,18 +4,18 @@ include('config.php');
 $agentID = $_SESSION['agentID'];
 $agentSessionid = $_SESSION['agentSessionid'];
 if ($_SESSION["agentID"] == NULL) {
-  header("location: index.html");
+    header("location: index.html");
 } else {
-  $checkk = "SELECT * FROM agent WHERE agentID='$agentID'";
-  $resultt = mysqli_query($db, $checkk) or die('Error querying database. ' .  mysqli_error($db));
-  foreach ($resultt as $row) {
-    if ($_SESSION['agentSessionid'] != $row['agentSessionid']) {
-      echo '<script type="text/javascript">';
-      echo 'alert("New login is detected");';
-      echo 'window.location.href = "index.html";';
-      echo '</script>';
+    $checkk = "SELECT * FROM agent WHERE agentID='$agentID'";
+    $resultt = mysqli_query($db, $checkk) or die('Error querying database. ' .  mysqli_error($db));
+    foreach ($resultt as $row) {
+        if ($_SESSION['agentSessionid'] != $row['agentSessionid']) {
+            echo '<script type="text/javascript">';
+            echo 'alert("New login is detected");';
+            echo 'window.location.href = "index.html";';
+            echo '</script>';
+        }
     }
-  }
 }
 ?>
 <!DOCTYPE html>
@@ -49,9 +49,10 @@ if ($_SESSION["agentID"] == NULL) {
         </nav>
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
+
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="#" class="brand-link">
                 <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Petshop</span>
             </a>
@@ -81,7 +82,7 @@ if ($_SESSION["agentID"] == NULL) {
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="main_agent.php" class="nav-link">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-home"></i>
                         <p>
                             Home
@@ -90,7 +91,7 @@ if ($_SESSION["agentID"] == NULL) {
                 </li>
                 </li>
                 <li class="nav-item">
-                    <a href="product.php" class="nav-link">
+                    <a href="#" class="nav-link active">
                         <i class="nav-icon fa fa-shopping-bag"></i>
                         <p>
                             Product
@@ -98,7 +99,7 @@ if ($_SESSION["agentID"] == NULL) {
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="order.php" class="nav-link">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-check-square"></i>
                         <p>
                             Order
@@ -106,7 +107,7 @@ if ($_SESSION["agentID"] == NULL) {
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="salesrpt.php" class="nav-link ">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon ion ion-stats-bars"></i>
                         <p>
                             Sales Report
@@ -114,7 +115,7 @@ if ($_SESSION["agentID"] == NULL) {
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="agentinfo.php" class="nav-link active">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-user-circle"></i>
                         <p>
                             Info
@@ -122,7 +123,7 @@ if ($_SESSION["agentID"] == NULL) {
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="logout.php" class="nav-link">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon ion ion-log-out"></i>
                         <p>
                             Logout
@@ -164,24 +165,46 @@ if ($_SESSION["agentID"] == NULL) {
                                 <form action="order_submit.php" method="POST">
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Name</label>
+                                            <label>Name</label>
                                             <input type="text" class="form-control" placeholder="Enter Name" name="deliveryName" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Phone Number</label>
+                                            <label>Phone Number</label>
                                             <input type="text" class="form-control" placeholder="Enter Phone Number" name="deliveryPhone" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Order Option</label>
-                                            <select class="form-control" onchange='toggleDropdown(this);' name="orderOption" required>
+                                            <select class="form-control" id="orderOption" name="orderOption" required>
+                                                <option disabled selected value>--Select Option--</option>
                                                 <option value="Pickup">Self-Pickup</option>
                                                 <option value="Delivery">Courier Delivery</option>
                                             </select>
                                         </div>
-                                        <div class="form-group">
-                                            <div id="hidden_div">
-                                                <label for="exampleInputPassword1">Address</label>
-                                                <input type="text" class="form-control" placeholder="Enter Address" name="deliveryAddress">
+                                        <div id="hidden_div" style="display:none">
+                                            <div class="form-group" >
+                                                <label>Address</label>
+                                                <input type="text" id="hideadds" class="form-control" placeholder="Enter Address" name="deliveryAddress" required>
+                                            </div>
+                                        </div>
+                                        <div id="hidden_div1" style="display:none">
+                                            <div class="form-group" >
+                                                <label>Pickup Location</label>
+                                                <select class="form-control" name="pickupLocation" id="hideloc" required>
+                                                        <option disabled selected value>--Select Location--</option>
+                                                        <option value="Perlis">Perlis</option>
+                                                        <option value="Kedah" >Kedah</option>
+                                                        <option value="Kelantan">Kelantan</option>
+                                                        <option value="Penang">Penang</option>
+                                                        <option value="Pahang">Pahang</option>
+                                                        <option value="Perak">Perak</option>
+                                                        <option value="Selangor">Selangor</option>
+                                                        <option value="Terengganu">Terengganu</option>
+                                                        <option value="Malacca">Malacca</option>
+                                                        <option value="Johor">Johor</option>
+                                                        <option value="Negeri Sembilan">Negeri Sembilan</option>
+                                                        <option value="Sabah">Sabah</option>
+                                                        <option value="Sarawak">Sarawak</option>
+                                                    </select>
                                             </div>
                                         </div>
                                     </div>
@@ -257,11 +280,11 @@ if ($_SESSION["agentID"] == NULL) {
         <!-- /.content-wrapper -->
 
         <footer class="main-footer">
-      <div class="float-right d-none d-sm-block">
-        <b>Version</b> 1.0
-      </div>
-      <strong>SAM JUN AN 181021172</a></strong>
-    </footer>
+            <div class="float-right d-none d-sm-block">
+                <b>Version</b> 1.0
+            </div>
+            <strong>SAM JUN AN 181021172</a></strong>
+        </footer>
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -280,12 +303,23 @@ if ($_SESSION["agentID"] == NULL) {
     </script>
     <script src="dist/js/adminlte.min.js"></script>
     <script>
- const ac = document.getElementById("hidden_div");
-ac.style.display = "none";
+        $(document).ready(function() {
+            $('#orderOption').on('change', function() {
+                if (this.value == 'Delivery') {
+                    $("#hidden_div").show();
+                    $('#hideloc').removeAttr("required"); 
+                    $("#hidden_div1").hide();
+                    $("#hideadds").attr("required","required");
+ 
+                } else {
+                    $("#hidden_div").hide();
+                    $('#hideadds').removeAttr("required");
+                    $("#hidden_div1").show();
+                    $("#hideloc").attr("required","required");
 
-function toggleDropdown(selObj) {
-  ac.style.display = selObj.value === "Delivery" ? "block" : "none";
-}
+                }
+            });
+        });
     </script>
 
     <script>
