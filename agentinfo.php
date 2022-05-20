@@ -24,7 +24,7 @@ if ($_SESSION["agentID"] == NULL) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Widgets</title>
+    <title>Online Petshop Agent Managment System</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -169,7 +169,14 @@ if ($_SESSION["agentID"] == NULL) {
 
                                     <ul class="list-group list-group-unbordered mb-3">
                                         <li class="list-group-item">
-                                            <b>Agent for</b> <a class="float-right">1,322</a>
+                                        <?php $fromdate = mysqli_query($db, "SELECT * FROM agent WHERE agentID='$agentID'");
+                  $row = mysqli_fetch_array($fromdate);
+                  $from1 = new DateTime($row['agentCreatedate']);
+                  $today1 = new DateTime();
+                  $interval1 = $today1->diff($from1);
+                  $elapsed1 = $interval1->format('%a Days');
+                  ?>
+                                            <b>Agent for</b> <a class="float-right"><?php echo $elapsed1; ?></a>
                                         </li>
                                         <a href="agentinfoedit.php" class="btn btn-primary btn-block"><b>Edit Profile</b></a>
                                         <a href="passwordchg_agent.php" class="btn btn-primary btn-block"><b>Change Password</b></a>
@@ -252,9 +259,9 @@ if ($_SESSION["agentID"] == NULL) {
 
         <footer class="main-footer">
             <div class="float-right d-none d-sm-block">
-                <b>Version</b> 3.2.0
+                <b>Version</b> 1.0
             </div>
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+            <strong>SAM JUN AN 181021172</a></strong>
         </footer>
 
         <!-- Control Sidebar -->

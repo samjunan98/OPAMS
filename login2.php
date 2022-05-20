@@ -6,7 +6,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link href="css/login2.css" rel="stylesheet">
 
-   <title>Agent Login</title>
+   <title>Online Petshop Agent Managment System</title>
 </head>
 
 <body>
