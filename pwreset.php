@@ -49,7 +49,7 @@ if (isset($_POST['agentEmail']) & !empty($_POST['agentEmail'])) {
             mysqli_query($db, "UPDATE agent SET agentPw='$secure_pass' WHERE agentEmail = '$agentEmail'")or die('Error querying database. ' .  mysqli_error($db));
             echo '<script type="text/javascript">';
             echo 'alert("Your Password has been sent to your email id");';
-            echo 'window.location.href = "login2.php";';
+            echo 'window.location.href = "agent_login.php";';
             echo '</script>';
         }
     } else {

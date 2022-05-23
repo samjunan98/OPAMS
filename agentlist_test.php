@@ -52,7 +52,7 @@ if ($_SESSION["adminID"] == NULL) {
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+      <a href="#" class="brand-link">
         <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Petshop</span>
       </a>
@@ -61,7 +61,7 @@ if ($_SESSION["adminID"] == NULL) {
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
+            <img src="getImage_admin.php" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
           </div>
           <div class="info">
             <?php $adminID = $_SESSION['adminID'];
@@ -91,33 +91,15 @@ if ($_SESSION["adminID"] == NULL) {
               </a>
             </li>
             <li class="nav-item">
-              <a href="agentlist.php" class="nav-link">
+              <a href="agentlist_test.php" class="nav-link active">
                 <i class="nav-icon fa fa-users"></i>
                 <p>
                   Agent
-                  <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="agentlist.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>View Agent List</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="agentlist.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Modify Agent</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link active">
+              <a href="#" class="nav-link">
                 <i class="nav-icon fa fa-shopping-bag"></i>
                 <p>
                   Product
@@ -134,7 +116,7 @@ if ($_SESSION["adminID"] == NULL) {
               </ul>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="product_edit.php" class="nav-link active">
+                  <a href="add_product.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Add Product</p>
                   </a>
@@ -142,7 +124,7 @@ if ($_SESSION["adminID"] == NULL) {
               </ul>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="product_edit.php" class="nav-link">
+                  <a href="category_admin.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Manage Category</p>
                   </a>
@@ -150,7 +132,7 @@ if ($_SESSION["adminID"] == NULL) {
               </ul>
             </li>
             <li class="nav-item">
-              <a href="agentlist.php" class="nav-link">
+              <a href="admin_order.php" class="nav-link">
                 <i class="nav-icon fa fa-check-square"></i>
                 <p>
                   Order
@@ -158,7 +140,7 @@ if ($_SESSION["adminID"] == NULL) {
               </a>
             </li>
             <li class="nav-item">
-              <a href="agentlist.php" class="nav-link">
+              <a href="salesrpt.php" class="nav-link">
                 <i class="nav-icon ion ion-stats-bars"></i>
                 <p>
                   Sales Report
@@ -212,44 +194,13 @@ if ($_SESSION["adminID"] == NULL) {
                     <div class="col-sm-3">
                       <input type="text" placeholder="Name" name="agentName" value="<?php if (isset($_GET['agentName'])) {
                                                                                         echo $_GET['agentName'];
-                                                                                      } ?>" class="form-control"><br>
+                                                                                      } ?>" class="form-control">
                     </div>
                     <div class="col-sm-1">
-                      <button type="submit" title="Search" class="btn btn-block btn-info btn-md"><i class="fa fa-search"></i></button><br>
+                      <button type="submit" title="Search" class="btn btn-block btn-info btn-md"><i class="fa fa-search"></i></button>
                     </div>
-                    <div class="col-sm-1"><button onclick="document.location='product.php'" type="button" title="Refresh" class="btn btn-block btn-secondary btn-md"><i class="fa-solid fa-arrows-rotate"></i></button></div>
-                    <div class="col-sm-7"></div><br>
+                    <div class="col-sm-1"><button onclick="document.location='agentlist_test.php'" type="button" title="Refresh" class="btn btn-block btn-secondary btn-md"><i class="fa-solid fa-arrows-rotate"></i></button></div>
                   </div>
-                </form>
-                <form method="GET" action="">
-                  <div class="row">
-                    <div class="col-sm-3"><?php
-                                          $query = "SELECT * FROM category";
-                                          $result1 = mysqli_query($db, $query);
-                                          ?>
-                      <select id="box1" class="form-control" name="taskOption">
-                        <option disabled selected value> Showing: <?php if (isset($_GET['taskOption'])) {
-                                                                    $categoryID = $_GET['taskOption'];
-                                                                    $query22 = "SELECT * FROM category WHERE '$categoryID' = categoryID";
-
-                                                                    $query_run22 = mysqli_query($db, $query22);
-                                                                    while ($row =  mysqli_fetch_array($query_run22)) {
-                                                                      $categoryName = $row['categoryName'];
-                                                                    }
-                                                                    echo $categoryName;
-                                                                  } else {
-                                                                    echo " All ";
-                                                                  } ?> </option>
-                        <?php while ($row1 = mysqli_fetch_array($result1)) :; ?>
-                          <option value="<?php echo $row1[0]; ?>"><?php echo $row1[1]; ?></option>
-                        <?php endwhile; ?>
-                      </select>
-                    </div>
-                    <div class="col-sm-1"><button type="submit" title="Filter" class="btn btn-block bg-gradient-info btn"></i> <i class="fa-solid fa-filter"></i> </button></a></div>
-                  </div>
-                  <?php
-                  $option = isset($_POST['taskOption']) ? $_POST['taskOption'] : false;
-                  ?>
                 </form>
               </div>
             </div>
@@ -277,9 +228,9 @@ if ($_SESSION["adminID"] == NULL) {
 
                   <tbody style="text-align: center">
                     <?php
-                    if (isset($_GET['agentName'])) {
-                      $agentName = $_GET['agentName'];
-                      $query = "SELECT agentID, agentPhoto, agentName, agentEmail, agentAge, agentPhone, agentGender, agentDOB, agentLocation, agentCreatedate FROM agent WHERE '$agentName' = agentName";
+                    if (isset($_GET['agentName'])) { 
+                      $agentName = mysqli_real_escape_string($db,$_GET['agentName']);
+                      $query = "SELECT agentID, agentPhoto, agentName, agentEmail, agentAge, agentPhone, agentGender, agentDOB, agentLocation, agentCreatedate FROM agent WHERE  agentName LIKE  '%".$agentName."%'";
                       $query_run = mysqli_query($db, $query);
                       if (mysqli_num_rows($query_run) > 0) {
                         foreach ($query_run as $row) {
@@ -374,6 +325,37 @@ if ($_SESSION["adminID"] == NULL) {
   <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
   <script src="dist/js/adminlte.min.js"></script>
+  <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+  <script src="plugins/jszip/jszip.min.js"></script>
+  <script src="plugins/pdfmake/pdfmake.min.js"></script>
+  <script src="plugins/pdfmake/vfs_fonts.js"></script>
+  <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+  <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+  <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+  <script>
+    $(function() {
+      $("#example1").DataTable({
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
+    });
+  </script>
 </body>
 
 </html>

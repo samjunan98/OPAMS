@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('config.php');
+$productDelete = 0;
 $agentID = $_SESSION['agentID'];
 $agentSessionid = $_SESSION['agentSessionid'];
 if ($_SESSION["agentID"] == NULL) {
@@ -51,7 +52,7 @@ if ($_SESSION["agentID"] == NULL) {
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+      <a href="#" class="brand-link">
         <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Petshop</span>
       </a>
@@ -75,66 +76,66 @@ if ($_SESSION["agentID"] == NULL) {
               echo "error";
             } ?>
 
-          <!-- Sidebar Menu -->
-          <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                <li class="nav-item">
-                    <a href="main_agent.php" class="nav-link">
-                        <i class="nav-icon fa fa-home"></i>
-                        <p>
-                            Home
-                        </p>
-                    </a>
-                </li>
-                </li>
-                <li class="nav-item">
-                    <a href="product.php" class="nav-link active">
-                        <i class="nav-icon fa fa-shopping-bag"></i>
-                        <p>
-                            Product
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="order.php" class="nav-link">
-                        <i class="nav-icon fa fa-check-square"></i>
-                        <p>
-                            Order
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="salesrpt_agent.php" class="nav-link">
-                        <i class="nav-icon ion ion-stats-bars"></i>
-                        <p>
-                            Sales Report
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="agentinfo.php" class="nav-link">
-                        <i class="nav-icon fa fa-user-circle"></i>
-                        <p>
-                            Info
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="logout.php" class="nav-link">
-                        <i class="nav-icon ion ion-log-out"></i>
-                        <p>
-                            Logout
-                        </p>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
-            </div>
-            <!-- /.sidebar -->
-        </aside>
+        <li class="nav-item">
+          <a href="main_agent.php" class="nav-link">
+            <i class="nav-icon fa fa-home"></i>
+            <p>
+              Home
+            </p>
+          </a>
+        </li>
+        </li>
+        <li class="nav-item">
+          <a href="product.php" class="nav-link active">
+            <i class="nav-icon fa fa-shopping-bag"></i>
+            <p>
+              Product
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="order.php" class="nav-link">
+            <i class="nav-icon fa fa-check-square"></i>
+            <p>
+              Order
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="salesrpt_agent.php" class="nav-link">
+            <i class="nav-icon ion ion-stats-bars"></i>
+            <p>
+              Sales Report
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="agentinfo.php" class="nav-link">
+            <i class="nav-icon fa fa-user-circle"></i>
+            <p>
+              Info
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="logout.php" class="nav-link">
+            <i class="nav-icon ion ion-log-out"></i>
+            <p>
+              Logout
+            </p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+    </aside>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -198,9 +199,7 @@ if ($_SESSION["agentID"] == NULL) {
                     </div>
                     <div class="col-sm-1"><button type="submit" title="Filter" class="btn btn-block bg-gradient-info btn"></i> <i class="fa-solid fa-filter"></i> </button></a></div>
                   </div>
-                  <?php
-                  $option = isset($_POST['taskOption']) ? $_POST['taskOption'] : false;
-                  ?>
+
                 </form>
               </div>
             </div>
@@ -209,13 +208,13 @@ if ($_SESSION["agentID"] == NULL) {
             <div class="card-body">
               <?php
               if (isset($_GET['productName'])) {
-                $productName = $_GET['productName'];
-                $query = "SELECT productID, productPhoto, productName, productQuantity, productDesc, productSKU FROM product WHERE '$productName' = productName";
+                $productName = mysqli_real_escape_string($db,$_GET['productName']);
+                $query = "SELECT * FROM product WHERE '$productDelete' = productDelete AND productName LIKE  '%".$productName."%'";
                 $query_run = mysqli_query($db, $query);
                 if (mysqli_num_rows($query_run) > 0) {
               ?>
                   <div class="table-responsive">
-                    <table class="table border table-hover">
+                    <table class="table border table-hover"  id="example2">
                       <thead style="text-align: center">
                         <tr class="bg-dark text-white">
                           <th> Photo </th>
@@ -240,100 +239,103 @@ if ($_SESSION["agentID"] == NULL) {
                               </td>
                             </tr>
                           </form>
-                        <?php
-                        }
-                      } else { ?>
-                        <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
-                          <h3><strong>Product Not Found</strong></h3>
-                        </div>
-                      <?php
-                      }
-                    } else if (isset($_GET['taskOption'])) {
-                      $categoryID = $_GET['taskOption'];
-                      $query = "SELECT productID, productPhoto, productName, productQuantity, productDesc, productSKU FROM product WHERE '$categoryID' = categoryID";
-                      $query_run = mysqli_query($db, $query);
-                      if (mysqli_num_rows($query_run) > 0) {
-                      ?>
-                        <div class="table-responsive">
-                          <table class="table border table-hover">
-                            <thead style="text-align: center">
-                              <tr class="bg-dark text-white">
-                                <th> Photo </th>
-                                <th> Name </th>
-                                <th width=10%;> Quantity </th>
-                                <th> Description </th>
-                                <th> SKU </th>
-                                <th> Action </th>
-                              </tr>
-                            </thead>
-                            <tbody style="text-align: center">
-                              <?php foreach ($query_run as $row) {
-                              ?> <form action="add_to_cart.php?productID=<?php echo $row['productID']; ?>" method="POST">
-                                  <tr data-href="productinfo.php?productID=<?php echo $row['productID']; ?>" style="height:100px; cursor:pointer;">
-                                    <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
-                                    <td><?= $row['productName']; ?></td>
-                                    <td><input type="number" class="form-control" name="quantity" min="1" max="<?= $row['productQuantity']; ?>" step="1" value="1"></td>
-                                    <td><?= $row['productDesc']; ?></td>
-                                    <td><?= $row['productSKU']; ?></td>
-                                    <td align="center" width="50" height="40"><?php if ($row['productQuantity'] == '0') { ?> <i style="color:red; font-weight:bold;">Sold Out </i> <?php } else { ?>
-                                        <button type="submit" value="add2cart" title="Add to Cart" class="btn btn-primary btn-block"><i class="fa-solid fa-cart-plus"></i></button></a> <?php } ?>
-                                    </td>
-                                  </tr>
-                                </form>
-                              <?php
-                              }
-                            } else { ?>
-                              <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
-                                <h3><strong>Product Not Found</strong></h3>
-                              </div>
-                            <?php
-                            }
-                          } else {
-                            $query = "SELECT productID, productPhoto, productName, productQuantity, productDesc, productSKU FROM product";
-                            $query_run = mysqli_query($db, $query);
-                            if (mysqli_num_rows($query_run) > 0) {
-                            ?>
-                              <div class="table-responsive">
-                                <table class="table border table-hover">
-                                  <thead style="text-align: center">
-                                    <tr class="bg-dark text-white">
-                                      <th> Photo </th>
-                                      <th> Name </th>
-                                      <th width=10%;> Quantity </th>
-                                      <th> Description </th>
-                                      <th> SKU </th>
-                                      <th> Action </th>
-                                    </tr>
-                                  </thead>
-                                  <tbody style="text-align: center">
-                                    <?php foreach ($query_run as $row) {
-                                    ?> <form action="add_to_cart.php?productID=<?php echo $row['productID']; ?>" method="POST">
-                                        <tr data-href="productinfo.php?productID=<?php echo $row['productID']; ?>" style="height:100px; cursor:pointer;">
-                                          <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
-                                          <td><?= $row['productName']; ?></td>
-                                          <td><input type="number" class="form-control" name="quantity" min="1" max="<?= $row['productQuantity']; ?>" step="1" value="1"></td>
-                                          <td><?= $row['productDesc']; ?></td>
-                                          <td><?= $row['productSKU']; ?></td>
-                                          <td align="center" width="50" height="40"><?php if ($row['productQuantity'] == '0') { ?> <i style="color:red; font-weight:bold;">Sold Out </i> <?php } else { ?>
-                                              <button type="submit" value="add2cart" title="Add to Cart" class="btn btn-primary btn-block"><i class="fa-solid fa-cart-plus"></i></button></a> <?php } ?>
-                                          </td>
-                                        </tr>
-                                      </form>
-                                    <?php
-                                    }
-                                  } else { ?>
-                                    <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
-                                      <h3><strong>Product Not Found</strong></h3>
-                                    </div>
-                                <?php
-                                  }
-                                }
-                                ?>
-                                  </tbody>
-                                </table>
-                              </div>
-                        </div>
+                        <?php } ?>
+                      </tbody>
+                    </table>
                   </div>
+                <?php
+                } else { ?>
+                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                    <h3><strong>Product Not Found</strong></h3>
+                  </div>
+                <?php
+                }
+              } else if (isset($_GET['taskOption'])) {
+                $categoryID = $_GET['taskOption'];
+                $query = "SELECT productID, productPhoto, productName, productQuantity, productDesc, productSKU FROM product WHERE '$categoryID' = categoryID AND '$productDelete' = productDelete";
+                $query_run = mysqli_query($db, $query);
+                if (mysqli_num_rows($query_run) > 0) {
+                ?>
+                  <div class="table-responsive">
+                    <table class="table border table-hover"  id="example2">
+                      <thead style="text-align: center">
+                        <tr class="bg-dark text-white">
+                          <th> Photo </th>
+                          <th> Name </th>
+                          <th width=10%;> Quantity </th>
+                          <th> Description </th>
+                          <th> SKU </th>
+                          <th> Action </th>
+                        </tr>
+                      </thead>
+                      <tbody style="text-align: center">
+                        <?php foreach ($query_run as $row) {
+                        ?> <form action="add_to_cart.php?productID=<?php echo $row['productID']; ?>" method="POST">
+                            <tr data-href="productinfo.php?productID=<?php echo $row['productID']; ?>" style="height:100px; cursor:pointer;">
+                              <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
+                              <td><?= $row['productName']; ?></td>
+                              <td><input type="number" class="form-control" name="quantity" min="1" max="<?= $row['productQuantity']; ?>" step="1" value="1"></td>
+                              <td><?= $row['productDesc']; ?></td>
+                              <td><?= $row['productSKU']; ?></td>
+                              <td align="center" width="50" height="40"><?php if ($row['productQuantity'] == '0') { ?> <i style="color:red; font-weight:bold;">Sold Out </i> <?php } else { ?>
+                                  <button type="submit" value="add2cart" title="Add to Cart" class="btn btn-primary btn-block"><i class="fa-solid fa-cart-plus"></i></button></a> <?php } ?>
+                              </td>
+                            </tr>
+                          </form>
+                        <?php } ?>
+                      </tbody>
+                    </table>
+                  </div>
+                <?php } else { ?>
+                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                    <h3><strong>Product Not Found</strong></h3>
+                  </div>
+                <?php
+                }
+              } else {
+                $query = "SELECT productID, productPhoto, productName, productQuantity, productDesc, productSKU FROM product WHERE '$productDelete' = productDelete";
+                $query_run = mysqli_query($db, $query);
+                if (mysqli_num_rows($query_run) > 0) {
+                ?>
+                  <div class="table-responsive">
+                    <table class="table border table-hover"  id="example2">
+                      <thead style="text-align: center">
+                        <tr class="bg-dark text-white">
+                          <th> Photo </th>
+                          <th> Name </th>
+                          <th width=10%;> Quantity </th>
+                          <th> Description </th>
+                          <th> SKU </th>
+                          <th> Action </th>
+                        </tr>
+                      </thead>
+                      <tbody style="text-align: center">
+                        <?php foreach ($query_run as $row) {
+                        ?> <form action="add_to_cart.php?productID=<?php echo $row['productID']; ?>" method="POST">
+                            <tr data-href="productinfo.php?productID=<?php echo $row['productID']; ?>" style="height:100px; cursor:pointer;">
+                              <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
+                              <td><?= $row['productName']; ?></td>
+                              <td><input type="number" class="form-control" name="quantity" min="1" max="<?= $row['productQuantity']; ?>" step="1" value="1"></td>
+                              <td><?= $row['productDesc']; ?></td>
+                              <td><?= $row['productSKU']; ?></td>
+                              <td align="center" width="50" height="40"><?php if ($row['productQuantity'] == '0') { ?> <i style="color:red; font-weight:bold;">Sold Out </i> <?php } else { ?>
+                                  <button type="submit" value="add2cart" title="Add to Cart" class="btn btn-primary btn-block"><i class="fa-solid fa-cart-plus"></i></button></a> <?php } ?>
+                              </td>
+                            </tr>
+                          </form>
+                        <?php } ?>
+                      </tbody>
+                    </table>
+                  </div>
+                <?php
+                } else { ?>
+                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                    <h3><strong>Product Not Found</strong></h3>
+                  </div>
+              <?php
+                }
+              }
+              ?>
             </div>
           </div>
         </div>
@@ -368,6 +370,37 @@ if ($_SESSION["agentID"] == NULL) {
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
   </script>
   <script src="dist/js/adminlte.min.js"></script>
+  <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+  <script src="plugins/jszip/jszip.min.js"></script>
+  <script src="plugins/pdfmake/pdfmake.min.js"></script>
+  <script src="plugins/pdfmake/vfs_fonts.js"></script>
+  <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+  <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+  <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+  <script>
+    $(function() {
+      $("#example1").DataTable({
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
+    });
+  </script>
 
 
 </body>

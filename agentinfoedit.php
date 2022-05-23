@@ -51,7 +51,7 @@ if ($_SESSION["agentID"] == NULL) {
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="#" class="brand-link">
                 <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Petshop</span>
             </a>
@@ -185,7 +185,7 @@ if ($_SESSION["agentID"] == NULL) {
                                     <form class="form-horizontal" method="POST" action="agenteditsave.php" enctype="multipart/form-data">
                                         <div class="card-body">
                                             <div class="form-group row">
-                                                <label for="inputEmail3" class="col-sm-2 col-form-label">Profile Photo</label>
+                                                <label class="col-sm-2 col-form-label">Profile Photo</label>
                                                 <div class="col-sm-10">
                                                     <?php echo '<img src="data:image;base64,' . base64_encode($row['agentPhoto']) . '"alt="Image" id="blah" style="width: 200px; height:200px;">'; ?><br>
 

@@ -53,7 +53,7 @@ if ($_SESSION["adminID"] == NULL) {
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+      <a href="#" class="brand-link">
         <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Petshop</span>
       </a>
@@ -62,7 +62,7 @@ if ($_SESSION["adminID"] == NULL) {
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
+            <img src="getImage_admin.php" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
           </div>
           <div class="info">
             <?php $adminID = $_SESSION['adminID'];
@@ -92,30 +92,12 @@ if ($_SESSION["adminID"] == NULL) {
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="agentlist_test.php" class="nav-link">
                 <i class="nav-icon fa fa-users"></i>
                 <p>
                   Agent
-                  <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="agentlist_test.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>View Agent List</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="agentlist_.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Modify Agent</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -143,7 +125,7 @@ if ($_SESSION["adminID"] == NULL) {
               </ul>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="product_edit.php" class="nav-link">
+                  <a href="category_admin.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Manage Category</p>
                   </a>
@@ -225,12 +207,11 @@ if ($_SESSION["adminID"] == NULL) {
             <?php
             $salesMonth = date("m");
             $salesYear = date("Y");
-            $querydash = "SELECT * FROM salesreport WHERE salesMonth='$salesMonth' AND salesYear='$salesYear'";
+            $querydash = "SELECT SUM(salesGenerated) AS salesGenerated FROM salesreport WHERE salesMonth='$salesMonth' AND salesYear='$salesYear'";
             $resultdash = mysqli_query($db, $querydash) or die('Error querying database. ' .  mysqli_error($db));
             if (mysqli_num_rows($resultdash) > 0) {
               $row = mysqli_fetch_array($resultdash);
               $salesGenerated = $row['salesGenerated'];
-              $salesCommission = $row['salesCommission'];
             ?>
               <!-- ./col -->
               <div class="col-lg-3 col-6">
@@ -259,7 +240,7 @@ if ($_SESSION["adminID"] == NULL) {
                 </div>
               </div>
             <?php }
-            $res2 = mysqli_query($db, "SELECT * FROM product");
+            $res2 = mysqli_query($db, "SELECT * FROM product WHERE productDelete = 0");
             ?>
             <!-- ./col -->
             <div class="col-lg-3 col-6">

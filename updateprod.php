@@ -61,7 +61,7 @@ if ($_SESSION["adminID"] == NULL) {
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                <div class="image">
-                  <img src="" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
+                  <img src="getImage_admin.php" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
                </div>
                <div class="info">
                   <?php $adminID = $_SESSION['adminID'];
@@ -83,7 +83,7 @@ if ($_SESSION["adminID"] == NULL) {
                   <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                   <li class="nav-item">
-                     <a href="main_admin.php" class="nav-link active">
+                     <a href="main_admin.php" class="nav-link">
                         <i class="nav-icon fa fa-home"></i>
                         <p>
                            Home
@@ -91,33 +91,15 @@ if ($_SESSION["adminID"] == NULL) {
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a href="agentlist.php" class="nav-link">
+                     <a href="agentlist_test.php" class="nav-link">
                         <i class="nav-icon fa fa-users"></i>
                         <p>
                            Agent
-                           <i class="right fas fa-angle-left"></i>
                         </p>
                      </a>
-                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                           <a href="agentlist.php" class="nav-link">
-                              <i class="far fa-circle nav-icon"></i>
-                              <p>View Agent List</p>
-                           </a>
-                        </li>
-                     </ul>
-                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                           <a href="agentlist.php" class="nav-link">
-                              <i class="far fa-circle nav-icon"></i>
-                              <p>Modify Agent</p>
-                           </a>
-                        </li>
-                     </ul>
-                  </li>
                   </li>
                   <li class="nav-item">
-                     <a href="#" class="nav-link">
+                     <a href="#" class="nav-link active">
                         <i class="nav-icon fa fa-shopping-bag"></i>
                         <p>
                            Product
@@ -126,7 +108,7 @@ if ($_SESSION["adminID"] == NULL) {
                      </a>
                      <ul class="nav nav-treeview">
                         <li class="nav-item">
-                           <a href="product_edit.php" class="nav-link">
+                           <a href="product_edit.php" class="nav-link active">
                               <i class="far fa-circle nav-icon"></i>
                               <p>View Product List</p>
                            </a>
@@ -142,7 +124,7 @@ if ($_SESSION["adminID"] == NULL) {
                      </ul>
                      <ul class="nav nav-treeview">
                         <li class="nav-item">
-                           <a href="product_edit.php" class="nav-link">
+                           <a href="category_admin.php" class="nav-link">
                               <i class="far fa-circle nav-icon"></i>
                               <p>Manage Category</p>
                            </a>
@@ -150,7 +132,7 @@ if ($_SESSION["adminID"] == NULL) {
                      </ul>
                   </li>
                   <li class="nav-item">
-                     <a href="agentlist.php" class="nav-link">
+                     <a href="admin_order.php" class="nav-link">
                         <i class="nav-icon fa fa-check-square"></i>
                         <p>
                            Order
@@ -158,7 +140,7 @@ if ($_SESSION["adminID"] == NULL) {
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a href="agentlist.php" class="nav-link">
+                     <a href="salesrpt.php" class="nav-link">
                         <i class="nav-icon ion ion-stats-bars"></i>
                         <p>
                            Sales Report
@@ -214,7 +196,7 @@ if ($_SESSION["adminID"] == NULL) {
                            <form class="form-horizontal" method="POST" action="edit_product.php?productID=<?php echo $productID; ?>" enctype="multipart/form-data">
                               <div class="card-body">
                                  <div class="form-group row">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Product Photo</label>
+                                    <label class="col-sm-2 col-form-label">Product Photo</label>
                                     <div class="col-sm-10">
                                        <?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" id="blah" style="width: 200px; height:200px;">'; ?><br>
 
@@ -310,6 +292,10 @@ if ($_SESSION["adminID"] == NULL) {
    <!-- bootstrap 4 js -->
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
    </script>
+   <script src="plugins/jquery/jquery.min.js"></script>
+   <!-- Bootstrap 4 -->
+   <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <!-- AdminLTE App -->
    <script src="dist/js/adminlte.min.js"></script>
    <script>
       function readURL(input) {

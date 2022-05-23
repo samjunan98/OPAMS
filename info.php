@@ -53,7 +53,7 @@ if ($_SESSION["adminID"] == NULL) {
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+      <a href="#" class="brand-link">
         <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Petshop</span>
       </a>
@@ -62,7 +62,7 @@ if ($_SESSION["adminID"] == NULL) {
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
+            <img src="getImage_admin.php" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
           </div>
           <div class="info">
             <?php $adminID = $_SESSION['adminID'];
@@ -92,30 +92,12 @@ if ($_SESSION["adminID"] == NULL) {
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="agentlist_test.php" class="nav-link">
                 <i class="nav-icon fa fa-users"></i>
                 <p>
                   Agent
-                  <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="agentlist_test.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>View Agent List</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="agentlist_.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Modify Agent</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -143,7 +125,7 @@ if ($_SESSION["adminID"] == NULL) {
               </ul>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="product_edit.php" class="nav-link">
+                  <a href="category_admin.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Manage Category</p>
                   </a>
@@ -211,7 +193,7 @@ if ($_SESSION["adminID"] == NULL) {
               <div class="card card-primary card-outline">
                 <div class="card-body box-profile">
                   <div class="text-center">
-                    <img class="profile-user-img img-fluid img-circle" src="getImage.php" alt="User profile picture" style="width: 150px; height:150px;">
+                    <img class="profile-user-img img-fluid img-circle" src="getImage_admin.php" alt="User profile picture" style="width: 150px; height:150px;">
                   </div>
 
                   <h3 class="profile-username text-center"><?php foreach ($query_run as $row) {
@@ -234,7 +216,7 @@ if ($_SESSION["adminID"] == NULL) {
             $row = mysqli_fetch_array($query); ?>
             <div class="col-md-8">
               <div class="card card-primary card-outline">
-                <div class="card-body">
+                <div class="card-info">
                   <form class="form-horizontal">
                     <fieldset disabled="disabled">
                       <div class="card-body">

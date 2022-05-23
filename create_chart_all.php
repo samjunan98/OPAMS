@@ -4,7 +4,8 @@ include('config.php');
 //setting header to json
 header('Content-Type: application/json');
 //query to get data from the table
-$query = sprintf("SELECT salesGenerated, salesMonth FROM salesreport ORDER BY salesMonth");
+$salesYear = date("Y");
+$query = sprintf("SELECT SUM(salesGenerated) AS salesGenerated, salesMonth FROM salesreport WHERE salesYear = '$salesYear' GROUP BY salesMonth ORDER BY salesMonth");
 
 //execute query
 $result = $db->query($query);
@@ -15,6 +16,7 @@ foreach ($result as $row) {
   $row['salesMonth'] = date("F", mktime(0, 0, 0,$row['salesMonth'] , 10));
   $data[] = $row;
 }
+
 //free memory associated with result
 $result->close();
 

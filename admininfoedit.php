@@ -53,7 +53,7 @@ if ($_SESSION["adminID"] == NULL) {
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+      <a href="#" class="brand-link">
         <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Petshop</span>
       </a>
@@ -62,7 +62,7 @@ if ($_SESSION["adminID"] == NULL) {
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
+            <img src="getImage_admin.php" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
           </div>
           <div class="info">
             <?php $adminID = $_SESSION['adminID'];
@@ -84,7 +84,7 @@ if ($_SESSION["adminID"] == NULL) {
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="main_admin.php" class="nav-link active">
+              <a href="main_admin.php" class="nav-link">
                 <i class="nav-icon fa fa-home"></i>
                 <p>
                   Home
@@ -92,30 +92,12 @@ if ($_SESSION["adminID"] == NULL) {
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="agentlist_test.php" class="nav-link">
                 <i class="nav-icon fa fa-users"></i>
                 <p>
                   Agent
-                  <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="agentlist_test.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>View Agent List</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="agentlist_.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Modify Agent</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -143,7 +125,7 @@ if ($_SESSION["adminID"] == NULL) {
               </ul>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="product_edit.php" class="nav-link">
+                  <a href="category_admin.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Manage Category</p>
                   </a>
@@ -167,7 +149,7 @@ if ($_SESSION["adminID"] == NULL) {
               </a>
             </li>
             <li class="nav-item">
-              <a href="info.php" class="nav-link">
+              <a href="info.php" class="nav-link active">
                 <i class="nav-icon fa fa-user-circle"></i>
                 <p>
                   Info
@@ -190,118 +172,122 @@ if ($_SESSION["adminID"] == NULL) {
     </aside>
 
     <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>Profile</h1>
-                        </div>
-                    </div>
-                </div><!-- /.container-fluid -->
-            </section>
-            <!-- /.content-wrapper -->
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-4">
-
-                            <!-- Profile Image -->
-                            <div class="card card-primary card-outline">
-                                <div class="card-body box-profile">
-                                    <div class="text-center">
-                                        <img class="profile-user-img img-fluid img-circle" src="getImage.php" alt="User profile picture" style="width: 150px; height:150px;">
-                                    </div>
-
-                                    <h3 class="profile-username text-center"><?php foreach ($query_run as $row) {
-                                                                                    echo $row['agentName'];
-                                                                                } ?></h3>
-
-                                    <p class="text-muted text-center">Agent</p>
-
-                                    <ul class="list-group list-group-unbordered mb-3">
-                                        <li class="list-group-item">
-                                            <b>Agent for</b> <a class="float-right">1,322</a>
-                                        </li>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-                        </div>
-                        <!-- /.col -->
-                        <?php
-                        $query = mysqli_query($db, "SELECT * FROM agent WHERE agentID='$agentID'");
-                        $row = mysqli_fetch_array($query); ?>
-                        <div class="col-md-8">
-                            <div class="card card-primary card-outline">
-                                <div class="card-info">
-                                    <form class="form-horizontal" method="POST" action="pwchg_validate.php">
-                                        <div class="card-body">
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label">Old Password</label>
-                                                <div class="col-sm-10">
-                                                    <input type="password" class="form-control" name="oldpw" placeholder="Enter Old Password">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label">New Password</label>
-                                                <div class="col-sm-10">
-                                                    <input type="password" class="form-control" name="newpw1" placeholder="Enter New Password">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label">Confirm New Password</label>
-                                                <div class="col-sm-10">
-                                                    <input type="password" class="form-control" name="newpw2" placeholder="Confirm New Password">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-footer">
-                                            <button type="submit" class="btn btn-info">Save Changes</button>
-                                            <button type="button" onclick="document.location='agentinfo.php'" class="btn btn-default float-right">Cancel</button>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div><!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                    </div>
-                    <!-- /.col -->
-                </div>
-            </section>
-
-            <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
-                <i class="fas fa-chevron-up"></i>
-            </a>
-        </div>
-        <!-- /.content-wrapper -->
-
-        <footer class="main-footer">
-            <div class="float-right d-none d-sm-block">
-                <b>Version</b> 1.0
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Profile</h1>
             </div>
-            <strong>SAM JUN AN 181021172</a></strong>
-        </footer>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+      <!-- /.content-wrapper -->
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-4">
+              <!-- Profile Image -->
+              <div class="card card-primary card-outline">
+                <div class="card-body box-profile">
+                  <div class="text-center">
+                    <img class="profile-user-img img-fluid img-circle" src="getImage_admin.php" alt="User profile picture" style="width: 150px; height:150px;">
+                  </div>
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+                  <h3 class="profile-username text-center"><?php foreach ($query_run as $row) {
+                                                              echo $row['adminName'];
+                                                            } ?></h3>
+
+                  <p class="text-muted text-center">Admin</p>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+            <!-- /.col -->
+            <?php
+            $query = mysqli_query($db, "SELECT * FROM admin WHERE adminID='$adminID'");
+            $row = mysqli_fetch_array($query); ?>
+            <div class="col-md-8">
+              <div class="card card-primary card-outline">
+                <div class="card-info">
+                  <form class="form-horizontal" method= "POST" action="admineditsave.php" enctype="multipart/form-data">
+                    <div class="card-body">
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Profile Photo</label>
+                        <div class="col-sm-10">
+                          <?php echo '<img src="data:image;base64,' . base64_encode($row['adminPhoto']) . '"alt="Image" id="blah" style="width: 200px; height:200px;">'; ?><br>
+
+                          <input type="file" class="form-control" name="adminPhoto" style="height:50px" onchange="readURL(this);">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                          <input type="text" name="adminName" class="form-control" value="<?php echo $row['adminName']; ?>">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                          <input type="email" name="adminEmail" class="form-control" value="<?php echo $row['adminEmail']; ?>">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                      <button type="submit" class="btn btn-info">Save Changes</button>
+                      <button type="button" onclick="document.location='info.php'" class="btn btn-default float-right">Cancel</button>
+                    </div>
+                  </form> <!-- /.card-footer -->
+                </div><!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+            <!-- /.col -->
+          </div>
+        </div>
+      </section>
+
+      <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+      </a>
     </div>
-    <!-- ./wrapper -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-    </script>
-    <!-- bootstrap 4 popper js -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-    </script>
-    <!-- bootstrap 4 js -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-    </script>
-    <script src="dist/js/adminlte.min.js"></script>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+      <div class="float-right d-none d-sm-block">
+        <b>Version</b> 1.0
+      </div>
+      <strong>SAM JUN AN 181021172</a></strong>
+    </footer>
 
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+  </div>
+  <!-- ./wrapper -->
+
+  <!-- jQuery -->
+  <script src="plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="dist/js/adminlte.min.js"></script>
+  <script>
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          $('#blah').attr('src', e.target.result).width(200).height(200);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+  </script>
 </body>
 
 </html>

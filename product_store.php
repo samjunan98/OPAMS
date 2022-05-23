@@ -29,5 +29,8 @@ include("config.php");
              }
         }
 }
+else{
+        echo "Error";
+}
 mysqli_close($db);
 ?>

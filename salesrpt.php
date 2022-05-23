@@ -29,11 +29,12 @@ if ($_SESSION["adminID"] == NULL) {
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="plugins/fontawesome-free-6.1.1-web/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
@@ -51,7 +52,7 @@ if ($_SESSION["adminID"] == NULL) {
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+      <a href="#" class="brand-link">
         <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Petshop</span>
       </a>
@@ -60,7 +61,7 @@ if ($_SESSION["adminID"] == NULL) {
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
+            <img src="getImage_admin.php" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
           </div>
           <div class="info">
             <?php $adminID = $_SESSION['adminID'];
@@ -78,228 +79,265 @@ if ($_SESSION["adminID"] == NULL) {
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+            <li class="nav-item">
+              <a href="main_admin.php" class="nav-link">
+                <i class="nav-icon fa fa-home"></i>
+                <p>
+                  Home
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="agentlist_test.php" class="nav-link">
+                <i class="nav-icon fa fa-users"></i>
+                <p>
+                  Agent
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fa fa-shopping-bag"></i>
+                <p>
+                  Product
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="main_agent.php" class="nav-link">
-                        <i class="nav-icon fa fa-home"></i>
-                        <p>
-                            Home
-                        </p>
-                    </a>
+                  <a href="product_edit.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>View Product List</p>
+                  </a>
                 </li>
-                </li>
+              </ul>
+              <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="product.php" class="nav-link">
-                        <i class="nav-icon fa fa-shopping-bag"></i>
-                        <p>
-                            Product
-                        </p>
-                    </a>
+                  <a href="add_product.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Add Product</p>
+                  </a>
                 </li>
+              </ul>
+              <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="order.php" class="nav-link">
-                        <i class="nav-icon fa fa-check-square"></i>
-                        <p>
-                            Order
-                        </p>
-                    </a>
+                  <a href="category_admin.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Manage Category</p>
+                  </a>
                 </li>
-                <li class="nav-item">
-                    <a href="salesrpt.php" class="nav-link active ">
-                        <i class="nav-icon ion ion-stats-bars"></i>
-                        <p>
-                            Sales Report
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="agentinfo.php" class="nav-link">
-                        <i class="nav-icon fa fa-user-circle"></i>
-                        <p>
-                            Info
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="logout.php" class="nav-link">
-                        <i class="nav-icon ion ion-log-out"></i>
-                        <p>
-                            Logout
-                        </p>
-                    </a>
-                </li>
-            </ul>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="admin_order.php" class="nav-link">
+                <i class="nav-icon fa fa-check-square"></i>
+                <p>
+                  Order
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="salesrpt.php" class="nav-link active">
+                <i class="nav-icon ion ion-stats-bars"></i>
+                <p>
+                  Sales Report
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="info.php" class="nav-link">
+                <i class="nav-icon fa fa-user-circle"></i>
+                <p>
+                  Info
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="logout.php" class="nav-link">
+                <i class="nav-icon ion ion-log-out"></i>
+                <p>
+                  Logout
+                </p>
+              </a>
+            </li>
+          </ul>
         </nav>
         <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+    </aside>
+
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Sales Report</h1>
             </div>
-            <!-- /.sidebar -->
-        </aside>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+      <section class="content">
+        <div class="container-fluid">
+          <div class="table-title">
+            <div class="card mt-12">
+              <div class="card-body">
+                <form method="GET" action="">
+                  <div class="row">
+                    <div class="col-sm-auto"><label>Agent:</label></div>
+                    <div class="col-sm-3">
+                      <select id="box1" class="form-control" name="agentID">
+                        <option disabled selected value> Showing: <?php
 
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>Sales Report</h1>
-                        </div>
+                                                                  if (isset($_GET['agentID'])) {
+                                                                    $agentID_select = $_GET['agentID'];
+                                                                    $query0 = "SELECT agent.agentName FROM salesreport INNER JOIN agent ON salesreport.agentID = agent.agentID WHERE '$agentID_select' = agent.agentID";
+                                                                    $query_run0 = mysqli_query($db, $query0);
+                                                                    while ($row =  mysqli_fetch_array($query_run0)) {
+                                                                      $agentName_echo = $row['agentName'];
+                                                                    }
+                                                                    echo "ID:[" . $agentID_select . "] Name: " . $agentName_echo;
+                                                                  } else {
+                                                                    echo " All ";
+                                                                  } ?> </option>
+
+                        <?php $query = "SELECT salesreport.agentID,agent.agentName FROM agent INNER JOIN salesreport ON agent.agentID= salesreport.agentID  GROUP BY salesreport.agentID";
+                        $result1 = mysqli_query($db, $query);
+                        while ($row1 = mysqli_fetch_array($result1)) :; ?>
+                          <option value="<?php echo $row1['agentID']; ?>"><?php echo "ID:[" .  $row1['agentID'] . "] Name: " . $row1['agentName']; ?></option>
+                        <?php endwhile; ?>
+                      </select>
                     </div>
-                </div><!-- /.container-fluid -->
-            </section>
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="table-title">
-                        <div class="card mt-12">
-                            <div class="card-body">
-                                <form method="GET" action="">
-                                    <div class="row">
-                                        <div class="col-sm-auto"><label>Agent:</label></div>
-                                        <div class="col-sm-3">
-                                            <select id="box1" class="form-control" name="agentID">
-                                                <option disabled selected value> Showing: <?php
-
-                                                                                            if (isset($_GET['agentID'])) {
-                                                                                                $agentID_select = $_GET['agentID'];
-                                                                                                $query0 = "SELECT agent.agentName FROM salesreport INNER JOIN agent ON salesreport.agentID = agent.agentID WHERE '$agentID_select' = agent.agentID";
-                                                                                                $query_run0 = mysqli_query($db, $query0);
-                                                                                                while ($row =  mysqli_fetch_array($query_run0)) {
-                                                                                                    $agentID_echo = $row['agentName'];
-                                                                                                }
-                                                                                                echo $agentID_echo;
-                                                                                            } else {
-                                                                                                echo " All ";
-                                                                                            } ?> </option>
-
-                                                <?php $query = "SELECT salesreport.agentID,agent.agentName FROM agent INNER JOIN salesreport ON agent.agentID= salesreport.agentID";
-                                                $result1 = mysqli_query($db, $query);
-                                                while ($row1 = mysqli_fetch_array($result1)) :; ?>
-                                                    <option value="<?php echo $row1['agentID']; ?>"><?php echo "ID:[" . $row1['agentID'] . "] Name: " . $row1['agentName']; ?></option>
-                                                <?php endwhile; ?>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-1">
-                                            <button class="btn btn-block btn-info btn-md" type="submit" title="Search"><span class="fa-solid fa-search"></span></button>
-                                        </div>
-                                        <div class="col-sm-1"><button onclick="document.location='salesrpt.php'" type="button" title="Refresh" class="btn btn-block btn-secondary btn-md"><i class="fa-solid fa-arrows-rotate"></i></button></div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                    <div class="col-sm-1">
+                      <button class="btn btn-block btn-info btn-md" type="submit" title="Search"><span class="fa-solid fa-search"></span></button>
                     </div>
-
-
-
-                    <div class="card mt-12">
-                        <div class="card-body">
-                            <?php
-                            if (isset($_GET['agentID'])) {
-                                $query = "SELECT * FROM salesreport WHERE '$agentID' = agentID";
-                                $query_run = mysqli_query($db, $query);
-                                echo mysqli_error($db);
-                                if (mysqli_num_rows($query_run) > 0) {
-                            ?>
-                                    <div class="table-responsive">
-                                        <table class="table border table-hover">
-                                            <thead style="text-align: center">
-                                                <tr class="bg-dark text-white">
-                                                    <th> Agent ID </th>
-                                                    <th> Month </th>
-                                                    <th> Year </th>
-                                                    <th> Sales Generated </th>
-                                                    <th> Commission </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody style="text-align: center">
-                                                <?php foreach ($query_run as $row) { ?>
-                                                    <tr>
-                                                        <td><?= $row['agentID']; ?></td>
-                                                        <td><?= $row['salesMonth']; ?></td>
-                                                        <td><?= $row['salesYear']; ?></td>
-                                                        <td><?php echo "RM" . $row['salesGenerated']; ?></td>
-                                                        <td><?php echo "RM" . $row['salesCommission']; ?></td>
-                                                    </tr>
-                                                <?php
-                                                }
-                                            } else { ?>
-                                                <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://www.kindpng.com/picc/m/280-2801416_customer-order-orders-icon-clipart-png-download-order.png" width="130" height="130" class="img-fluid mb-4 mr-3">
-                                                    <h3><strong>Sales Report Not Found</strong></h3>
-                                                </div>
-                                            <?php
-                                            }
-                                        } else {
-                                            $query = "SELECT * FROM salesreport WHERE '$agentID' = agentID";
-                                            $query_run = mysqli_query($db, $query);
-                                            echo mysqli_error($db);
-                                            if (mysqli_num_rows($query_run) > 0) {
-                                            ?>
-                                                <div class="table-responsive">
-                                                    <table class="table border table-hover">
-                                                        <thead style="text-align: center">
-                                                            <tr class="bg-dark text-white">
-                                                                <th> Agent ID </th>
-                                                                <th> Month </th>
-                                                                <th> Year </th>
-                                                                <th> Sales Generated </th>
-                                                                <th> Commission </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody style="text-align: center">
-                                                            <?php foreach ($query_run as $row) { ?>
-                                                                <tr>
-                                                                    <td><?= $row['agentID']; ?></td>
-                                                                    <td><?= $row['salesMonth']; ?></td>
-                                                                    <td><?= $row['salesYear']; ?></td>
-                                                                    <td><?php echo "RM" . $row['salesGenerated']; ?></td>
-                                                                    <td><?php echo "RM" . $row['salesCommission']; ?></td>
-                                                                </tr>
-                                                            <?php
-                                                            }
-                                                        } else { ?>
-                                                            <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://www.kindpng.com/picc/m/280-2801416_customer-order-orders-icon-clipart-png-download-order.png" width="130" height="130" class="img-fluid mb-4 mr-3">
-                                                                <h3><strong>Sales Report Not Found</strong></h3>
-                                                            </div>
-                                                    <?php
-                                                        }
-                                                    } ?>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-
-
-                                    </div>
-                        </div>
-            </section>
-            <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
-                <i class="fas fa-chevron-up"></i>
-            </a>
-        </div>
-        <!-- /.content-wrapper -->
-
-        <footer class="main-footer">
-            <div class="float-right d-none d-sm-block">
-                <b>Version</b> 1.0
+                    <div class="col-sm-1"><button onclick="document.location='salesrpt.php'" type="button" title="Refresh" class="btn btn-block btn-secondary btn-md"><i class="fa-solid fa-arrows-rotate"></i></button></div>
+                  </div>
+                </form>
+              </div>
             </div>
-            <strong>SAM JUN AN 181021172</a></strong>
-        </footer>
+          </div>
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+
+
+          <div class="card mt-12">
+            <div class="card-body">
+              <?php
+              if (isset($_GET['agentID'])) {
+                $agentID = $_GET['agentID'];
+                $query = "SELECT * FROM salesreport WHERE '$agentID' = agentID";
+                $query_run = mysqli_query($db, $query);
+                echo mysqli_error($db);
+                if (mysqli_num_rows($query_run) > 0) {
+              ?>
+                  <div class="table-responsive">
+                    <table class="table border table-hover">
+                      <thead style="text-align: center">
+                        <tr class="bg-dark text-white">
+                          <th> Agent ID </th>
+                          <th> Month </th>
+                          <th> Year </th>
+                          <th> Sales Generated </th>
+                          <th> Commission </th>
+                        </tr>
+                      </thead>
+                      <tbody style="text-align: center">
+                        <?php foreach ($query_run as $row) { ?>
+                          <tr>
+                            <td><?= $row['agentID']; ?></td>
+                            <td><?= $row['salesMonth']; ?></td>
+                            <td><?= $row['salesYear']; ?></td>
+                            <td><?php echo "RM" . $row['salesGenerated']; ?></td>
+                            <td><?php echo "RM" . $row['salesCommission']; ?></td>
+                          </tr>
+                        <?php
+                        }
+                      } else { ?>
+                        <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://www.kindpng.com/picc/m/280-2801416_customer-order-orders-icon-clipart-png-download-order.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                          <h3><strong>Sales Report Not Found</strong></h3>
+                        </div>
+                      <?php
+                      }
+                    } else {
+                      $query = "SELECT * FROM salesreport";
+                      $query_run = mysqli_query($db, $query);
+                      echo mysqli_error($db);
+                      if (mysqli_num_rows($query_run) > 0) {
+                      ?>
+                        <div class="table-responsive">
+                          <table class="table border table-hover">
+                            <thead style="text-align: center">
+                              <tr class="bg-dark text-white">
+                                <th> Agent ID </th>
+                                <th> Month </th>
+                                <th> Year </th>
+                                <th> Sales Generated </th>
+                                <th> Commission </th>
+                              </tr>
+                            </thead>
+                            <tbody style="text-align: center">
+                              <?php foreach ($query_run as $row) { ?>
+                                <tr>
+                                  <td><?= $row['agentID']; ?></td>
+                                  <td><?= $row['salesMonth']; ?></td>
+                                  <td><?= $row['salesYear']; ?></td>
+                                  <td><?php echo "RM" . $row['salesGenerated']; ?></td>
+                                  <td><?php echo "RM" . $row['salesCommission']; ?></td>
+                                </tr>
+                              <?php
+                              }
+                            } else { ?>
+                              <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://www.kindpng.com/picc/m/280-2801416_customer-order-orders-icon-clipart-png-download-order.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                                <h3><strong>Sales Report Not Found</strong></h3>
+                              </div>
+                          <?php
+                            }
+                          } ?>
+                            </tbody>
+                          </table>
+                        </div>
+
+
+                  </div>
+            </div>
+      </section>
+      <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+      </a>
     </div>
-    <!-- ./wrapper -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-    </script>
-    <!-- bootstrap 4 popper js -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-    </script>
-    <!-- bootstrap 4 js -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-    </script>
-    <script src="dist/js/adminlte.min.js"></script>
+    <!-- /.content-wrapper -->
+
+    <footer class="main-footer">
+      <div class="float-right d-none d-sm-block">
+        <b>Version</b> 1.0
+      </div>
+      <strong>SAM JUN AN 181021172</a></strong>
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+  </div>
+  <!-- ./wrapper -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+  </script>
+  <!-- bootstrap 4 popper js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <!-- bootstrap 4 js -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+  </script>
+  <script src="plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="dist/js/adminlte.min.js"></script>
 
 
 </body>

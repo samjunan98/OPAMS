@@ -6,6 +6,7 @@ if (isset($_POST['agentLogin'])) {
     $agentPw = mysqli_real_escape_string($db, $_POST['agentPw']);
     $user_check_query = "SELECT * FROM agent WHERE agentEmail='$agentEmail'";
     $result = mysqli_query($db, $user_check_query) or die('Error querying database.' . mysqli_error($db));
+    if (mysqli_num_rows($result) > 0) {
     while ($row =  mysqli_fetch_array($result)) {
         $savedpw = $row['agentPw'];
         $agentID = $row['agentID'];
@@ -21,8 +22,16 @@ if (isset($_POST['agentLogin'])) {
     } else {
         echo '<script type="text/javascript">';
         echo 'alert("Invalid Login");';
-        echo 'window.location.href = "login2.php";';
+        echo 'window.location.href = "agent_login.php";';
         echo '</script>';
     }
 }
+else{
+    echo '<script type="text/javascript">';
+    echo 'alert("Invalid Login");';
+    echo 'window.location.href = "agent_login.php";';
+    echo '</script>';
+}
+}
+
 $db->close();

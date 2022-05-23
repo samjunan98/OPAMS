@@ -52,7 +52,7 @@ if ($_SESSION["adminID"] == NULL) {
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+      <a href="#" class="brand-link">
         <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Petshop</span>
       </a>
@@ -61,7 +61,7 @@ if ($_SESSION["adminID"] == NULL) {
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
+            <img src="getImage_admin.php" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
           </div>
           <div class="info">
             <?php $adminID = $_SESSION['adminID'];
@@ -76,9 +76,8 @@ if ($_SESSION["adminID"] == NULL) {
             } ?>
           </div>
         </div>
-
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
+       <!-- Sidebar Menu -->
+       <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
@@ -91,33 +90,15 @@ if ($_SESSION["adminID"] == NULL) {
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="agentlist_test.php" class="nav-link active">
                 <i class="nav-icon fa fa-users"></i>
                 <p>
                   Agent
-                  <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="agentlist.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>View Agent List</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="agentlist.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Modify Agent</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link active">
+              <a href="#" class="nav-link">
                 <i class="nav-icon fa fa-shopping-bag"></i>
                 <p>
                   Product
@@ -134,7 +115,7 @@ if ($_SESSION["adminID"] == NULL) {
               </ul>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="product_add.php" class="nav-link active">
+                  <a href="add_product.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Add Product</p>
                   </a>
@@ -142,7 +123,7 @@ if ($_SESSION["adminID"] == NULL) {
               </ul>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="product_edit.php" class="nav-link">
+                  <a href="category_admin.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Manage Category</p>
                   </a>
@@ -150,7 +131,7 @@ if ($_SESSION["adminID"] == NULL) {
               </ul>
             </li>
             <li class="nav-item">
-              <a href="agentlist.php" class="nav-link">
+              <a href="admin_order.php" class="nav-link">
                 <i class="nav-icon fa fa-check-square"></i>
                 <p>
                   Order
@@ -158,7 +139,7 @@ if ($_SESSION["adminID"] == NULL) {
               </a>
             </li>
             <li class="nav-item">
-              <a href="agentlist.php" class="nav-link">
+              <a href="salesrpt.php" class="nav-link">
                 <i class="nav-icon ion ion-stats-bars"></i>
                 <p>
                   Sales Report
@@ -223,7 +204,14 @@ if ($_SESSION["adminID"] == NULL) {
 
                   <ul class="list-group list-group-unbordered mb-3">
                     <li class="list-group-item">
-                      <b>Agent for</b> <a class="float-right">1,322</a>
+                    <?php $fromdate = mysqli_query($db, "SELECT * FROM agent WHERE agentID='$agentID'");
+                  $row = mysqli_fetch_array($fromdate);
+                  $from1 = new DateTime($row['agentCreatedate']);
+                  $today1 = new DateTime();
+                  $interval1 = $today1->diff($from1);
+                  $elapsed1 = $interval1->format('%a Days');
+                  ?>
+                                            <b>Agent for</b> <a class="float-right"><?php echo $elapsed1; ?></a>
                     </li>
                 </div>
                 <!-- /.card-body -->
