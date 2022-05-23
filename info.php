@@ -1,3 +1,24 @@
+<?php
+session_start();
+include('config.php');
+$adminID = $_SESSION['adminID'];
+$adminSessionid = $_SESSION['adminSessionid'];
+if ($_SESSION["adminID"] == NULL) {
+  header("location: index.html");
+} else {
+  $checkk = "SELECT * FROM admin WHERE adminID='$adminID'";
+  $resultt = mysqli_query($db, $checkk) or die('Error querying database. ' .  mysqli_error($db));
+  foreach ($resultt as $row) {
+    if ($_SESSION['adminSessionid'] != $row['adminSessionid']) {
+      echo '<script type="text/javascript">';
+      echo 'alert("New login is detected");';
+      echo 'window.location.href = "index.html";';
+      echo '</script>';
+    }
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,17 +26,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Online Petshop Agent Managment System</title>
+
+  <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="plugins/fontawesome-free-6.1.1-web/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini sidebar-collapse">
   <div class="wrapper">
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -24,12 +47,6 @@
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="index3.html" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">Contact</a>
-        </li>
       </ul>
     </nav>
     <!-- /.navbar -->
@@ -37,19 +54,27 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="index3.html" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Petshop</span>
       </a>
-
       <!-- Sidebar -->
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+            <img src="" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
           </div>
           <div class="info">
-            <a href="#" class="d-block">Alexander Pierce</a>
+            <?php $adminID = $_SESSION['adminID'];
+            $query = "SELECT adminName FROM admin WHERE '$adminID' = adminID";
+            $query_run = mysqli_query($db, $query);
+            if (mysqli_num_rows($query_run) > 0) {
+              foreach ($query_run as $row) { ?>
+                <a href="#" class="d-block"><?php echo $row['adminName']; ?></a>
+            <?php }
+            } else {
+              echo "error";
+            } ?>
           </div>
         </div>
 
@@ -59,7 +84,7 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="main_agent.php" class="nav-link active">
+              <a href="main_admin.php" class="nav-link">
                 <i class="nav-icon fa fa-home"></i>
                 <p>
                   Home
@@ -67,7 +92,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="agentlist.php" class="nav-link">
+              <a href="#" class="nav-link">
                 <i class="nav-icon fa fa-users"></i>
                 <p>
                   Agent
@@ -76,7 +101,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="agentlist.php" class="nav-link">
+                  <a href="agentlist_test.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>View Agent List</p>
                   </a>
@@ -84,7 +109,7 @@
               </ul>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="agentlist.php" class="nav-link">
+                  <a href="agentlist_.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Modify Agent</p>
                   </a>
@@ -102,7 +127,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="product.php" class="nav-link">
+                  <a href="product_edit.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>View Product List</p>
                   </a>
@@ -110,15 +135,23 @@
               </ul>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="agentlist.php" class="nav-link">
+                  <a href="add_product.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Modify Product</p>
+                    <p>Add Product</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="product_edit.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Manage Category</p>
                   </a>
                 </li>
               </ul>
             </li>
             <li class="nav-item">
-              <a href="agentlist.php" class="nav-link">
+              <a href="admin_order.php" class="nav-link">
                 <i class="nav-icon fa fa-check-square"></i>
                 <p>
                   Order
@@ -126,7 +159,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="agentlist.php" class="nav-link">
+              <a href="salesrpt.php" class="nav-link">
                 <i class="nav-icon ion ion-stats-bars"></i>
                 <p>
                   Sales Report
@@ -134,7 +167,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="agentlist.php" class="nav-link">
+              <a href="info.php" class="nav-link active">
                 <i class="nav-icon fa fa-user-circle"></i>
                 <p>
                   Info
@@ -142,7 +175,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="agentlist.php" class="nav-link">
+              <a href="logout.php" class="nav-link">
                 <i class="nav-icon ion ion-log-out"></i>
                 <p>
                   Logout
@@ -156,46 +189,91 @@
       <!-- /.sidebar -->
     </aside>
 
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Widgets</h1>
-            </div>
-
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Widgets</li>
-              </ol>
+              <h1>Profile</h1>
             </div>
           </div>
         </div><!-- /.container-fluid -->
       </section>
+      <!-- /.content-wrapper -->
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-4">
 
+              <!-- Profile Image -->
+              <div class="card card-primary card-outline">
+                <div class="card-body box-profile">
+                  <div class="text-center">
+                    <img class="profile-user-img img-fluid img-circle" src="getImage.php" alt="User profile picture" style="width: 150px; height:150px;">
+                  </div>
 
+                  <h3 class="profile-username text-center"><?php foreach ($query_run as $row) {
+                                                              echo $row['adminName'];
+                                                            } ?></h3>
 
+                  <p class="text-muted text-center">Admin</p>
 
-
-
-
-
-
+                  <ul class="list-group list-group-unbordered mb-3">
+                    <a href="admininfoedit.php" class="btn btn-primary btn-block"><b>Edit Profile</b></a>
+                    <a href="passwordchg_admin.php" class="btn btn-primary btn-block"><b>Change Password</b></a>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+            <!-- /.col -->
+            <?php
+            $query = mysqli_query($db, "SELECT * FROM admin WHERE adminID='$adminID'");
+            $row = mysqli_fetch_array($query); ?>
+            <div class="col-md-8">
+              <div class="card card-primary card-outline">
+                <div class="card-body">
+                  <form class="form-horizontal">
+                    <fieldset disabled="disabled">
+                      <div class="card-body">
+                        <div class="form-group row">
+                          <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" value="<?php echo $row['adminName']; ?>">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
+                          <div class="col-sm-10">
+                            <input type="email" class="form-control" value="<?php echo $row['adminEmail']; ?>">
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.card-body -->
+                      <!-- /.card-footer -->
+                    </fieldset>
+                  </form>
+                </div><!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+            <!-- /.col -->
+          </div>
+        </div>
+      </section>
 
       <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
         <i class="fas fa-chevron-up"></i>
       </a>
     </div>
     <!-- /.content-wrapper -->
-
     <footer class="main-footer">
       <div class="float-right d-none d-sm-block">
-        <b>Version</b> 3.2.0
+        <b>Version</b> 1.0
       </div>
-      <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+      <strong>SAM JUN AN 181021172</a></strong>
     </footer>
 
     <!-- Control Sidebar -->

@@ -211,7 +211,7 @@ if ($_SESSION["adminID"] == NULL) {
                            <form class="form-horizontal" method="POST" action="product_store.php" enctype="multipart/form-data">
                               <div class="card-body">
                                  <div class="form-group row">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Product Photo</label>
+                                    <label  class="col-sm-2 col-form-label">Product Photo</label>
                                     <div class="col-sm-10">
                                        <img id="output" alt="Photo" src="" width="200px" height="200px">
                                        <input name="productPhoto" type="file" accept="image/*" class="form-control" style="height:50px" onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">

@@ -30,11 +30,12 @@ if ($_SESSION["adminID"] == NULL) {
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="plugins/fontawesome-free-6.1.1-web/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
@@ -91,7 +92,7 @@ if ($_SESSION["adminID"] == NULL) {
               </a>
             </li>
             <li class="nav-item">
-              <a href="agentlist.php" class="nav-link">
+              <a href="#" class="nav-link">
                 <i class="nav-icon fa fa-users"></i>
                 <p>
                   Agent
@@ -108,7 +109,7 @@ if ($_SESSION["adminID"] == NULL) {
               </ul>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="agentlist.php" class="nav-link">
+                  <a href="agentlist_.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Modify Agent</p>
                   </a>
@@ -158,7 +159,7 @@ if ($_SESSION["adminID"] == NULL) {
               </a>
             </li>
             <li class="nav-item">
-              <a href="agentlist.php" class="nav-link">
+              <a href="salesrpt.php" class="nav-link">
                 <i class="nav-icon ion ion-stats-bars"></i>
                 <p>
                   Sales Report
@@ -207,72 +208,86 @@ if ($_SESSION["adminID"] == NULL) {
       <section class="content">
         <div class="container-fluid">
           <!-- Small Box (Stat card) -->
-          <h5 class="mb-2 mt-4">Small Box</h5>
+          <h5 class="mb-2 mt-4">Dashboard</h5>
           <div class="row">
             <div class="col-lg-3 col-6">
               <!-- small card -->
               <div class="small-box bg-info">
                 <div class="inner">
                   <h3><?php echo mysqli_num_rows($ress); ?></h3>
-                  <p>New Orders</p>
+                  <p>Total Order</p>
                 </div>
                 <div class="icon">
                   <i class="fas fa-shopping-cart"></i>
                 </div>
-                <a href="#" class="small-box-footer">
-                  More info <i class="fas fa-arrow-circle-right"></i>
-                </a>
               </div>
             </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small card -->
-              <div class="small-box bg-success">
-                <div class="inner">
-                  <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                  <p>Bounce Rate</p>
+            <?php
+            $salesMonth = date("m");
+            $salesYear = date("Y");
+            $querydash = "SELECT * FROM salesreport WHERE salesMonth='$salesMonth' AND salesYear='$salesYear'";
+            $resultdash = mysqli_query($db, $querydash) or die('Error querying database. ' .  mysqli_error($db));
+            if (mysqli_num_rows($resultdash) > 0) {
+              $row = mysqli_fetch_array($resultdash);
+              $salesGenerated = $row['salesGenerated'];
+              $salesCommission = $row['salesCommission'];
+            ?>
+              <!-- ./col -->
+              <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-success">
+                  <div class="inner">
+                    <h3><?php echo "RM" . $salesGenerated ?></h3></sup>
+                    <p>Sales of this Month</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                  </div>
                 </div>
-                <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
-                </div>
-                <a href="#" class="small-box-footer">
-                  More info <i class="fas fa-arrow-circle-right"></i>
-                </a>
               </div>
-            </div>
+            <?php } else { ?>
+              <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-success">
+                  <div class="inner">
+                    <h3>RM 0.00</h3>
+                    <p>Sales of this month</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                  </div>
+                </div>
+              </div>
+            <?php }
+            $res2 = mysqli_query($db, "SELECT * FROM product");
+            ?>
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small card -->
               <div class="small-box bg-warning">
                 <div class="inner">
-                  <h3>44</h3>
-
-                  <p>User Registrations</p>
+                  <h3><?php echo mysqli_num_rows($res2); ?></h3>
+                  <p>Total Product</p>
                 </div>
                 <div class="icon">
-                  <i class="fas fa-user-plus"></i>
+                  <i class="ion ion-cube"></i>
                 </div>
-                <a href="#" class="small-box-footer">
-                  More info <i class="fas fa-arrow-circle-right"></i>
-                </a>
               </div>
             </div>
+            <?php
+            $res1 = mysqli_query($db, "SELECT * FROM agent");
+            ?>
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small card -->
               <div class="small-box bg-danger">
                 <div class="inner">
-                  <h3>65</h3>
-
-                  <p>Unique Visitors</p>
+                  <h3><?php echo mysqli_num_rows($res1); ?></h3>
+                  <p>Total amount of Agent</p>
                 </div>
                 <div class="icon">
-                  <i class="fas fa-chart-pie"></i>
+                  <i class="ion ion-person"></i>
                 </div>
-                <a href="#" class="small-box-footer">
-                  More info <i class="fas fa-arrow-circle-right"></i>
-                </a>
               </div>
             </div>
             <!-- ./col -->
@@ -281,56 +296,87 @@ if ($_SESSION["adminID"] == NULL) {
           <!-- Bar chart -->
           <div class="row">
             <div class="col-md-6">
-              <div class="card card-primary card-outline">
+              <!-- BAR CHART -->
+              <div class="card card-success">
                 <div class="card-header">
-                  <h3 class="card-title">
-                    <i class="far fa-chart-bar"></i>
-                    Bar Chart
-                  </h3>
+                  <h3 class="card-title">Monthly Sales</h3>
 
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                       <i class="fas fa-minus"></i>
                     </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                      <i class="fas fa-times"></i>
-                    </button>
                   </div>
                 </div>
                 <div class="card-body">
-                  <div id="bar-chart" style="height: 300px;"></div>
+                  <div class="chart">
+                    <canvas id="myChart" width="400" height="250"></canvas>
+                  </div>
+                  <!-- /.card-body -->
                 </div>
-                <!-- /.card-body-->
+                <!-- /.card -->
               </div>
-              <!-- /.card -->
             </div>
             <div class="col-md-6">
-              <div class="card card-primary">
-                <div class="card-header">
-                  <h3 class="card-title">Card Refresh</h3>
+              <!-- TABLE: LATEST ORDERS -->
+              <div class="card card-success">
+                <div class="card-header border-transparent">
+                  <h3 class="card-title">Latest Orders</h3>
 
                   <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="card-refresh" data-source="widgets.html" data-source-selector="#card-refresh-content">
-                      <i class="fas fa-sync-alt"></i>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
                     </button>
                   </div>
-                  <!-- /.card-tools -->
                 </div>
                 <!-- /.card-header -->
-                <div class="card-body">
-                  The body of the card
+                <?php $query = "SELECT orderlist.orderID, product.productName,SUM(order_product.order_productSubtotal) AS grandtotal ,GROUP_CONCAT(order_product.productID) AS productID ,GROUP_CONCAT(order_product.order_productQuantity) AS quantity,orderlist.orderCreatedate,orderlist.orderStatus AS orderStatus FROM orderlist INNER JOIN order_product ON orderlist.orderID = order_product.orderID INNER JOIN product ON order_product.productID = product.productID  GROUP BY orderlist.orderID DESC LIMIT 5";
+                $query_run = mysqli_query($db, $query);
+                echo mysqli_error($db);
+                if (mysqli_num_rows($query_run) > 0) { ?>
+                  <div class="card-body p-0">
+                    <div class="table-responsive">
+                      <table class="table m-0">
+                        <thead>
+                          <tr>
+                            <th>Order ID</th>
+                            <th>Product</th>
+                            <th>Order Created Time</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php foreach ($query_run as $row) { ?>
+                            <tr>
+                              <td><a href="orderinfo.php?orderID=<?php echo $row['orderID']; ?>"><?php echo $row['orderID']; ?></a></td>
+                              <td><?php $productID = explode(',', $row['productID']);
+                                  foreach ($productID as $productID1) {
+                                    $rsp = mysqli_query($db,  "SELECT * FROM product WHERE productID='$productID1'") or die('Error querying database. ' .  mysqli_error($db));
+                                    $row1 = mysqli_fetch_array($rsp);
+                                    echo $row1['productName'] . '<br />';
+                                  } ?></td>
+                              <td><?= $row['orderCreatedate']; ?></td>
+                              <td><span <?php if ($row['orderStatus'] == 'Pending') { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php echo $row['orderStatus']; ?></span></td>
+                            </tr>
+                          <?php
+                          } ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  <?php } else { ?>
+                    <div class="empty-cart-cls text-center"> <img src="https://www.kindpng.com/picc/m/280-2801416_customer-order-orders-icon-clipart-png-download-order.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                      <h3><strong>Order Not Found</strong></h3>
+                    </div>
+                  <?php
+                } ?>
+                  <!-- /.table-responsive -->
+                  </div>
+                  <!-- /.card-body -->
+              </div>
 
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-              <div class="d-none" id="card-refresh-content">
-                The body of the card after card refresh
-              </div>
+              <!-- /.card-footer -->
             </div>
             <!-- /.col -->
           </div><!-- /.container-fluid -->
-        </div>
       </section>
 
 
@@ -368,6 +414,48 @@ if ($_SESSION["adminID"] == NULL) {
   <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
   <script src="dist/js/adminlte.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $.ajax({
+        url: "http://localhost/webdev/create_chart_all.php",
+        method: "GET",
+        success: function(data) {
+          console.log(data);
+
+          var month = [];
+          var sales = [];
+
+          for (var i in data) {
+
+            month.push(data[i].salesMonth);
+            sales.push(data[i].salesGenerated);
+          }
+
+          var chartdata = {
+            labels: month,
+            datasets: [{
+              label: 'Total Sales',
+              backgroundColor: 'rgba(60, 179, 113, 0.75)',
+              borderColor: 'rgba(200, 200, 200, 0.75)',
+              hoverBackgroundColor: 'rgba(60, 179, 113, 1)',
+              hoverBorderColor: 'rgba(200, 200, 200, 1)',
+              data: sales,
+            }]
+          };
+
+          var ctx = $("#myChart");
+
+          var barGraph = new Chart(ctx, {
+            type: 'bar',
+            data: chartdata
+          });
+        },
+        error: function(data) {
+          console.log(data);
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>

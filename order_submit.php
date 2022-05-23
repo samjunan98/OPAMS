@@ -39,22 +39,27 @@ if ($rs) {
         }
         $query3 = "INSERT into delivery(deliveryID,orderID,deliveryName,pickupLocation,deliveryPhone,deliveryAddress) values ('0', '$orderID','$deliveryName','$pickupLocation','$deliveryPhone','$deliveryAddress') ";
         if ($db->query($query3) == TRUE) {
+            $salesMonth = date("m");
+            $salesYear = date("Y");
             $salesGenerated_new = $grandtotal;
-            $query6 = "SELECT * FROM salesreport WHERE agentID='$agentID'";
+            $query6 = "SELECT * FROM salesreport WHERE agentID='$agentID' AND salesMonth='$salesMonth' AND salesYear='$salesYear' ";
             $result6 = mysqli_query($db, $query6) or die('Error querying database. ' .  mysqli_error($db));
             if (mysqli_num_rows($result6) > 0) {
-                while ($row = mysqli_fetch_array($result6)) {
-                    $salesGenerated_old = $row['salesGenerated'];
-                }
+                $row = mysqli_fetch_array($result6);
+                $salesGenerated_old = $row['salesGenerated'];
+                echo $salesGenerated_old;
                 $salesGenerated_new += $salesGenerated_old;
-                $commission = $salesGenerated_new * 0.1;
-                $query5 = "UPDATE salesreport SET salesGenerated = '$salesGenerated_new', commission = '$commission' WHERE agentID ='{$agentID}'";
+                echo $salesGenerated_new;
+                $salesCommission = $salesGenerated_new * 0.1;
+                $query5 = "UPDATE salesreport SET salesGenerated = '$salesGenerated_new', salesCommission = '$salesCommission' WHERE agentID ='$agentID' AND salesMonth='$salesMonth' AND salesYear='$salesYear' ";
                 mysqli_query($db, $query5);
             } else {
+                $salesMonth = date("m");
+                $salesYear = date("Y");
                 $salesGenerated_old = "0";
                 $salesGenerated_new += $salesGenerated_old;
-                $commission = $salesGenerated_new * 0.1;
-                $query5 = "INSERT into salesreport(salesreportID,agentID,salesGenerated,commission) values ('0','$agentID', '$salesGenerated_new', '$commission') ";
+                $salesCommission = $salesGenerated_new * 0.1;
+                $query5 = "INSERT into salesreport(salesreportID, agentID, salesMonth, salesYear, salesGenerated, salesCommission) values ('0','$agentID', '$salesMonth', '$salesYear', '$salesGenerated_new', '$salesCommission') ";
                 mysqli_query($db, $query5);
             }
             $query_ext = mysqli_query($db, "SELECT * FROM cart_product WHERE cartID='$agentID'");
@@ -70,7 +75,8 @@ if ($rs) {
             mysqli_query($db, $sqlquery2);
             $sqlquery3 = "UPDATE cart SET grandtotal = $grandtotal WHERE agentID ='{$agentID}'";
             mysqli_query($db, $sqlquery3);
-            header("location: order_complete.php");
+            header("location:order_complete.php");
+            
         } else {
             echo "cart not found" . mysqli_error($db);
         }

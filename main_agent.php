@@ -107,7 +107,7 @@ if ($_SESSION["agentID"] == NULL) {
           </a>
         </li>
         <li class="nav-item">
-          <a href="salesrpt.php" class="nav-link">
+          <a href="salesrpt_agent.php" class="nav-link">
             <i class="nav-icon ion ion-stats-bars"></i>
             <p>
               Sales Report
@@ -146,8 +146,6 @@ if ($_SESSION["agentID"] == NULL) {
             <div class="col-sm-6">
               <h1>Welcome Agent</h1>
             </div>
-
-
           </div>
         </div><!-- /.container-fluid -->
       </section>
@@ -165,50 +163,81 @@ if ($_SESSION["agentID"] == NULL) {
               <div class="small-box bg-info">
                 <div class="inner">
                   <h3><?php echo mysqli_num_rows($res); ?></h3>
-
-                  <p>Orders</p>
+                  <p>Total Orders</p>
                 </div>
                 <div class="icon">
                   <i class="fas fa-shopping-cart"></i>
                 </div>
-                <a href="#" class="small-box-footer">
-                </a>
               </div>
             </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small card -->
-              <div class="small-box bg-success">
-                <div class="inner">
-                  <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                  <p>Sales</p>
+            <?php
+            $salesMonth = date("m");
+            $salesYear = date("Y");
+            $querydash = "SELECT * FROM salesreport WHERE '$agentID' = agentID AND salesMonth='$salesMonth' AND salesYear='$salesYear'";
+            $resultdash = mysqli_query($db, $querydash) or die('Error querying database. ' .  mysqli_error($db));
+            if (mysqli_num_rows($resultdash) > 0) {
+              $row = mysqli_fetch_array($resultdash);
+              $salesGenerated = $row['salesGenerated'];
+              $salesCommission = $row['salesCommission'];
+            ?>
+              <!-- ./col -->
+              <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-success">
+                  <div class="inner">
+                    <h3><?php echo "RM" . $salesGenerated ?></h3>
+                    <p>Sales of this month</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                  </div>
                 </div>
-                <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
-                </div>
-                <a href="#" class="small-box-footer">
-                </a>
               </div>
-            </div>
-            <!-- ./col -->
+              <!-- ./col -->
 
-            <div class="col-lg-3 col-6">
-              <!-- small card -->
-              <div class="small-box bg-danger">
-                <div class="inner">
-                  <h3>65</h3>
+              <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-danger">
+                  <div class="inner">
+                    <h3><?php echo "RM" . $salesCommission ?></h3>
 
-                  <p>Commission</p>
+                    <p>Commission of this month</p>
+                  </div>
+                  <div class="icon">
+                    <i class="fas fa-chart-pie"></i>
+                  </div>
                 </div>
-                <div class="icon">
-                  <i class="fas fa-chart-pie"></i>
-                </div>
-                <a href="#" class="small-box-footer">
-                </a>
               </div>
-            </div>
-            <!-- ./col -->
+              <!-- ./col -->
+            <?php } else { ?>
+              <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-success">
+                  <div class="inner">
+                    <h3>RM 0.00</h3>
+                    <p>Sales of this month</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- ./col -->
+
+              <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-danger">
+                  <div class="inner">
+                    <h3>RM 0.00</h3>
+                    <p>Commission of this month</p>
+                  </div>
+                  <div class="icon">
+                    <i class="fas fa-chart-pie"></i>
+                  </div>
+                </div>
+              </div>
+            <?php
+            } ?>
 
             <div class="col-lg-3 col-6">
               <!-- small card -->
@@ -227,8 +256,6 @@ if ($_SESSION["agentID"] == NULL) {
                 <div class="icon">
                   <i class="fas fa-user-plus"></i>
                 </div>
-                <a href="#" class="small-box-footer">
-                </a>
               </div>
             </div>
             <!-- ./col -->
@@ -292,7 +319,7 @@ if ($_SESSION["agentID"] == NULL) {
                                     echo $row1['productName'] . '<br />';
                                   } ?></td>
                               <td><?= $row['orderCreatedate']; ?></td>
-                              <td><span class="badge badge-success"><?php echo $row['orderStatus']; ?></span></td>
+                              <td><span <?php if ($row['orderStatus'] == 'Pending') { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php echo $row['orderStatus']; ?></span></td>
                             </tr>
                           <?php
                           } ?>
@@ -344,40 +371,45 @@ if ($_SESSION["agentID"] == NULL) {
   <script src="dist/js/adminlte.min.js"></script>
 
   <script>
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
+    $(document).ready(function() {
+      $.ajax({
+        url: "http://localhost/webdev/create_chart.php",
+        method: "GET",
+        success: function(data) {
+          console.log(data);
+
+          var month = [];
+          var sales = [];
+
+          for (var i in data) {
+            
+            month.push(data[i].salesMonth);
+            sales.push(data[i].salesGenerated);
           }
+
+          var chartdata = {
+            labels: month,
+            datasets: [{
+              label: 'Total Sales',
+              backgroundColor: 'rgba(60, 179, 113, 0.75)',
+              borderColor: 'rgba(200, 200, 200, 0.75)',
+              hoverBackgroundColor: 'rgba(60, 179, 113, 1)',
+              hoverBorderColor: 'rgba(200, 200, 200, 1)',
+              data: sales,
+            }]
+          };
+
+          var ctx = $("#myChart");
+
+          var barGraph = new Chart(ctx, {
+            type: 'bar',
+            data: chartdata
+          });
+        },
+        error: function(data) {
+          console.log(data);
         }
-      }
+      });
     });
   </script>
 </body>

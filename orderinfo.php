@@ -2,8 +2,20 @@
 session_start();
 include('config.php');
 $agentID = $_SESSION['agentID'];
+$agentSessionid = $_SESSION['agentSessionid'];
 if ($_SESSION["agentID"] == NULL) {
     header("location: index.html");
+} else {
+    $checkk = "SELECT * FROM agent WHERE agentID='$agentID'";
+    $resultt = mysqli_query($db, $checkk) or die('Error querying database. ' .  mysqli_error($db));
+    foreach ($resultt as $row) {
+        if ($_SESSION['agentSessionid'] != $row['agentSessionid']) {
+            echo '<script type="text/javascript">';
+            echo 'alert("New login is detected");';
+            echo 'window.location.href = "index.html";';
+            echo '</script>';
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -62,9 +74,8 @@ if ($_SESSION["agentID"] == NULL) {
                         } else {
                             echo "error";
                         } ?>
-
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
+         <!-- Sidebar Menu -->
+         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
@@ -94,7 +105,7 @@ if ($_SESSION["agentID"] == NULL) {
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="salesrpt.php" class="nav-link ">
+                    <a href="salesrpt_agent.php" class="nav-link">
                         <i class="nav-icon ion ion-stats-bars"></i>
                         <p>
                             Sales Report
@@ -123,6 +134,7 @@ if ($_SESSION["agentID"] == NULL) {
             </div>
             <!-- /.sidebar -->
         </aside>
+
 
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->

@@ -22,7 +22,7 @@ if (isset($_POST['adminLogin'])) {
     } else {
         echo '<script type="text/javascript">';
         echo 'alert("Invalid Login");';
-        echo 'window.location.href = "login1.php";';
+        echo 'window.location.href = "admin_login.php";';
         echo '</script>';
     }
 }

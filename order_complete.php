@@ -62,67 +62,66 @@ if ($_SESSION["agentID"] == NULL) {
             } else {
               echo "error";
             } ?>
-
-    <!-- Sidebar Menu -->
-    <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <!-- Add icons to the links using the .nav-icon class
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-        <li class="nav-item">
-          <a href="main_agent.php" class="nav-link">
-            <i class="nav-icon fa fa-home"></i>
-            <p>
-              Home
-            </p>
-          </a>
-        </li>
-        </li>
-        <li class="nav-item">
-          <a href="product.php" class="nav-link active">
-            <i class="nav-icon fa fa-shopping-bag"></i>
-            <p>
-              Product
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="order.php" class="nav-link">
-            <i class="nav-icon fa fa-check-square"></i>
-            <p>
-              Order
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="salesrpt.php" class="nav-link">
-            <i class="nav-icon ion ion-stats-bars"></i>
-            <p>
-              Sales Report
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="agentinfo.php" class="nav-link">
-            <i class="nav-icon fa fa-user-circle"></i>
-            <p>
-              Info
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="logout.php" class="nav-link">
-            <i class="nav-icon ion ion-log-out"></i>
-            <p>
-              Logout
-            </p>
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <!-- /.sidebar-menu -->
-      </div>
-      <!-- /.sidebar -->
-    </aside>
+                <li class="nav-item">
+                    <a href="main_agent.php" class="nav-link">
+                        <i class="nav-icon fa fa-home"></i>
+                        <p>
+                            Home
+                        </p>
+                    </a>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a href="product.php" class="nav-link active">
+                        <i class="nav-icon fa fa-shopping-bag"></i>
+                        <p>
+                            Product
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="order.php" class="nav-link">
+                        <i class="nav-icon fa fa-check-square"></i>
+                        <p>
+                            Order
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="salesrpt_agent.php" class="nav-link">
+                        <i class="nav-icon ion ion-stats-bars"></i>
+                        <p>
+                            Sales Report
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="agentinfo.php" class="nav-link">
+                        <i class="nav-icon fa fa-user-circle"></i>
+                        <p>
+                            Info
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="logout.php" class="nav-link">
+                        <i class="nav-icon ion ion-log-out"></i>
+                        <p>
+                            Logout
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
 
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -157,10 +156,11 @@ if ($_SESSION["agentID"] == NULL) {
 
         <footer class="main-footer">
             <div class="float-right d-none d-sm-block">
-                <b>Version</b> 3.2.0
+                <b>Version</b> 1.0
             </div>
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+            <strong>SAM JUN AN 181021172</a></strong>
         </footer>
+
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">

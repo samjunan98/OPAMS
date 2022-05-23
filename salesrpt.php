@@ -1,67 +1,80 @@
 <?php
 session_start();
 include('config.php');
-$agentID = $_SESSION['agentID'];
-if ($_SESSION["agentID"] == NULL) {
-    header("location: index.html");
+$adminID = $_SESSION['adminID'];
+$adminSessionid = $_SESSION['adminSessionid'];
+if ($_SESSION["adminID"] == NULL) {
+  header("location: index.html");
+} else {
+  $checkk = "SELECT * FROM admin WHERE adminID='$adminID'";
+  $resultt = mysqli_query($db, $checkk) or die('Error querying database. ' .  mysqli_error($db));
+  foreach ($resultt as $row) {
+    if ($_SESSION['adminSessionid'] != $row['adminSessionid']) {
+      echo '<script type="text/javascript">';
+      echo 'alert("New login is detected");';
+      echo 'window.location.href = "index.html";';
+      echo '</script>';
+    }
+  }
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Online Petshop Agent Managment System</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Online Petshop Agent Managment System</title>
 
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free-6.1.1-web/css/all.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
-    <div class="wrapper">
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <!-- Left navbar links -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-            </ul>
-        </nav>
-        <!-- /.navbar -->
-        <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
-                <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">Petshop</span>
-            </a>
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="getImage.php" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
-                    </div>
-                    <div class="info">
-                        <?php $agentID = $_SESSION['agentID'];
-                        $query = "SELECT agentName FROM agent WHERE '$agentID' = agentID";
-                        $query_run = mysqli_query($db, $query);
-                        if (mysqli_num_rows($query_run) > 0) {
-                            foreach ($query_run as $row) { ?>
-                                <a href="#" class="d-block"><?php echo $row['agentName']; ?></a>
-                    </div>
-                </div> <?php }
-                        } else {
-                            echo "error";
-                        } ?>
+  <div class="wrapper">
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.navbar -->
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <a href="index3.html" class="brand-link">
+        <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Petshop</span>
+      </a>
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <img src="" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
+          </div>
+          <div class="info">
+            <?php $adminID = $_SESSION['adminID'];
+            $query = "SELECT adminName FROM admin WHERE '$adminID' = adminID";
+            $query_run = mysqli_query($db, $query);
+            if (mysqli_num_rows($query_run) > 0) {
+              foreach ($query_run as $row) { ?>
+                <a href="#" class="d-block"><?php echo $row['adminName']; ?></a>
+            <?php }
+            } else {
+              echo "error";
+            } ?>
+          </div>
+        </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -144,12 +157,10 @@ if ($_SESSION["agentID"] == NULL) {
                                     <div class="row">
                                         <div class="col-sm-auto"><label>Agent:</label></div>
                                         <div class="col-sm-3">
-                                            <?php
-                                            $query = "SELECT * FROM agent";
-                                            $result1 = mysqli_query($db, $query);
-                                            ?>
                                             <select id="box1" class="form-control" name="agentID">
-                                                <option disabled selected value> Showing: <?php if (isset($_GET['agentID'])) {
+                                                <option disabled selected value> Showing: <?php
+
+                                                                                            if (isset($_GET['agentID'])) {
                                                                                                 $agentID_select = $_GET['agentID'];
                                                                                                 $query0 = "SELECT agent.agentName FROM salesreport INNER JOIN agent ON salesreport.agentID = agent.agentID WHERE '$agentID_select' = agent.agentID";
                                                                                                 $query_run0 = mysqli_query($db, $query0);
@@ -160,8 +171,11 @@ if ($_SESSION["agentID"] == NULL) {
                                                                                             } else {
                                                                                                 echo " All ";
                                                                                             } ?> </option>
-                                                <?php while ($row1 = mysqli_fetch_array($result1)) :; ?>
-                                                    <option value="<?php echo $row1[0]; ?>"><?php echo "ID:[".$row1[0]."] Name: ".$row1[3]; ?></option>
+
+                                                <?php $query = "SELECT salesreport.agentID,agent.agentName FROM agent INNER JOIN salesreport ON agent.agentID= salesreport.agentID";
+                                                $result1 = mysqli_query($db, $query);
+                                                while ($row1 = mysqli_fetch_array($result1)) :; ?>
+                                                    <option value="<?php echo $row1['agentID']; ?>"><?php echo "ID:[" . $row1['agentID'] . "] Name: " . $row1['agentName']; ?></option>
                                                 <?php endwhile; ?>
                                             </select>
                                         </div>

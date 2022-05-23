@@ -10,7 +10,7 @@
 </head>
 
 <body>
-   <a href="index.html"><button class="btn-return" style="text-decoration: none;">Return</button></a>
+
    <div class="center">
       <h1> Agent Login </h1>
       <form action="pwcheck_agent.php" method="POST">
@@ -26,7 +26,7 @@
          </div>
          <div class="forgetpw"><a href="#">Forgotten Password?</a></div>
          <input type="submit" value="Login" name="agentLogin">
-         <div class="regg"> Not yet member? <a href="register.php">Sign Up Now</a></div>
+         <div class="regg"> Not yet member? <a href="agent_register.php">Sign Up Now</a></div>
       </form>
    </div>
 </body>

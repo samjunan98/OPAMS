@@ -75,8 +75,8 @@ if ($_SESSION["agentID"] == NULL) {
                             echo "error";
                         } ?>
 
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
+         <!-- Sidebar Menu -->
+         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
@@ -106,7 +106,7 @@ if ($_SESSION["agentID"] == NULL) {
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="salesrpt.php" class="nav-link ">
+                    <a href="salesrpt_agent.php" class="nav-link">
                         <i class="nav-icon ion ion-stats-bars"></i>
                         <p>
                             Sales Report
