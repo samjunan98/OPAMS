@@ -60,7 +60,7 @@ if ($_SESSION["adminID"] == NULL) {
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
+                        <img src="getImage_admin.php" class="img-circle elevation-2" alt="User Image" style="width: 40px; height:40px;">
                     </div>
                     <div class="info">
                         <?php $adminID = $_SESSION['adminID'];
@@ -94,26 +94,8 @@ if ($_SESSION["adminID"] == NULL) {
                                 <i class="nav-icon fa fa-users"></i>
                                 <p>
                                     Agent
-                                    <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="agentlist.php" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>View Agent List</p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="agentlist.php" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add New Agent</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -141,7 +123,7 @@ if ($_SESSION["adminID"] == NULL) {
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="product_edit.php" class="nav-link">
+                                    <a href="category_admin.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Manage Category</p>
                                     </a>
@@ -157,7 +139,7 @@ if ($_SESSION["adminID"] == NULL) {
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="agentlist.php" class="nav-link">
+                            <a href="salesrpt.php" class="nav-link">
                                 <i class="nav-icon ion ion-stats-bars"></i>
                                 <p>
                                     Sales Report
@@ -199,7 +181,7 @@ if ($_SESSION["adminID"] == NULL) {
             </section>
             <?php
             $orderID = $_GET['orderID'];
-            $query1 = mysqli_query($db, "SELECT order_product.productID,orderlist.orderOption,orderlist.orderStatus,orderlist.agentID,orderlist.orderGrandtotal,orderlist.orderCreatedate  FROM order_product INNER JOIN orderlist ON order_product.orderID = orderlist.orderID WHERE '$orderID'= order_product.orderID") or die('Error querying database. ' .  mysqli_error($db));
+            $query1 = mysqli_query($db, "SELECT order_product.productID,orderlist.orderOption,orderlist.orderStatus,orderlist.agentID,orderlist.orderGrandtotal,orderlist.orderCreatedate,orderlist.orderCompletedate  FROM order_product INNER JOIN orderlist ON order_product.orderID = orderlist.orderID WHERE '$orderID'= order_product.orderID") or die('Error querying database. ' .  mysqli_error($db));
             while ($row = mysqli_fetch_array($query1)) {
                 $productID = $row['productID'];
                 $agentID = $row['agentID'];
@@ -207,6 +189,7 @@ if ($_SESSION["adminID"] == NULL) {
                 $orderCreatedate = $row['orderCreatedate'];
                 $orderStatus = $row['orderStatus'];
                 $orderOption = $row['orderOption'];
+                $orderCompletedate = $row['orderCompletedate'];
                 $query2 = "SELECT * FROM product INNER JOIN order_product ON product.productID = order_product.productID WHERE'$orderID' = orderID";
                 $query_run2 = mysqli_query($db, $query2) or die('Error querying database. ' .  mysqli_error($db));
             }
@@ -297,17 +280,9 @@ if ($_SESSION["adminID"] == NULL) {
                                                     <div class="form-group row">
                                                         <label class="col-sm-2 col-form-label">Pickup Location</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" class="form-control">
+                                                            <input type="text" class="form-control" value="<?php echo $row['pickupLocation']; ?>">
                                                         </div>
                                                     </div>
-                                                <?php } ?>
-                                                <?php if(strtotime($row['deliveryDate']!= 0)){ ?>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label">Delivery Date</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" name="deliveryAddress" class="form-control" value="<?php echo $row['deliveryDate']; ?>">
-                                                    </div>
-                                                </div>
                                                 <?php } ?>
                                             </div>
                                             <!-- /.card-body -->
@@ -364,6 +339,16 @@ if ($_SESSION["adminID"] == NULL) {
                                                     <div class=grandt><span class="badge badge-success"><?php echo $orderStatus; ?></span></div>
                                                 </td>
                                             </tr>
+                                            <?php if ($orderStatus=="Completed"){ ?>
+                                            <tr>
+                                                <td>
+                                                    <div class=grandt><?php echo "Order Complete Time"; ?></div>
+                                                </td>
+                                                <td>
+                                                    <div class=grandt><?php echo $orderCompletedate; ?></div>
+                                                </td>
+                                            </tr>
+                                            <?php } ?>
                                         </table>
                                     </div>
                                 </div>

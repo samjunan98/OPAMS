@@ -193,8 +193,8 @@ if ($_SESSION["adminID"] == NULL) {
                   <div class="row">
                     <div class="col-sm-3">
                       <input type="text" placeholder="Name" name="agentName" value="<?php if (isset($_GET['agentName'])) {
-                                                                                        echo $_GET['agentName'];
-                                                                                      } ?>" class="form-control">
+                                                                                      echo $_GET['agentName'];
+                                                                                    } ?>" class="form-control">
                     </div>
                     <div class="col-sm-1">
                       <button type="submit" title="Search" class="btn btn-block btn-info btn-md"><i class="fa fa-search"></i></button>
@@ -207,59 +207,31 @@ if ($_SESSION["adminID"] == NULL) {
           </div>
           <div class="card mt-12">
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table border table-hover">
-                  <thead style="text-align: center">
-
-                    <tr class="bg-dark text-white">
-                      <th> ID </th>
-                      <th> Photo </th>
-                      <th> Name </th>
-                      <th> Email </th>
-                      <th> Age </th>
-                      <th> Phone Number </th>
-                      <th> Gender</th>
-                      <th> Date of Birth </th>
-                      <th> Location </th>
-                      <th> Joined Time </th>
-                      <th> Action </th>
-                    </tr>
-                  </thead>
-
-                  <tbody style="text-align: center">
-                    <?php
-                    if (isset($_GET['agentName'])) { 
-                      $agentName = mysqli_real_escape_string($db,$_GET['agentName']);
-                      $query = "SELECT agentID, agentPhoto, agentName, agentEmail, agentAge, agentPhone, agentGender, agentDOB, agentLocation, agentCreatedate FROM agent WHERE  agentName LIKE  '%".$agentName."%'";
-                      $query_run = mysqli_query($db, $query);
-                      if (mysqli_num_rows($query_run) > 0) {
-                        foreach ($query_run as $row) {
-                    ?>
-                          <tr>
-                            <td><?= $row['agentID']; ?></td>
-                            <td><?php echo '<img src="data:image;base64,' . base64_encode($row['agentPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
-                            <td><?= $row['agentName']; ?></td>
-                            <td><?= $row['agentEmail']; ?></td>
-                            <td><?= $row['agentAge']; ?></td>
-                            <td><?= $row['agentPhone']; ?></td>
-                            <td><?= $row['agentGender']; ?></td>
-                            <td><?= $row['agentDOB']; ?></td>
-                            <td><?= $row['agentLocation']; ?></td>
-                            <td><?= $row['agentCreatedate']; ?></td>
-                            <td width="50" height="40">
-                            <a href="update.php?agentID=<?php echo $row['agentID']; ?>"><button type="button" title="Edit Agent Info" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button>
-                            </td>
-                          </tr>
-                        <?php
-                        }
-                      } else {
-                        echo "No Record Found";
-                      }
-                    } else {
-                      $query = "SELECT agentID, agentPhoto, agentName, agentEmail, agentAge, agentPhone, agentGender, agentDOB, agentLocation, agentCreatedate FROM agent";
-                      $query_run = mysqli_query($db, $query);
-                      if (mysqli_num_rows($query_run) > 0) {
-                        foreach ($query_run as $row) {
+              <?php
+              if (isset($_GET['agentName'])) {
+                $agentName = mysqli_real_escape_string($db, $_GET['agentName']);
+                $query = "SELECT agentID, agentPhoto, agentName, agentEmail, agentAge, agentPhone, agentGender, agentDOB, agentLocation, agentCreatedate FROM agent WHERE  agentName LIKE  '%" . $agentName . "%'";
+                $query_run = mysqli_query($db, $query);
+                if (mysqli_num_rows($query_run) > 0) { ?>
+                  <div class="table-responsive">
+                    <table class="table border table-hover" id="example2">
+                      <thead style="text-align: center">
+                        <tr class="bg-dark text-white">
+                          <th> ID </th>
+                          <th> Photo </th>
+                          <th> Name </th>
+                          <th> Email </th>
+                          <th> Age </th>
+                          <th> Phone Number </th>
+                          <th> Gender</th>
+                          <th> Date of Birth </th>
+                          <th> Location </th>
+                          <th> Joined Time </th>
+                          <th> Action </th>
+                        </tr>
+                      </thead>
+                      <tbody style="text-align: center">
+                        <?php foreach ($query_run as $row) {
                         ?>
                           <tr>
                             <td><?= $row['agentID']; ?></td>
@@ -273,19 +245,72 @@ if ($_SESSION["adminID"] == NULL) {
                             <td><?= $row['agentLocation']; ?></td>
                             <td><?= $row['agentCreatedate']; ?></td>
                             <td width="50" height="40">
-                            <a href="update.php?agentID=<?php echo $row['agentID']; ?>"><button type="button" title="Edit Agent Info" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button>
+                              <a href="update.php?agentID=<?php echo $row['agentID']; ?>"><button type="button" title="Edit Agent Info" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button>
                             </td>
                           </tr>
-                    <?php
-                        }
-                      } else {
-                        echo "No Record Found";
-                      }
-                    }
-                    ?>
-                  </tbody>
-                </table>
-              </div>
+                        <?php
+                        } ?>
+                      </tbody>
+                    </table>
+                  </div>
+                <?php } else { ?>
+                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://freepikpsd.com/file/2019/10/agent-icon-png-1-Free-PNG-Images-Transparent.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                    <h3><strong>Agent Not Found</strong></h3>
+                  </div>
+                <?php }
+              } else { ?>
+                <?php
+                $query = "SELECT agentID, agentPhoto, agentName, agentEmail, agentAge, agentPhone, agentGender, agentDOB, agentLocation, agentCreatedate FROM agent";
+                $query_run = mysqli_query($db, $query);
+                if (mysqli_num_rows($query_run) > 0) { ?>
+                  <div class="table-responsive">
+                    <table class="table border table-hover" id="example2">
+                      <thead style="text-align: center">
+                        <tr class="bg-dark text-white">
+                          <th> ID </th>
+                          <th> Photo </th>
+                          <th> Name </th>
+                          <th> Email </th>
+                          <th> Age </th>
+                          <th> Phone Number </th>
+                          <th> Gender</th>
+                          <th> Date of Birth </th>
+                          <th> Location </th>
+                          <th> Joined Time </th>
+                          <th> Action </th>
+                        </tr>
+                      </thead>
+                      <tbody style="text-align: center">
+                        <?php foreach ($query_run as $row) {
+                        ?>
+                          <tr>
+                            <td><?= $row['agentID']; ?></td>
+                            <td><?php echo '<img src="data:image;base64,' . base64_encode($row['agentPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
+                            <td><?= $row['agentName']; ?></td>
+                            <td><?= $row['agentEmail']; ?></td>
+                            <td><?= $row['agentAge']; ?></td>
+                            <td><?= $row['agentPhone']; ?></td>
+                            <td><?= $row['agentGender']; ?></td>
+                            <td><?= $row['agentDOB']; ?></td>
+                            <td><?= $row['agentLocation']; ?></td>
+                            <td><?= $row['agentCreatedate']; ?></td>
+                            <td width="50" height="40">
+                              <a href="update.php?agentID=<?php echo $row['agentID']; ?>"><button type="button" title="Edit Agent Info" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button>
+                            </td>
+                          </tr>
+
+                        <?php
+                        } ?>
+                      </tbody>
+                    </table>
+                  </div>
+                <?php } else { ?>
+                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://freepikpsd.com/file/2019/10/agent-icon-png-1-Free-PNG-Images-Transparent.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                    <h3><strong>Agent Not Found</strong></h3>
+                  </div>
+              <?php  }
+              }
+              ?>
             </div>
           </div>
         </div>

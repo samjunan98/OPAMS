@@ -124,7 +124,7 @@ if ($_SESSION["adminID"] == NULL) {
               </ul>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="product_edit.php" class="nav-link">
+                  <a href="category_admin.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Manage Category</p>
                   </a>
@@ -282,7 +282,7 @@ if ($_SESSION["adminID"] == NULL) {
                     </table>
                   </div>
                 <?php } else { ?>
-                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://icon-library.com/images/product-icon-png/product-icon-png-11.jpg" width="130" height="130" class="img-fluid mb-4 mr-3">
                     <h3><strong>Product Not Found</strong></h3>
                   </div>
                 <?php
@@ -333,7 +333,7 @@ if ($_SESSION["adminID"] == NULL) {
                     </table>
                   </div>
                 <?php } else { ?>
-                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://icon-library.com/images/product-icon-png/product-icon-png-11.jpg" width="130" height="130" class="img-fluid mb-4 mr-3">
                     <h3><strong>Product Not Found</strong></h3>
                   </div>
                 <?php
@@ -387,7 +387,7 @@ if ($_SESSION["adminID"] == NULL) {
                     </table>
                   </div>
                 <?php } else { ?>
-                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://icon-library.com/images/product-icon-png/product-icon-png-11.jpg" width="130" height="130" class="img-fluid mb-4 mr-3">
                     <h3><strong>Product Not Found</strong></h3>
                   </div>
               <?php

@@ -76,98 +76,98 @@ if ($_SESSION["adminID"] == NULL) {
                     </div>
                 </div>
 
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-            <li class="nav-item">
-              <a href="main_admin.php" class="nav-link">
-                <i class="nav-icon fa fa-home"></i>
-                <p>
-                  Home
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="agentlist_test.php" class="nav-link">
-                <i class="nav-icon fa fa-users"></i>
-                <p>
-                  Agent
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fa fa-shopping-bag"></i>
-                <p>
-                  Product
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="product_edit.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>View Product List</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="add_product.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Add Product</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="category_admin.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Manage Category</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a href="admin_order.php" class="nav-link active">
-                <i class="nav-icon fa fa-check-square"></i>
-                <p>
-                  Order
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="salesrpt.php" class="nav-link">
-                <i class="nav-icon ion ion-stats-bars"></i>
-                <p>
-                  Sales Report
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="info.php" class="nav-link">
-                <i class="nav-icon fa fa-user-circle"></i>
-                <p>
-                  Info
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="logout.php" class="nav-link">
-                <i class="nav-icon ion ion-log-out"></i>
-                <p>
-                  Logout
-                </p>
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
-      </div>
-      <!-- /.sidebar -->
-    </aside>
+                        <li class="nav-item">
+                            <a href="main_admin.php" class="nav-link">
+                                <i class="nav-icon fa fa-home"></i>
+                                <p>
+                                    Home
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="agentlist_test.php" class="nav-link">
+                                <i class="nav-icon fa fa-users"></i>
+                                <p>
+                                    Agent
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa fa-shopping-bag"></i>
+                                <p>
+                                    Product
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="product_edit.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>View Product List</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="add_product.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Product</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="category_admin.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Manage Category</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="admin_order.php" class="nav-link active">
+                                <i class="nav-icon fa fa-check-square"></i>
+                                <p>
+                                    Order
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="salesrpt.php" class="nav-link">
+                                <i class="nav-icon ion ion-stats-bars"></i>
+                                <p>
+                                    Sales Report
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="info.php" class="nav-link">
+                                <i class="nav-icon fa fa-user-circle"></i>
+                                <p>
+                                    Info
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="logout.php" class="nav-link">
+                                <i class="nav-icon ion ion-log-out"></i>
+                                <p>
+                                    Logout
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
@@ -227,55 +227,69 @@ if ($_SESSION["adminID"] == NULL) {
                             <?php
                             $orderID = $_GET['orderID'];
                             $query88 = mysqli_query($db, "SELECT * FROM orderlist WHERE orderID='$orderID'");
-                            $row88 = mysqli_fetch_array($query88); 
+                            $row88 = mysqli_fetch_array($query88);
                             $orderOption = $row88['orderOption'];
                             $query = mysqli_query($db, "SELECT * FROM delivery WHERE orderID='$orderID'");
                             $row = mysqli_fetch_array($query); ?>
                             <div class="card ">
                                 <div class="card-body">
                                     <form class="form-horizontal" method="POST" action="order_save.php?orderID=<?php echo $orderID; ?>">
-                                            <div class="card-body">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label">Delivery Name</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" name="deliveryName" class="form-control" value="<?php echo $row['deliveryName']; ?>" required>
-                                                    </div>
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Delivery Name</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="deliveryName" class="form-control" value="<?php echo $row['deliveryName']; ?>" required>
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label">Phone</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="tel" name="deliveryPhone" class="form-control" value="<?php echo $row['deliveryPhone']; ?>" required>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label">Method</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" value="<?php echo $orderOption ?>" disabled >
-                                                    </div>
-                                                </div>
-                                                <?php if ($orderOption == 'Delivery') { ?>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 col-form-label">Courier</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" value="<?php echo $row['deliveryCourier']; ?>" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 col-form-label">Address</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" value="<?php echo $row['deliveryAddress']; ?>" required>
-                                                        </div>
-                                                    </div>
-                                                <?php } else { ?>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 col-form-label">Pickup Location</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" name="pickupLocation" class="form-control" required>
-                                                        </div>
-                                                    </div>
-                                                <?php } ?>
                                             </div>
-                                            <!-- /.card-body -->
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Phone</label>
+                                                <div class="col-sm-10">
+                                                    <input type="tel" name="deliveryPhone" class="form-control" value="<?php echo $row['deliveryPhone']; ?>" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Method</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" value="<?php echo $orderOption ?>" disabled>
+                                                </div>
+                                            </div>
+                                            <?php if ($orderOption == 'Delivery') { ?>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label">Courier</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" value="<?php echo $row['deliveryCourier']; ?>" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label">Address</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" value="<?php echo $row['deliveryAddress']; ?>" required>
+                                                    </div>
+                                                </div>
+                                            <?php } else { ?>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label">Pickup Location</label>
+                                                    <div class="col-sm-10">
+                                                        <select class="form-control" name="pickupLocation" required>
+                                                            <option value="Perlis" <?php if ($row['pickupLocation'] == "Perlis") { ?> selected <?php } ?>>Perlis</option>
+                                                            <option value="Kedah" <?php if ($row['pickupLocation'] == "Kedah") { ?> selected <?php } ?>>Kedah</option>
+                                                            <option value="Kelantan" <?php if ($row['pickupLocation'] == "Kelantan") { ?> selected <?php } ?>>Kelantan</option>
+                                                            <option value="Penang" <?php if ($row['pickupLocation'] == "Penang") { ?> selected <?php } ?>>Penang</option>
+                                                            <option value="Pahang" <?php if ($row['pickupLocation'] == "Pahang") { ?> selected <?php } ?>>Pahang</option>
+                                                            <option value="Perak" <?php if ($row['pickupLocation'] == "Perak") { ?> selected <?php } ?>>Perak</option>
+                                                            <option value="Selangor" <?php if ($row['pickupLocation'] == "Selangor") { ?> selected <?php } ?>>Selangor</option>
+                                                            <option value="Terengganu" <?php if ($row['pickupLocation'] == "Terengganu") { ?> selected <?php } ?>>Terengganu</option>
+                                                            <option value="Malacca" <?php if ($row['pickupLocation'] == "Malacca") { ?> selected <?php } ?>>Malacca</option>
+                                                            <option value="Johor" <?php if ($row['pickupLocation'] == "Johor") { ?> selected <?php } ?>>Johor</option>
+                                                            <option value="Negeri Sembilan" <?php if ($row['pickupLocation'] == "Negeri Sembilan") { ?> selected <?php } ?>>Negeri Sembilan</option>
+                                                            <option value="Sabah" <?php if ($row['pickupLocation'] == "Sabah") { ?> selected <?php } ?>>Sabah</option>
+                                                            <option value="Sarawak" <?php if ($row['pickupLocation'] == "Sarawak") { ?> selected <?php } ?>>Sarawak</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+                                        <!-- /.card-body -->
                                 </div><!-- /.card-body -->
                             </div>
                         </div>
@@ -327,7 +341,8 @@ if ($_SESSION["adminID"] == NULL) {
                                                 </td>
                                             </tr>
                                         </table>
-                                        <br><div class="text-right"><button type="submit" title="Process Order" name="submit" class="btn btn-block btn-success btn-lg">Process Order</button></a></div>
+                                        <br>
+                                        <div class="text-right"><button type="submit" title="Process Order" name="submit" class="btn btn-block btn-success btn-lg">Process Order</button></a></div>
                                         </form>
                                     </div>
                                 </div>

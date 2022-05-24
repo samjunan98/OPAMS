@@ -245,7 +245,7 @@ if ($_SESSION["agentID"] == NULL) {
                   </div>
                 <?php
                 } else { ?>
-                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://icon-library.com/images/product-icon-png/product-icon-png-11.jpg" width="130" height="130" class="img-fluid mb-4 mr-3">
                     <h3><strong>Product Not Found</strong></h3>
                   </div>
                 <?php
@@ -287,7 +287,7 @@ if ($_SESSION["agentID"] == NULL) {
                     </table>
                   </div>
                 <?php } else { ?>
-                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://icon-library.com/images/product-icon-png/product-icon-png-11.jpg" width="130" height="130" class="img-fluid mb-4 mr-3">
                     <h3><strong>Product Not Found</strong></h3>
                   </div>
                 <?php
@@ -329,7 +329,7 @@ if ($_SESSION["agentID"] == NULL) {
                   </div>
                 <?php
                 } else { ?>
-                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://icon-library.com/images/product-icon-png/product-icon-png-11.jpg" width="130" height="130" class="img-fluid mb-4 mr-3">
                     <h3><strong>Product Not Found</strong></h3>
                   </div>
               <?php

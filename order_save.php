@@ -7,11 +7,11 @@ if(isset($_POST['submit']) && isset($_POST['pickupLocation'])){
     $orderID = $_GET['orderID'];
     $deliveryName = mysqli_real_escape_string($db, $_POST['deliveryName']);
     $deliveryPhone = mysqli_real_escape_string($db, $_POST['deliveryPhone']);
-    $query = "UPDATE delivery SET deliveryName = '$deliveryName',deliveryPhone = '$deliveryPhone',pickupLocation = '$pickupLocation', pickupDate = '$pickupDate' WHERE orderID = '$orderID' ";
+    $query = "UPDATE delivery SET deliveryName = '$deliveryName',deliveryPhone = '$deliveryPhone',pickupLocation = '$pickupLocation' WHERE orderID = '$orderID' ";
     $rs = mysqli_query($db, $query);
     if($rs){ 
         $orderStatus = "Completed";
-        mysqli_query($db, "UPDATE orderlist SET orderStatus = '$orderStatus' WHERE orderID = '$orderID'") or die('Error querying database. ' .  mysqli_error($db));
+        mysqli_query($db, "UPDATE orderlist SET orderStatus = '$orderStatus', orderCompletedate = now() WHERE orderID = '$orderID'") or die('Error querying database. ' .  mysqli_error($db));
             header('location:admin_order.php');
             }
     else {
@@ -24,11 +24,11 @@ else{
     $deliveryPhone = mysqli_real_escape_string($db, $_POST['deliveryPhone']);
     $deliveryCourier = mysqli_real_escape_string($db, $_POST['deliveryCourier']);
     $deliveryAddress = mysqli_real_escape_string($db, $_POST['deliveryAddress']);
-    $query = "UPDATE delivery SET deliveryName = '$deliveryName',deliveryPhone = '$deliveryPhone',deliveryCourier = '$deliveryCourier',deliveryAddress='$deliveryAddress',deliveryDate = '$deliveryDate' WHERE orderID = '$orderID' ";
+    $query = "UPDATE delivery SET deliveryName = '$deliveryName',deliveryPhone = '$deliveryPhone',deliveryCourier = '$deliveryCourier',deliveryAddress='$deliveryAddress' WHERE orderID = '$orderID' ";
     $rs = mysqli_query($db, $query);
     if($rs){ 
         $orderStatus = "Completed";
-        mysqli_query($db, "UPDATE orderlist SET orderStatus = '$orderStatus' WHERE orderID = '$orderID'") or die('Error querying database. ' .  mysqli_error($db));
+        mysqli_query($db, "UPDATE orderlist SET orderStatus = '$orderStatus', orderCompletedate = now() WHERE orderID = '$orderID'") or die('Error querying database. ' .  mysqli_error($db));
             header('location:admin_order.php');
             }
     else {
