@@ -75,6 +75,7 @@ if ($rs) {
             mysqli_query($db, $sqlquery2);
             $sqlquery3 = "UPDATE cart SET grandtotal = $grandtotal WHERE agentID ='{$agentID}'";
             mysqli_query($db, $sqlquery3);
+            mysqli_query($db, "DELETE FROM reserved_product WHERE cartID= '$agentID'") or die('Error querying database. ' .  mysqli_error($db));
             header("location:order_complete.php");
             
         } else {

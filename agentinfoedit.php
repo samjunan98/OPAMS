@@ -75,8 +75,8 @@ if ($_SESSION["agentID"] == NULL) {
                             echo "error";
                         } ?>
 
-         <!-- Sidebar Menu -->
-         <nav class="mt-2">
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
@@ -168,7 +168,14 @@ if ($_SESSION["agentID"] == NULL) {
 
                                     <ul class="list-group list-group-unbordered mb-3">
                                         <li class="list-group-item">
-                                            <b>Agent for</b> <a class="float-right">1,322</a>
+                                            <?php $fromdate = mysqli_query($db, "SELECT * FROM agent WHERE agentID='$agentID'");
+                                            $row = mysqli_fetch_array($fromdate);
+                                            $from1 = new DateTime($row['agentCreatedate']);
+                                            $today1 = new DateTime();
+                                            $interval1 = $today1->diff($from1);
+                                            $elapsed1 = $interval1->format('%a Days');
+                                            ?>
+                                            <b>Agent for</b> <a class="float-right"><?php echo $elapsed1; ?></a>
                                         </li>
                                 </div>
                                 <!-- /.card-body -->

@@ -34,6 +34,11 @@ if ($_SESSION["agentID"] == NULL) {
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <script type="text/javascript">
+ window.onbeforeunload = function () {
+  return 'Are you really want to perform the action?';
+ }
+</script>
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
@@ -181,30 +186,30 @@ if ($_SESSION["agentID"] == NULL) {
                                             </select>
                                         </div>
                                         <div id="hidden_div" style="display:none">
-                                            <div class="form-group" >
+                                            <div class="form-group">
                                                 <label>Address</label>
                                                 <input type="text" id="hideadds" class="form-control" placeholder="Enter Address" name="deliveryAddress" required>
                                             </div>
                                         </div>
                                         <div id="hidden_div1" style="display:none">
-                                            <div class="form-group" >
+                                            <div class="form-group">
                                                 <label>Pickup Location</label>
                                                 <select class="form-control" name="pickupLocation" id="hideloc" required>
-                                                        <option disabled selected value>--Select Location--</option>
-                                                        <option value="Perlis">Perlis</option>
-                                                        <option value="Kedah" >Kedah</option>
-                                                        <option value="Kelantan">Kelantan</option>
-                                                        <option value="Penang">Penang</option>
-                                                        <option value="Pahang">Pahang</option>
-                                                        <option value="Perak">Perak</option>
-                                                        <option value="Selangor">Selangor</option>
-                                                        <option value="Terengganu">Terengganu</option>
-                                                        <option value="Malacca">Malacca</option>
-                                                        <option value="Johor">Johor</option>
-                                                        <option value="Negeri Sembilan">Negeri Sembilan</option>
-                                                        <option value="Sabah">Sabah</option>
-                                                        <option value="Sarawak">Sarawak</option>
-                                                    </select>
+                                                    <option disabled selected value>--Select Location--</option>
+                                                    <option value="Perlis">Perlis</option>
+                                                    <option value="Kedah">Kedah</option>
+                                                    <option value="Kelantan">Kelantan</option>
+                                                    <option value="Penang">Penang</option>
+                                                    <option value="Pahang">Pahang</option>
+                                                    <option value="Perak">Perak</option>
+                                                    <option value="Selangor">Selangor</option>
+                                                    <option value="Terengganu">Terengganu</option>
+                                                    <option value="Malacca">Malacca</option>
+                                                    <option value="Johor">Johor</option>
+                                                    <option value="Negeri Sembilan">Negeri Sembilan</option>
+                                                    <option value="Sabah">Sabah</option>
+                                                    <option value="Sarawak">Sarawak</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -259,10 +264,10 @@ if ($_SESSION["agentID"] == NULL) {
                                     <div class="text-right"><button type="submit" title="Submit Order" class="btn btn-block btn-success btn-lg" <?php if ($grandtotal == '0') { ?> disabled <?php   } ?>>Submit Order</button></a></div>
                             </div>
                             <div class="text-center">
-                                <div class="timer" onload="timer(300)">
+                                <div class="timer">
                                     <div>Complete Order to Secure Product</div>
                                     <div class="time">
-                                        <strong>Product will release in: <span id="time">Loading...</span></strong>
+                                        <strong>Session expires in <span id="time">Loading...</span></strong>
                                     </div>
                                 </div>
                             </div>
@@ -307,15 +312,15 @@ if ($_SESSION["agentID"] == NULL) {
             $('#orderOption').on('change', function() {
                 if (this.value == 'Delivery') {
                     $("#hidden_div").show();
-                    $('#hideloc').removeAttr("required"); 
+                    $('#hideloc').removeAttr("required");
                     $("#hidden_div1").hide();
-                    $("#hideadds").attr("required","required");
- 
+                    $("#hideadds").attr("required", "required");
+
                 } else {
                     $("#hidden_div").hide();
                     $('#hideadds').removeAttr("required");
                     $("#hidden_div1").show();
-                    $("#hideloc").attr("required","required");
+                    $("#hideloc").attr("required", "required");
 
                 }
             });
@@ -336,13 +341,10 @@ if ($_SESSION["agentID"] == NULL) {
             document.getElementById("time").innerHTML = minutes + ":" + seconds;
             time--;
             if (time == 0) {
-                window.location.href = "cart_reset.php";
+                window.location.href = "cart.php";
             }
         }, 1000);
     </script>
-
-
-
 
 </body>
 

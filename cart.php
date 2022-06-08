@@ -34,16 +34,7 @@ if ($_SESSION["agentID"] == NULL) {
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
-  <script>
-    function preventBack() {
-        window.history.forward();
-    }
 
-    setTimeout("preventBack()", 0);
-    window.onunload = function() {
-        null
-    };
-</script>
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">

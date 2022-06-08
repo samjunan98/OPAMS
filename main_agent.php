@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('config.php');
+include('reserve_check.php');
 $agentID = $_SESSION['agentID'];
 $agentSessionid = $_SESSION['agentSessionid'];
 if ($_SESSION["agentID"] == NULL) {

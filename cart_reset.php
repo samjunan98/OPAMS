@@ -5,7 +5,7 @@ $agentID = $_SESSION['agentID'];
 $cartID = $_SESSION['agentID'];
 
 
-$query = "SELECT * FROM cart_product WHERE cartID='$agentID'";
+$query = "SELECT * FROM reserved_product WHERE cartID='$agentID'";
 $result = mysqli_query($db, $query) or die('Error querying database. ' .  mysqli_error($db));
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_array($result)) {
@@ -24,5 +24,6 @@ if (mysqli_num_rows($result) > 0) {
             echo '</script>';}
         }
         mysqli_query($db, "UPDATE product SET productQuantity='$quantity_new'WHERE productID='{$productID}'") or die('Error querying database. ' .  mysqli_error($db));
+        mysqli_query($db, "DELETE * FROM reserved_product WHERE cartID= '$agentID'") or die('Error querying database. ' .  mysqli_error($db));
         header("location:cart.php");
     }

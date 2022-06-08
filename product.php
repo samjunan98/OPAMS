@@ -214,7 +214,7 @@ if ($_SESSION["agentID"] == NULL) {
                 if (mysqli_num_rows($query_run) > 0) {
               ?>
                   <div class="table-responsive">
-                    <table class="table border table-hover"  id="example2">
+                    <table class="table border table-hover">
                       <thead style="text-align: center">
                         <tr class="bg-dark text-white">
                           <th> Photo </th>
@@ -257,7 +257,7 @@ if ($_SESSION["agentID"] == NULL) {
                 if (mysqli_num_rows($query_run) > 0) {
                 ?>
                   <div class="table-responsive">
-                    <table class="table border table-hover"  id="example2">
+                    <table class="table border table-hover">
                       <thead style="text-align: center">
                         <tr class="bg-dark text-white">
                           <th> Photo </th>
@@ -298,7 +298,7 @@ if ($_SESSION["agentID"] == NULL) {
                 if (mysqli_num_rows($query_run) > 0) {
                 ?>
                   <div class="table-responsive">
-                    <table class="table border table-hover"  id="example2">
+                    <table class="table border table-hover">
                       <thead style="text-align: center">
                         <tr class="bg-dark text-white">
                           <th> Photo </th>
