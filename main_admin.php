@@ -202,6 +202,7 @@ if ($_SESSION["adminID"] == NULL) {
                 <div class="icon">
                   <i class="fas fa-shopping-cart"></i>
                 </div>
+                <a href="admin_order.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <?php
@@ -224,6 +225,7 @@ if ($_SESSION["adminID"] == NULL) {
                   <div class="icon">
                     <i class="ion ion-stats-bars"></i>
                   </div>
+                  <a href="salesrpt.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
             <?php } else { ?>
@@ -237,6 +239,7 @@ if ($_SESSION["adminID"] == NULL) {
                   <div class="icon">
                     <i class="ion ion-stats-bars"></i>
                   </div>
+                  <a href="salesrpt.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
             <?php }
@@ -253,6 +256,7 @@ if ($_SESSION["adminID"] == NULL) {
                 <div class="icon">
                   <i class="ion ion-cube"></i>
                 </div>
+                <a href="product_edit.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <?php
@@ -269,11 +273,65 @@ if ($_SESSION["adminID"] == NULL) {
                 <div class="icon">
                   <i class="ion ion-person"></i>
                 </div>
+                <a href="agentlist_test.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
           </div>
           <!-- /.row -->
+          <div class="row">
+            <div class="col-lg-6 col-6">
+              <!-- small box -->
+              <div class="small-box bg-secondary">
+                <div class="inner">
+                  <?php $resop = mysqli_query($db, "SELECT * FROM orderlist WHERE orderStatus = 'Completed'");
+                  $total_elapsed = 0;
+                  $count = 0;
+                  if (mysqli_num_rows($resop) > 0) {
+                    while ($row = mysqli_fetch_array($resop)) {
+                      $from1 = new DateTime($row['orderCreatedate']);
+                      $to1 = new DateTime($row['orderCompletedate']);
+                      $interval1 = $to1->diff($from1);
+                      $elapsed1 = $interval1->format('%a');
+                      $total_elapsed += $elapsed1;
+                      $count += 1;
+                    }
+                    $avg = $total_elapsed / $count;
+                  ?><h4><?php echo "Average Within "; ?></h4>
+                    <h3><?php echo number_format($avg) . " Days" ?></h3>
+                  <?php } else {
+                    echo "error";
+                  } ?>
+                  <p>Order Process Performance</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-clipboard"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-6 col-6">
+              <!-- small box -->
+              <div class="small-box bg-secondary">
+                <div class="inner">
+                  <?php $resprod = mysqli_query($db, "SELECT SUM(order_product.order_productQuantity) AS totalProduct FROM order_product INNER JOIN orderlist ON order_product.orderID=orderlist.orderID WHERE orderlist.orderStatus = 'Completed' AND YEAR(orderlist.orderCreatedate) = 2022");
+                  if (mysqli_num_rows($resprod) > 0) {
+                    $row = mysqli_fetch_array($resprod);
+                    $totalProduct = $row['totalProduct']; ?>
+                    <h4><?php echo "Total Quantity of" ?></h4>
+                    <h3><?php echo $totalProduct; ?></h3>
+                  <?php } else {
+                  } ?>
+                  <p>Product Sold</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-cash"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+          </div>
+
           <!-- Bar chart -->
           <div class="row">
             <div class="col-md-6">
@@ -302,7 +360,6 @@ if ($_SESSION["adminID"] == NULL) {
               <div class="card card-success">
                 <div class="card-header border-transparent">
                   <h3 class="card-title">Latest Orders</h3>
-
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                       <i class="fas fa-minus"></i>
