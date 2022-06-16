@@ -195,7 +195,7 @@ if ($_SESSION["adminID"] == NULL) {
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Category Name</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" name="categoryName" class="form-control" placeholder="Enter Category Name">
+                                                    <input type="text" name="categoryName" class="form-control" placeholder="Enter Category Name" required>
                                                 </div>
                                             </div>
                                         </div>

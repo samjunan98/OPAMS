@@ -2,6 +2,7 @@
 session_start();
 include('config.php');
 $adminID = $_SESSION['adminID'];
+$_SESSION['chk']="Yes";
 $adminSessionid = $_SESSION['adminSessionid'];
 if ($_SESSION["adminID"] == NULL) {
     header("location: index.html");

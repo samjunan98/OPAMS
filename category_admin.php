@@ -17,6 +17,14 @@ if ($_SESSION["adminID"] == NULL) {
         }
     }
 }
+if (!empty($_SESSION['catsuccess'])) {
+    unset($_SESSION['catsuccess']);
+    $hasData = true;
+  }
+  if (!empty($_SESSION['catsuccess1'])) {
+    unset($_SESSION['catsuccess1']);
+    $hasData1 = true;
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -189,7 +197,7 @@ if ($_SESSION["adminID"] == NULL) {
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="text-right">
-                                            <a href="category_add.php"><button type="button" title="Edit Category" class="btn btn-success" style><i class="fa-solid fa-pen-to-square"> </i> Add New Category</button></a>
+                                            <a href="category_add.php"><button type="button" title="Add Category" class="btn btn-success" style><i class="fa-solid fa-add"> </i> Add New Category</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -207,6 +215,7 @@ if ($_SESSION["adminID"] == NULL) {
                                         <table class="table border table-hover">
                                             <thead style="text-align: center">
                                                 <tr class="bg-dark text-white">
+                                                    <th> Status </th>
                                                     <th> Category ID </th>
                                                     <th> Category Name </th>
                                                     <th> Action </th>
@@ -215,11 +224,21 @@ if ($_SESSION["adminID"] == NULL) {
                                             <tbody style="text-align: center">
                                                 <?php foreach ($query_run as $row) { ?>
                                                     <tr>
+                                                        <td><span <?php if ($row['categoryDelete'] == 1) { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php if ($row['categoryDelete'] == 0) {
+                                                                                                                                                                                                        echo "Listed";
+                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                        echo "Unlisted";
+                                                                                                                                                                                                    } ?> </span></td>
                                                         <td><?= $row['categoryID']; ?></td>
                                                         <td><?= $row['categoryName']; ?></td>
                                                         <td>
-                                                            <div class="btn-group">
-                                                                <a href="category_edit.php?categoryID=<?php echo $row['categoryID']; ?>"><button type="button" title="Edit Category" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></button></a>
+
+                                                            <div class="btn-group"> <a href="category_edit.php?categoryID=<?php echo $row['categoryID']; ?>"><button type="button" title="Edit Category" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></button></a>
+                                                                <?php if ($row['categoryDelete'] == 0) { ?>
+                                                                    <a href="category_delete.php?categoryID=<?php echo $row['categoryID']; ?>"><button type="button" title="Delete Category" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button></a>
+                                                                <?php } else { ?>
+                                                                    <a href="category_retrieve.php?categoryID=<?php echo $row['categoryID']; ?>"><button type="button" title="Retrieve Category" class="btn btn-success"><i class="fa-solid fa-clock-rotate-left"></i></button></a>
+                                                                <?php } ?>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -273,8 +292,34 @@ if ($_SESSION["adminID"] == NULL) {
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.min.js"></script>
-
-
+    <script>
+    $(document).ready(function(){
+    <?=isset($hasData) && $hasData === true ? 'run();' : ''?>
+});
+    function run() {
+      $(document).Toasts('create', {
+        class: 'bg-success',
+        title: 'Add Category Success',
+        autohide: true,
+        delay: 5000,
+        body: 'New Category is Added!'
+      })
+    }
+  </script>
+    <script>
+    $(document).ready(function(){
+    <?=isset($hasData1) && $hasData1 === true ? 'run();' : ''?>
+});
+    function run() {
+      $(document).Toasts('create', {
+        class: 'bg-success',
+        title: 'Edit Category Success',
+        autohide: true,
+        delay: 5000,
+        body: 'Category is Updated!'
+      })
+    }
+  </script>
 </body>
 
 </html>

@@ -28,7 +28,7 @@
                 <form action="agent-store.php" method="post" enctype="multipart/form-data">
                     <div class="form-group mb-3">
                         <label class="col-sm-3 col-form-label">Photo</label>
-                        <input name="agentPhoto" type="file" accept="image/*" class="form-control" style="height:50px" onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+                        <input name="agentPhoto" type="file" accept="image/*" class="form-control" style="height:50px" onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])"  required>
                     </div>
                     <div class="form-group mb-3">
                         <input type="text" class="form-control" placeholder="Full name" name="agentName" required>
@@ -39,15 +39,15 @@
                         
                     </div>
                     <div class="form-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password" name="agentPw1" required>
+                        <input type="password" class="form-control" placeholder="Password" name="agentPw1" pattern=".{8,}"   required title="8 digits or characters minimum">
                        
                     </div>
                     <div class="form-group mb-3">
-                        <input type="password" class="form-control" placeholder="Retype password" name="agentPw2" required>
+                        <input type="password" class="form-control" placeholder="Retype password" name="agentPw2" pattern=".{8,}"   required title="8 digits or characters minimum">
                         
                     </div>
                     <div class="form-group mb-3">
-                        <input type="number" class="form-control" placeholder="Age" name="agentAge" required>
+                        <input type="number" class="form-control" placeholder="Age" min="1" name="agentAge" required>
                        
                     </div>
                     <div class="form-group mb-3">
@@ -55,7 +55,7 @@
                         
                     </div>
                     <div class="form-group mb-3">
-                        <input placeholder="Date of Birth" class="form-control" type="text" name="agentDOB" onfocus="(this.type='date')" id="date" required>
+                        <input placeholder="Date of Birth" class="form-control" type="text" name="agentDOB" onfocus="(this.type='date')" id="date" max="<?php echo date("Y-m-d"); ?>" required>
                         
                     </div>
                     <div class="form-group mb-3">

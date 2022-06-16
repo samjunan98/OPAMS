@@ -15,14 +15,13 @@ if($res['success']){
         $agentGender = mysqli_real_escape_string($db, $_POST['agentGender']);
         $agentDOB = mysqli_real_escape_string($db, $_POST['agentDOB']);
         $agentLocation = mysqli_real_escape_string($db, $_POST['agentLocation']);
-
         $user_check_query = "SELECT * FROM agent WHERE agentEmail='$agentEmail'";
         $result = mysqli_query($db, $user_check_query) or die('Error querying database.');
 
         if ($_POST["agentPw1"] == $_POST["agentPw2"]){
         if (mysqli_num_rows($result) > 0) {
                 echo '<script type="text/javascript">';
-                echo 'alert("User Existed");';
+                echo 'alert("Invalid Email");';
                 echo 'window.location.href = "agent_register.php";';
                 echo '</script>';
         } else {

@@ -17,6 +17,12 @@ if ($_SESSION["agentID"] == NULL) {
         }
     }
 }
+if (empty($_SESSION['checkout'])) {
+    echo '<script type="text/javascript">';
+    echo 'alert("Error");';
+    echo 'window.location.href = "main_agent.php";';
+    echo '</script>';
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,11 +40,6 @@ if ($_SESSION["agentID"] == NULL) {
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
-    <script type="text/javascript">
- window.onbeforeunload = function () {
-  return 'Are you really want to perform the action?';
- }
-</script>
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">

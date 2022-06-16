@@ -2,6 +2,7 @@
 session_start();
 include('config.php');
 $adminID = $_SESSION['adminID'];
+
 if(isset($_POST['add_category'])){
     $categoryID = mysqli_real_escape_string($db, $_POST['categoryID']);
     $categoryName = mysqli_real_escape_string($db, $_POST['categoryName']);
@@ -16,6 +17,7 @@ if(isset($_POST['add_category'])){
     $query = "INSERT INTO category(categoryID, categoryName) VALUES ('0', '$categoryName')";
     $rs = mysqli_query($db, $query);
     if($rs){ 
+        $_SESSION['catsuccess'] = 'Yes';
             header('location:category_admin.php');
             }
     else {

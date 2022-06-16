@@ -16,6 +16,7 @@ $agentLocation = $_POST['agentLocation'];
 $query = "UPDATE agent SET agentName='$agentName',agentPhoto='$agentPhoto', agentEmail='$agentEmail', agentAge='$agentAge', agentPhone='$agentPhone', agentGender='$agentGender', agentDOB='$agentDOB', agentLocation='$agentLocation' WHERE agentID='{$agentID}'";
 $rs = mysqli_query($db, $query);
 if($rs){ 
+    $_SESSION['agsuccess'] = 'Yes';
     header('location:agentlist_test.php');
     }
 else {
@@ -33,6 +34,7 @@ $agentLocation = $_POST['agentLocation'];
 $query = "UPDATE agent SET agentName='$agentName', agentEmail='$agentEmail', agentAge='$agentAge', agentPhone='$agentPhone', agentGender='$agentGender', agentDOB='$agentDOB', agentLocation='$agentLocation' WHERE agentID='{$agentID}'";
 $rs = mysqli_query($db, $query);
 if($rs){ 
+    $_SESSION['agsuccess'] = 'Yes';
     header('location:agentlist_test.php');
     }
 else {

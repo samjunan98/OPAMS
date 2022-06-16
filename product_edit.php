@@ -17,6 +17,14 @@ if ($_SESSION["adminID"] == NULL) {
     }
   }
 }
+if (!empty($_SESSION['addpsuccess'])) {
+  unset($_SESSION['addpsuccess']);
+  $hasData1 = true;
+}
+if (!empty($_SESSION['editpsuccess'])) {
+  unset($_SESSION['editpsuccess']);
+  $hasData = true;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -463,7 +471,34 @@ if ($_SESSION["adminID"] == NULL) {
       });
     });
   </script>
-
+    <script>
+    $(document).ready(function(){
+    <?=isset($hasData1) && $hasData1 === true ? 'run();' : ''?>
+});
+    function run() {
+      $(document).Toasts('create', {
+        class: 'bg-success',
+        title: 'Add Product Success',
+        autohide: true,
+        delay: 5000,
+        body: 'New Product is Added!'
+      })
+    }
+  </script>
+      <script>
+    $(document).ready(function(){
+    <?=isset($hasData) && $hasData === true ? 'run();' : ''?>
+});
+    function run() {
+      $(document).Toasts('create', {
+        class: 'bg-success',
+        title: 'Edit Product Success',
+        autohide: true,
+        delay: 5000,
+        body: 'Product is Updated!'
+      })
+    }
+  </script>
 </body>
 
 </html>

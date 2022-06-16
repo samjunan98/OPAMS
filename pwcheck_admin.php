@@ -19,6 +19,7 @@ if (isset($_POST['adminLogin'])) {
         $adminSessionid = session_id();
         mysqli_query($db, "UPDATE admin SET adminSessionid='$adminSessionid' WHERE adminID='{$adminID}'");
         $_SESSION['adminSessionid'] = $adminSessionid;
+        $_SESSION['success'] = 'Yes';
         header('location: main_admin.php');
     } else {
         echo '<script type="text/javascript">';

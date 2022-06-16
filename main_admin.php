@@ -17,6 +17,10 @@ if ($_SESSION["adminID"] == NULL) {
     }
   }
 }
+if (!empty($_SESSION['success'])) {
+  unset($_SESSION['success']);
+  $hasData = true;
+}
 ?>
 
 <!DOCTYPE html>
@@ -145,6 +149,14 @@ if ($_SESSION["adminID"] == NULL) {
                 <i class="nav-icon ion ion-stats-bars"></i>
                 <p>
                   Sales Report
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="analysis.php" class="nav-link">
+                <i class="nav-icon fa fa-magnifying-glass-chart"></i>
+                <p>
+                  Analysis
                 </p>
               </a>
             </li>
@@ -307,7 +319,6 @@ if ($_SESSION["adminID"] == NULL) {
                 <div class="icon">
                   <i class="ion ion-clipboard"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <div class="col-lg-6 col-6">
@@ -327,7 +338,6 @@ if ($_SESSION["adminID"] == NULL) {
                 <div class="icon">
                   <i class="ion ion-cash"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
           </div>
@@ -493,6 +503,21 @@ if ($_SESSION["adminID"] == NULL) {
         }
       });
     });
+  </script>
+  <script>
+    $(document).ready(function() {
+      <?= isset($hasData) && $hasData === true ? 'run();' : '' ?>
+    });
+
+    function run() {
+      $(document).Toasts('create', {
+        class: 'bg-success',
+        title: 'Login Success',
+        autohide: true,
+        delay: 5000,
+        body: 'Welcome to Online Petshop Agent Management System!'
+      })
+    }
   </script>
 </body>
 

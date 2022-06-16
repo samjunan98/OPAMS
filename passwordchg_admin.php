@@ -218,19 +218,19 @@ if ($_SESSION["adminID"] == NULL) {
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Old Password</label>
                         <div class="col-sm-10">
-                          <input type="password" class="form-control" name="oldpw" placeholder="Enter Old Password">
+                          <input type="password" class="form-control" name="oldpw" placeholder="Enter Old Password" required>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">New Password</label>
                         <div class="col-sm-10">
-                          <input type="password" class="form-control" name="newpw1" placeholder="Enter New Password">
+                          <input type="password" class="form-control" name="newpw1" placeholder="Enter New Password" pattern=".{8,}"  required title="8 digits or characters minimum">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Confirm New Password</label>
                         <div class="col-sm-10">
-                          <input type="password" class="form-control" name="newpw2" placeholder="Confirm New Password">
+                          <input type="password" class="form-control" name="newpw2" placeholder="Confirm New Password" pattern=".{8,}"  required title="8 digits or characters minimum">
                         </div>
                       </div>
                     </div>

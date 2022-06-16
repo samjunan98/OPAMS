@@ -1,5 +1,6 @@
 <?php
 session_start();
+echo '<script>$(document).ready(function(){run()};</script>';
 include('config.php');
 include('reserve_check.php');
 $agentID = $_SESSION['agentID'];
@@ -17,6 +18,10 @@ if ($_SESSION["agentID"] == NULL) {
       echo '</script>';
     }
   }
+}
+if (!empty($_SESSION['success'])) {
+  unset($_SESSION['success']);
+  $hasData = true;
 }
 ?>
 <!DOCTYPE html>
@@ -169,6 +174,7 @@ if ($_SESSION["agentID"] == NULL) {
                 <div class="icon">
                   <i class="fas fa-shopping-cart"></i>
                 </div>
+                <a href="order.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <?php
@@ -192,6 +198,7 @@ if ($_SESSION["agentID"] == NULL) {
                   <div class="icon">
                     <i class="ion ion-stats-bars"></i>
                   </div>
+                  <a href="salesrpt_agent.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
               <!-- ./col -->
@@ -207,6 +214,7 @@ if ($_SESSION["agentID"] == NULL) {
                   <div class="icon">
                     <i class="fas fa-chart-pie"></i>
                   </div>
+                  <a href="salesrpt_agent.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
               <!-- ./col -->
@@ -221,6 +229,7 @@ if ($_SESSION["agentID"] == NULL) {
                   <div class="icon">
                     <i class="ion ion-stats-bars"></i>
                   </div>
+                  <a href="salesrpt_agent.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
               <!-- ./col -->
@@ -235,6 +244,7 @@ if ($_SESSION["agentID"] == NULL) {
                   <div class="icon">
                     <i class="fas fa-chart-pie"></i>
                   </div>
+                  <a href="salesrpt_agent.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
             <?php
@@ -257,6 +267,7 @@ if ($_SESSION["agentID"] == NULL) {
                 <div class="icon">
                   <i class="fas fa-user-plus"></i>
                 </div>
+                <a href="agentinfo.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -412,6 +423,20 @@ if ($_SESSION["agentID"] == NULL) {
         }
       });
     });
+  </script>
+  <script>
+    $(document).ready(function(){
+    <?=isset($hasData) && $hasData === true ? 'run();' : ''?>
+});
+    function run() {
+      $(document).Toasts('create', {
+        class: 'bg-success',
+        title: 'Login Success',
+        autohide: true,
+        delay: 5000,
+        body: 'Welcome to Online Petshop Agent Management System!'
+      })
+    }
   </script>
 </body>
 

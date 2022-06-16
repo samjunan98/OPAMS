@@ -196,43 +196,43 @@ if ($_SESSION["agentID"] == NULL) {
                                         <fieldset disabled="disabled">
                                             <div class="card-body">
                                                 <div class="form-group row">
-                                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+                                                    <label class="col-sm-2 col-form-label">Name</label>
                                                     <div class="col-sm-10">
                                                         <input type="text" class="form-control" value="<?php echo $row['agentName']; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Age</label>
+                                                    <label class="col-sm-2 col-form-label">Age</label>
                                                     <div class="col-sm-10">
                                                         <input type="number" class="form-control" value="<?php echo $row['agentAge']; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Phone Number</label>
+                                                    <label  class="col-sm-2 col-form-label">Phone Number</label>
                                                     <div class="col-sm-10">
                                                         <input type="phone" class="form-control" value="<?php echo $row['agentPhone']; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
+                                                    <label class="col-sm-2 col-form-label">Email</label>
                                                     <div class="col-sm-10">
                                                         <input type="email" class="form-control" value="<?php echo $row['agentEmail']; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Gender</label>
+                                                    <label  class="col-sm-2 col-form-label">Gender</label>
                                                     <div class="col-sm-10">
                                                         <input type="text" class="form-control" value="<?php echo $row['agentGender']; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Date Of Birth</label>
+                                                    <label class="col-sm-2 col-form-label">Date Of Birth</label>
                                                     <div class="col-sm-10">
                                                         <input type="date" class="form-control" value="<?php echo $row['agentDOB']; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Location</label>
+                                                    <label class="col-sm-2 col-form-label">Location</label>
                                                     <div class="col-sm-10">
                                                         <input type="text" class="form-control" value="<?php echo $row['agentLocation']; ?>">
                                                     </div>

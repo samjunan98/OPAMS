@@ -225,13 +225,13 @@ if ($_SESSION["adminID"] == NULL) {
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">
-                          <input type="text" name="adminName" class="form-control" value="<?php echo $row['adminName']; ?>">
+                          <input type="text" name="adminName" class="form-control" value="<?php echo $row['adminName']; ?>" required>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                          <input type="email" name="adminEmail" class="form-control" value="<?php echo $row['adminEmail']; ?>">
+                          <input type="email" name="adminEmail" class="form-control" value="<?php echo $row['adminEmail']; ?>" required>
                         </div>
                       </div>
                     </div>

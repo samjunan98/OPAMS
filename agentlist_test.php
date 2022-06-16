@@ -17,8 +17,11 @@ if ($_SESSION["adminID"] == NULL) {
     }
   }
 }
+if (!empty($_SESSION['agsuccess'])) {
+  unset($_SESSION['agsuccess']);
+  $hasData = true;
+}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -380,6 +383,21 @@ if ($_SESSION["adminID"] == NULL) {
         "responsive": true,
       });
     });
+  </script>
+  <script>
+    $(document).ready(function() {
+      <?= isset($hasData) && $hasData === true ? 'run();' : '' ?>
+    });
+
+    function run() {
+      $(document).Toasts('create', {
+        class: 'bg-success',
+        title: 'Edit Agent Success',
+        autohide: true,
+        delay: 5000,
+        body: 'Agent is Updated!'
+      })
+    }
   </script>
 </body>
 

@@ -219,9 +219,11 @@ if ($_SESSION["agentID"] == NULL) {
                         <tr class="bg-dark text-white">
                           <th> Photo </th>
                           <th> Name </th>
+                          <th> Stock </th>
                           <th width=10%;> Quantity </th>
                           <th> Description </th>
                           <th> SKU </th>
+                          <th> Price </th>
                           <th> Action </th>
                         </tr>
                       </thead>
@@ -231,9 +233,11 @@ if ($_SESSION["agentID"] == NULL) {
                             <tr data-href="productinfo.php?productID=<?php echo $row['productID']; ?>" style="height:100px; cursor:pointer;">
                               <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
                               <td><?= $row['productName']; ?></td>
+                              <td><?= $row['productQuantity']; ?></td>
                               <td><input type="number" class="form-control" name="quantity" min="1" max="<?= $row['productQuantity']; ?>" step="1" value="1"></td>
                               <td><?= $row['productDesc']; ?></td>
                               <td><?= $row['productSKU']; ?></td>
+                              <td><?php echo "RM" . $row['productPrice']; ?></td>
                               <td align="center" width="50" height="40"><?php if ($row['productQuantity'] == '0') { ?> <i style="color:red; font-weight:bold;">Sold Out </i> <?php } else { ?>
                                   <button type="submit" value="add2cart" title="Add to Cart" class="btn btn-primary btn-block"><i class="fa-solid fa-cart-plus"></i></button></a> <?php } ?>
                               </td>
@@ -252,7 +256,7 @@ if ($_SESSION["agentID"] == NULL) {
                 }
               } else if (isset($_GET['taskOption'])) {
                 $categoryID = $_GET['taskOption'];
-                $query = "SELECT productID, productPhoto, productName, productQuantity, productDesc, productSKU FROM product WHERE '$categoryID' = categoryID AND '$productDelete' = productDelete";
+                $query = "SELECT * FROM product WHERE '$categoryID' = categoryID AND '$productDelete' = productDelete";
                 $query_run = mysqli_query($db, $query);
                 if (mysqli_num_rows($query_run) > 0) {
                 ?>
@@ -262,9 +266,11 @@ if ($_SESSION["agentID"] == NULL) {
                         <tr class="bg-dark text-white">
                           <th> Photo </th>
                           <th> Name </th>
+                          <th> Stock </th>
                           <th width=10%;> Quantity </th>
                           <th> Description </th>
                           <th> SKU </th>
+                          <th> Price </th>
                           <th> Action </th>
                         </tr>
                       </thead>
@@ -274,9 +280,11 @@ if ($_SESSION["agentID"] == NULL) {
                             <tr data-href="productinfo.php?productID=<?php echo $row['productID']; ?>" style="height:100px; cursor:pointer;">
                               <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
                               <td><?= $row['productName']; ?></td>
+                              <td><?= $row['productQuantity']; ?></td>
                               <td><input type="number" class="form-control" name="quantity" min="1" max="<?= $row['productQuantity']; ?>" step="1" value="1"></td>
                               <td><?= $row['productDesc']; ?></td>
                               <td><?= $row['productSKU']; ?></td>
+                              <td><?php echo "RM" . $row['productPrice']; ?></td>
                               <td align="center" width="50" height="40"><?php if ($row['productQuantity'] == '0') { ?> <i style="color:red; font-weight:bold;">Sold Out </i> <?php } else { ?>
                                   <button type="submit" value="add2cart" title="Add to Cart" class="btn btn-primary btn-block"><i class="fa-solid fa-cart-plus"></i></button></a> <?php } ?>
                               </td>
@@ -293,7 +301,7 @@ if ($_SESSION["agentID"] == NULL) {
                 <?php
                 }
               } else {
-                $query = "SELECT productID, productPhoto, productName, productQuantity, productDesc, productSKU FROM product WHERE '$productDelete' = productDelete";
+                $query = "SELECT * FROM product WHERE '$productDelete' = productDelete";
                 $query_run = mysqli_query($db, $query);
                 if (mysqli_num_rows($query_run) > 0) {
                 ?>
@@ -303,9 +311,11 @@ if ($_SESSION["agentID"] == NULL) {
                         <tr class="bg-dark text-white">
                           <th> Photo </th>
                           <th> Name </th>
+                          <th> Stock </th>
                           <th width=10%;> Quantity </th>
                           <th> Description </th>
                           <th> SKU </th>
+                          <th> Price </th>
                           <th> Action </th>
                         </tr>
                       </thead>
@@ -315,9 +325,11 @@ if ($_SESSION["agentID"] == NULL) {
                             <tr data-href="productinfo.php?productID=<?php echo $row['productID']; ?>" style="height:100px; cursor:pointer;">
                               <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
                               <td><?= $row['productName']; ?></td>
+                              <td><?= $row['productQuantity']; ?></td>
                               <td><input type="number" class="form-control" name="quantity" min="1" max="<?= $row['productQuantity']; ?>" step="1" value="1"></td>
                               <td><?= $row['productDesc']; ?></td>
                               <td><?= $row['productSKU']; ?></td>
+                              <td><?php echo "RM" . $row['productPrice']; ?></td>
                               <td align="center" width="50" height="40"><?php if ($row['productQuantity'] == '0') { ?> <i style="color:red; font-weight:bold;">Sold Out </i> <?php } else { ?>
                                   <button type="submit" value="add2cart" title="Add to Cart" class="btn btn-primary btn-block"><i class="fa-solid fa-cart-plus"></i></button></a> <?php } ?>
                               </td>

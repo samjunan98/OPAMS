@@ -17,6 +17,12 @@ if ($_SESSION["adminID"] == NULL) {
         }
     }
 }
+if (empty($_SESSION['chk'])) {
+    echo '<script type="text/javascript">';
+    echo 'alert("Error");';
+    echo 'window.location.href = "main_admin.php";';
+    echo '</script>';
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -244,7 +250,7 @@ if ($_SESSION["adminID"] == NULL) {
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Phone</label>
                                                 <div class="col-sm-10">
-                                                    <input type="tel" name="deliveryPhone" class="form-control" value="<?php echo $row['deliveryPhone']; ?>" required>
+                                                    <input type="tel" name="deliveryPhone" class="form-control" value="<?php echo $row['deliveryPhone']; ?>" pattern="^(\+?6?01)[02-46-9]-*[0-9]{7}$|^(\+?6?01)[1]-*[0-9]{8}$" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">

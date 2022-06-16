@@ -76,8 +76,8 @@ if ($_SESSION["adminID"] == NULL) {
             } ?>
           </div>
         </div>
-       <!-- Sidebar Menu -->
-       <nav class="mt-2">
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
@@ -204,14 +204,14 @@ if ($_SESSION["adminID"] == NULL) {
 
                   <ul class="list-group list-group-unbordered mb-3">
                     <li class="list-group-item">
-                    <?php $fromdate = mysqli_query($db, "SELECT * FROM agent WHERE agentID='$agentID'");
-                  $row = mysqli_fetch_array($fromdate);
-                  $from1 = new DateTime($row['agentCreatedate']);
-                  $today1 = new DateTime();
-                  $interval1 = $today1->diff($from1);
-                  $elapsed1 = $interval1->format('%a Days');
-                  ?>
-                                            <b>Agent for</b> <a class="float-right"><?php echo $elapsed1; ?></a>
+                      <?php $fromdate = mysqli_query($db, "SELECT * FROM agent WHERE agentID='$agentID'");
+                      $row = mysqli_fetch_array($fromdate);
+                      $from1 = new DateTime($row['agentCreatedate']);
+                      $today1 = new DateTime();
+                      $interval1 = $today1->diff($from1);
+                      $elapsed1 = $interval1->format('%a Days');
+                      ?>
+                      <b>Agent for</b> <a class="float-right"><?php echo $elapsed1; ?></a>
                     </li>
                 </div>
                 <!-- /.card-body -->
@@ -237,55 +237,48 @@ if ($_SESSION["adminID"] == NULL) {
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">
-                          <input type="text" name="agentName" class="form-control" value="<?php echo $row['agentName']; ?>" placeholder="Enter Name">
+                          <input type="text" name="agentName" class="form-control" value="<?php echo $row['agentName']; ?>" placeholder="Enter Name" required>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Age</label>
                         <div class="col-sm-10">
-                          <input type="number" name="agentAge" class="form-control" value="<?php echo $row['agentAge']; ?>" placeholder="Enter Age">
+                          <input type="number" name="agentAge" class="form-control" value="<?php echo $row['agentAge']; ?>" placeholder="Enter Age" min="1" required>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Phone Number</label>
                         <div class="col-sm-10">
-                          <input type="tel" name="agentPhone" class="form-control" value="<?php echo $row['agentPhone']; ?>" placeholder="Enter Phone Number">
+                          <input type="tel" name="agentPhone" class="form-control" value="<?php echo $row['agentPhone']; ?>" placeholder="Enter Phone Number" pattern="^(\+?6?01)[02-46-9]-*[0-9]{7}$|^(\+?6?01)[1]-*[0-9]{8}$" required>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                          <input type="email" name="agentEmail" class="form-control" value="<?php echo $row['agentEmail']; ?>" placeholder="Enter Email">
+                          <input type="email" name="agentEmail" class="form-control" value="<?php echo $row['agentEmail']; ?>" placeholder="Enter Email" required>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Gender</label>
                         <div class="col-sm-10">
-                          <div class="form-check">
-                            <input class="form-check-input" name="agentGender" type="radio" value="male" name="radio1" <?php if ($row['agentGender'] == "male") { ?> checked <?php } ?>>
-                            <label class="form-check-label">Male</label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" name="agentGender" type="radio" value="female" name="radio1" <?php if ($row['agentGender'] == "female") { ?> checked <?php } ?>>
-                            <label class="form-check-label">Female</label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" name="agentGender" type="radio" value="other" <?php if ($row['agentGender'] == "other") { ?> checked <?php } ?>>
-                            <label class="form-check-label">Other</label>
-                          </div>
+                          <select class="form-control" name="agentGender" required>
+                            <option value="Male" <?php if ($row['agentGender'] == "Male") { ?> selected <?php } ?>>Male</option>
+                            <option value="Female" <?php if ($row['agentGender'] == "Female") { ?> selected <?php } ?>>Female</option>
+                            <option value="Other" <?php if ($row['agentGender'] == "Other") { ?> selected <?php } ?>>Other</option>
+                          </select>
                         </div>
                       </div>
 
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Date Of Birth</label>
                         <div class="col-sm-10">
-                          <input type="date" name="agentDOB" class="form-control" value="<?php echo $row['agentDOB']; ?>" placeholder="Enter Date of Birth">
+                          <input type="date" name="agentDOB" class="form-control" value="<?php echo $row['agentDOB']; ?>" placeholder="Enter Date of Birth" max="<?php echo date("Y-m-d"); ?>" required>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Location</label>
                         <div class="col-sm-10">
-                          <select class="form-control" name="agentLocation">
+                          <select class="form-control" name="agentLocation" required>
                             <option value="Perlis" <?php if ($row['agentLocation'] == "Perlis") { ?> selected <?php } ?>>Perlis</option>
                             <option value="Kedah" <?php if ($row['agentLocation'] == "Kedah") { ?> selected <?php } ?>>Kedah</option>
                             <option value="Kelantan" <?php if ($row['agentLocation'] == "Kelantan") { ?> selected <?php } ?>>Kelantan</option>

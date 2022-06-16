@@ -206,31 +206,31 @@ if ($_SESSION["adminID"] == NULL) {
                                  <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Product Name</label>
                                     <div class="col-sm-10">
-                                       <input type="text" name="productName" class="form-control" value="<?php echo $row['productName']; ?>" placeholder="Enter Product Name">
+                                       <input type="text" name="productName" class="form-control" value="<?php echo $row['productName']; ?>" placeholder="Enter Product Name" required>
                                     </div>
                                  </div>
                                  <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Product Quantity</label>
                                     <div class="col-sm-10">
-                                       <input type="number" name="productQuantity" value="<?php echo $row['productQuantity']; ?>" class="form-control" placeholder="Enter Product Quantity">
+                                       <input type="number" name="productQuantity" value="<?php echo $row['productQuantity']; ?>" class="form-control" min="1" placeholder="Enter Product Quantity" required>
                                     </div>
                                  </div>
                                  <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Product Price</label>
                                     <div class="col-sm-10">
-                                       <input type="number" min="1" name="productPrice" value="<?php echo $row['productPrice']; ?>" class="form-control" placeholder="Enter Product Price">
+                                       <input type="number" min="1" name="productPrice" value="<?php echo $row['productPrice']; ?>" class="form-control" min="1" placeholder="Enter Product Price" required>
                                     </div>
                                  </div>
                                  <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Product Description</label>
                                     <div class="col-sm-10">
-                                       <input type="text" name="productDesc" class="form-control" value="<?php echo $row['productDesc']; ?>" placeholder="Enter Product Description">
+                                       <input type="text" name="productDesc" class="form-control" value="<?php echo $row['productDesc']; ?>" placeholder="Enter Product Description" required>
                                     </div>
                                  </div>
                                  <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Product SKU</label>
                                     <div class="col-sm-10">
-                                       <input type="text" name="productSKU" class="form-control" value="<?php echo $row['productSKU']; ?>" placeholder="Enter Product SKU">
+                                       <input type="text" name="productSKU" class="form-control" value="<?php echo $row['productSKU']; ?>" placeholder="Enter Product SKU" required>
                                     </div>
                                  </div>
                                  <div class="form-group row">
@@ -238,7 +238,7 @@ if ($_SESSION["adminID"] == NULL) {
                                     <div class="col-sm-10">
                                        <select class="form-control" name="categoryID" required>
                                           <option disabled selected value> -- Select Category -- </option>
-                                          <?php $query111 = "SELECT * FROM category";
+                                          <?php $query111 = "SELECT * FROM category WHERE categoryDelete = 0";
                                           $result111 = mysqli_query($db, $query111);
                                           while ($row1 = mysqli_fetch_array($result111)) :; ?>
                                              <option value="<?php echo $row1[0]; ?>" <?php if ($row['categoryID'] == $row1[0]) { ?> selected <?php } ?>><?php echo $row1[1]; ?></option>

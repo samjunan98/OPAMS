@@ -3,6 +3,7 @@ session_start();
 include("config.php");
 $agentID = $_SESSION['agentID'];
 $cartID = $_SESSION['agentID'];
+$_SESSION['checkout'] = "YES";
 
 
 $query = "SELECT * FROM cart_product WHERE cartID='$agentID'";

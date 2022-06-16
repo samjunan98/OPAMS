@@ -18,6 +18,7 @@ if (isset($_POST['agentLogin'])) {
         $agentSessionid = session_id();
         mysqli_query($db, "UPDATE agent SET agentSessionid='$agentSessionid' WHERE agentID='{$agentID}'");
         $_SESSION['agentSessionid'] = $agentSessionid;
+        $_SESSION['success'] = 'Yes';
         header('location: main_agent.php');
     } else {
         echo '<script type="text/javascript">';

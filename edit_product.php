@@ -1,5 +1,6 @@
 
 <?php
+session_start();
 include('config.php');
 
 if (isset($_POST['edit_product'])) {
@@ -19,6 +20,7 @@ if (isset($_POST['edit_product'])) {
         {echo " <script> alert('SKU Existed') </script> ";}
         else{
 	mysqli_query($db, "UPDATE product SET categoryID='$categoryID', productName='$productName', productPhoto='$productPhoto', productPrice='$productPrice', productQuantity='$productQuantity', productDesc='$productDesc', productSKU='$productSKU' WHERE productID='{$productID}'");
+	$_SESSION['editpsuccess'] = 'Yes';
 	header('location:product_edit.php');
 }
 }
@@ -29,6 +31,7 @@ else{
         {echo " <script> alert('SKU Existed') </script> ";}
         else{
 	mysqli_query($db, "UPDATE product SET categoryID='$categoryID', productName='$productName', productQuantity='$productQuantity', productPrice='$productPrice', productDesc='$productDesc', productSKU='$productSKU' WHERE productID='{$productID}'");
+	$_SESSION['editpsuccess'] = 'Yes';
 	header('location:product_edit.php');
 }
 }

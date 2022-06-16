@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('config.php');
+unset($_SESSION['checkout']);
 $agentID = $_SESSION['agentID'];
 if ($_SESSION["agentID"] == NULL) {
   header("location: index.html");

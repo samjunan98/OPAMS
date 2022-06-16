@@ -54,7 +54,7 @@ if (isset($_POST['agentEmail']) & !empty($_POST['agentEmail'])) {
         }
     } else {
         echo '<script type="text/javascript">';
-        echo 'alert("Email does not exist in database");';
+        echo 'alert("Email is not registered as user");';
         echo 'window.location.href = "agent_forgetpw.php";';
         echo '</script>';
     }
