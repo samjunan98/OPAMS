@@ -31,7 +31,7 @@ if ($_SESSION["adminID"] == NULL) {
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="plugins/fontawesome-free-6.1.1-web/css/all.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
@@ -149,6 +149,14 @@ if ($_SESSION["adminID"] == NULL) {
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="analysis.php" class="nav-link">
+                                <i class="nav-icon fa fa-magnifying-glass-chart"></i>
+                                <p>
+                                    Analysis
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="info.php" class="nav-link">
                                 <i class="nav-icon fa fa-user-circle"></i>
                                 <p>
@@ -191,12 +199,12 @@ if ($_SESSION["adminID"] == NULL) {
                         <div class="col-md-8">
                             <div class="card card-primary card-outline">
                                 <div class="card-info">
-                                    <?php  $query = "SELECT * FROM category WHERE categoryID = '$categoryID'";
-                                $query_run = mysqli_query($db, $query);
-                                $row = mysqli_fetch_array($query_run) ?>
+                                    <?php $query = "SELECT * FROM category WHERE categoryID = '$categoryID'";
+                                    $query_run = mysqli_query($db, $query);
+                                    $row = mysqli_fetch_array($query_run) ?>
                                     <form class="form-horizontal" method="POST" action="category_save.php">
                                         <div class="card-body">
-                                        <div class="form-group row">
+                                            <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Category ID</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" name="categoryID" class="form-control" value="<?php echo $row['categoryID']; ?>" readonly>

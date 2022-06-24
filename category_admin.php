@@ -20,11 +20,11 @@ if ($_SESSION["adminID"] == NULL) {
 if (!empty($_SESSION['catsuccess'])) {
     unset($_SESSION['catsuccess']);
     $hasData = true;
-  }
-  if (!empty($_SESSION['catsuccess1'])) {
+}
+if (!empty($_SESSION['catsuccess1'])) {
     unset($_SESSION['catsuccess1']);
     $hasData1 = true;
-  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -152,6 +152,14 @@ if (!empty($_SESSION['catsuccess'])) {
                                 <i class="nav-icon ion ion-stats-bars"></i>
                                 <p>
                                     Sales Report
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="analysis.php" class="nav-link">
+                                <i class="nav-icon fa fa-magnifying-glass-chart"></i>
+                                <p>
+                                    Analysis
                                 </p>
                             </a>
                         </li>
@@ -293,33 +301,35 @@ if (!empty($_SESSION['catsuccess'])) {
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.min.js"></script>
     <script>
-    $(document).ready(function(){
-    <?=isset($hasData) && $hasData === true ? 'run();' : ''?>
-});
-    function run() {
-      $(document).Toasts('create', {
-        class: 'bg-success',
-        title: 'Add Category Success',
-        autohide: true,
-        delay: 5000,
-        body: 'New Category is Added!'
-      })
-    }
-  </script>
+        $(document).ready(function() {
+            <?= isset($hasData) && $hasData === true ? 'run();' : '' ?>
+        });
+
+        function run() {
+            $(document).Toasts('create', {
+                class: 'bg-success',
+                title: 'Add Category Success',
+                autohide: true,
+                delay: 5000,
+                body: 'New Category is Added!'
+            })
+        }
+    </script>
     <script>
-    $(document).ready(function(){
-    <?=isset($hasData1) && $hasData1 === true ? 'run();' : ''?>
-});
-    function run() {
-      $(document).Toasts('create', {
-        class: 'bg-success',
-        title: 'Edit Category Success',
-        autohide: true,
-        delay: 5000,
-        body: 'Category is Updated!'
-      })
-    }
-  </script>
+        $(document).ready(function() {
+            <?= isset($hasData1) && $hasData1 === true ? 'run();' : '' ?>
+        });
+
+        function run() {
+            $(document).Toasts('create', {
+                class: 'bg-success',
+                title: 'Edit Category Success',
+                autohide: true,
+                delay: 5000,
+                body: 'Category is Updated!'
+            })
+        }
+    </script>
 </body>
 
 </html>

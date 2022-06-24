@@ -1280,3 +1280,47 @@ var x = setInterval(() => {
     }
 }, 1000);
 </script>
+
+
+
+
+$.ajax({
+                url: "http://localhost/webdev/piechart_agent.php",
+                method: "GET",
+                success: function(data) {
+                  console.log(data);
+
+                  var  agentLocation = [];
+                  var  agentAmount = [];
+
+                  for (var i in data) {
+
+                    agentLocation.push(data[i]. agentLocation);
+                    agentAmount.push(data[i]. agentAmount);
+                  }
+
+                  var donutChartCanvas = $('#pieChart2');
+                  var donutData = {
+                    labels:  agentLocation,
+                    datasets: [{
+                      data:  agentAmount,
+                      backgroundColor: ["#0074D9", "#FF4136", "#2ECC40", "#FF851B", "#7FDBFF", "#B10DC9", "#FFDC00", "#001f3f", "#39CCCC", "#01FF70", "#85144b", "#F012BE", "#3D9970", "#111111", "#AAAAAA"],
+                    }]
+                  }
+                  var donutOptions = {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                  }
+                  //Create pie or douhnut chart
+                  // You can switch between pie and douhnut using the method below.
+                  new Chart(donutChartCanvas, {
+                    type: 'pie',
+                    data: donutData,
+                    options: donutOptions
+                  })
+                 
+                },
+                error: function(data) {
+                  console.log(data);
+                }
+              });

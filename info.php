@@ -35,7 +35,6 @@ if ($_SESSION["adminID"] == NULL) {
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
@@ -145,6 +144,14 @@ if ($_SESSION["adminID"] == NULL) {
                 <i class="nav-icon ion ion-stats-bars"></i>
                 <p>
                   Sales Report
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="analysis.php" class="nav-link">
+                <i class="nav-icon fa fa-magnifying-glass-chart"></i>
+                <p>
+                  Analysis
                 </p>
               </a>
             </li>

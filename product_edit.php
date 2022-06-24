@@ -42,6 +42,10 @@ if (!empty($_SESSION['editpsuccess'])) {
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
@@ -156,6 +160,14 @@ if (!empty($_SESSION['editpsuccess'])) {
               </a>
             </li>
             <li class="nav-item">
+              <a href="analysis.php" class="nav-link">
+                <i class="nav-icon fa fa-magnifying-glass-chart"></i>
+                <p>
+                  Analysis
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="info.php" class="nav-link">
                 <i class="nav-icon fa fa-user-circle"></i>
                 <p>
@@ -252,14 +264,14 @@ if (!empty($_SESSION['editpsuccess'])) {
                 if (mysqli_num_rows($query_run) > 0) {
               ?>
                   <div class="table-responsive">
-                    <table class="table border table-hover" id="example2">
+                    <table class="table table-bordered table-hover" id="example2">
                       <thead style="text-align: center">
                         <tr class="bg-dark text-white">
                           <th> Status </th>
                           <th> Photo </th>
                           <th> Name </th>
-                          <th width=10%;> Quantity </th>
-                          <th> Price </th>
+                          <th> Quantity </th>
+                          <th> Price (RM) </th>
                           <th> Description </th>
                           <th> SKU </th>
                           <th> Action </th>
@@ -272,7 +284,7 @@ if (!empty($_SESSION['editpsuccess'])) {
                           <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
                             <td><?= $row['productName']; ?></td>
                             <td><?= $row['productQuantity']; ?></td>
-                            <td><?php echo "RM" . $row['productPrice']; ?></td>
+                            <td><?= $row['productPrice']; ?></td>
                             <td><?= $row['productDesc']; ?></td>
                             <td><?= $row['productSKU']; ?></td>
                             <td width="50" height="40">
@@ -302,14 +314,14 @@ if (!empty($_SESSION['editpsuccess'])) {
                 if (mysqli_num_rows($query_run) > 0) {
                 ?>
                   <div class="table-responsive">
-                    <table class="table border table-hover" id="example2">
+                    <table class="table table-bordered table-hover" id="example2">
                       <thead style="text-align: center">
                         <tr class="bg-dark text-white">
                           <th> Status </th>
                           <th> Photo </th>
                           <th> Name </th>
-                          <th width=10%;> Quantity </th>
-                          <th> Price </th>
+                          <th> Quantity </th>
+                          <th> Price (RM) </th>
                           <th> Description </th>
                           <th> SKU </th>
                           <th> Action </th>
@@ -323,7 +335,7 @@ if (!empty($_SESSION['editpsuccess'])) {
                           <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
                             <td><?= $row['productName']; ?></td>
                             <td><?= $row['productQuantity']; ?></td>
-                            <td><?php echo "RM" . $row['productPrice']; ?></td>
+                            <td><?= $row['productPrice']; ?></td>
                             <td><?= $row['productDesc']; ?></td>
                             <td><?= $row['productSKU']; ?></td>
                             <td width="50" height="40">
@@ -352,14 +364,14 @@ if (!empty($_SESSION['editpsuccess'])) {
                 if (mysqli_num_rows($query_run) > 0) {
                 ?>
                   <div class="table-responsive">
-                    <table class="table border table-hover" id="example2">
+                    <table class="table table-bordered table-hover" id="example2">
                       <thead style="text-align: center">
                         <tr class="bg-dark text-white">
                           <th> Status </th>
                           <th> Photo </th>
                           <th> Name </th>
-                          <th width=10%;> Quantity </th>
-                          <th> Price </th>
+                          <th> Quantity </th>
+                          <th> Price (RM) </th>
                           <th> Description </th>
                           <th> SKU </th>
                           <th> Action </th>
@@ -377,7 +389,7 @@ if (!empty($_SESSION['editpsuccess'])) {
                             <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
                             <td><?= $row['productName']; ?></td>
                             <td><?= $row['productQuantity']; ?></td>
-                            <td><?php echo "RM" . $row['productPrice']; ?></td>
+                            <td><?= $row['productPrice']; ?></td>
                             <td><?= $row['productDesc']; ?></td>
                             <td><?= $row['productSKU']; ?></td>
                             <td width="50" height="40">
@@ -467,15 +479,16 @@ if (!empty($_SESSION['editpsuccess'])) {
         "ordering": true,
         "info": true,
         "autoWidth": false,
-        "responsive": true,
+        "responsive": false,
       });
     });
   </script>
     <script>
     $(document).ready(function(){
-    <?=isset($hasData1) && $hasData1 === true ? 'run();' : ''?>
+    <?=isset($hasData1) && $hasData1 === true ? 'run1();' : ''?>
+    <?=isset($hasData) && $hasData === true ? 'run();' : ''?>
 });
-    function run() {
+    function run1() {
       $(document).Toasts('create', {
         class: 'bg-success',
         title: 'Add Product Success',
@@ -486,9 +499,7 @@ if (!empty($_SESSION['editpsuccess'])) {
     }
   </script>
       <script>
-    $(document).ready(function(){
-    <?=isset($hasData) && $hasData === true ? 'run();' : ''?>
-});
+
     function run() {
       $(document).Toasts('create', {
         class: 'bg-success',

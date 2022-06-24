@@ -149,13 +149,14 @@ if ($_SESSION["agentID"] == NULL) {
             </section>
             <?php
             $orderID = $_GET['orderID'];
-            $query1 = mysqli_query($db, "SELECT order_product.productID,orderlist.orderOption,orderlist.orderStatus,orderlist.orderGrandtotal,orderlist.orderCreatedate  FROM order_product INNER JOIN orderlist ON order_product.orderID = orderlist.orderID WHERE '$orderID'= order_product.orderID AND '$agentID' = agentID") or die('Error querying database. ' .  mysqli_error($db));
+            $query1 = mysqli_query($db, "SELECT order_product.productID,orderlist.orderOption,orderlist.orderStatus,orderlist.orderGrandtotal,orderlist.orderCreatedate,orderlist.orderCompletedate  FROM order_product INNER JOIN orderlist ON order_product.orderID = orderlist.orderID WHERE '$orderID'= order_product.orderID AND '$agentID' = agentID") or die('Error querying database. ' .  mysqli_error($db));
             while ($row = mysqli_fetch_array($query1)) {
                 $productID = $row['productID'];
                 $orderGrandtotal = $row['orderGrandtotal'];
                 $orderCreatedate = $row['orderCreatedate'];
                 $orderStatus = $row['orderStatus'];
                 $orderOption = $row['orderOption'];
+                $orderCompletedate = $row['orderCompletedate'];
                 $query2 = "SELECT * FROM product INNER JOIN order_product ON product.productID = order_product.productID WHERE'$orderID' = orderID";
                 $query_run2 = mysqli_query($db, $query2) or die('Error querying database. ' .  mysqli_error($db));
             }
@@ -296,6 +297,16 @@ if ($_SESSION["agentID"] == NULL) {
                                                     <div class=grandt><span class="badge badge-success"><?php echo $orderStatus; ?></span></div>
                                                 </td>
                                             </tr>
+                                            <?php if ($orderStatus=="Completed"){ ?>
+                                            <tr>
+                                                <td>
+                                                    <div class=grandt><?php echo "Order Complete Time"; ?></div>
+                                                </td>
+                                                <td>
+                                                    <div class=grandt><?php echo $orderCompletedate; ?></div>
+                                                </td>
+                                            </tr>
+                                            <?php } ?>
                                         </table>
                                     </div>
                                 </div>

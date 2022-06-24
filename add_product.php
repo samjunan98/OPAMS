@@ -27,14 +27,14 @@ if ($_SESSION["adminID"] == NULL) {
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Online Petshop Agent Managment System</title>
 
-   <!-- Google Font: Source Sans Pro -->
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-   <!-- Font Awesome -->
-   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-   <!-- Ionicons -->
-   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-   <!-- Theme style -->
-   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free-6.1.1-web/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
@@ -148,6 +148,14 @@ if ($_SESSION["adminID"] == NULL) {
               </a>
             </li>
             <li class="nav-item">
+              <a href="analysis.php" class="nav-link">
+                <i class="nav-icon fa fa-magnifying-glass-chart"></i>
+                <p>
+                  Analysis
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="info.php" class="nav-link">
                 <i class="nav-icon fa fa-user-circle"></i>
                 <p>
@@ -212,7 +220,7 @@ if ($_SESSION["adminID"] == NULL) {
                                     </div>
                                  </div>
                                  <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Product Price</label>
+                                    <label class="col-sm-2 col-form-label">Product Price (RM)</label>
                                     <div class="col-sm-10">
                                        <input type="number" min="1" name="productPrice" class="form-control" min="1" placeholder="Enter Product Price" required>
                                     </div>

@@ -214,16 +214,16 @@ if ($_SESSION["agentID"] == NULL) {
                 if (mysqli_num_rows($query_run) > 0) {
               ?>
                   <div class="table-responsive">
-                    <table class="table border table-hover">
+                    <table class="table table-bordered table-hover">
                       <thead style="text-align: center">
                         <tr class="bg-dark text-white">
                           <th> Photo </th>
                           <th> Name </th>
                           <th> Stock </th>
-                          <th width=10%;> Quantity </th>
+                          <th> Quantity </th>
                           <th> Description </th>
                           <th> SKU </th>
-                          <th> Price </th>
+                          <th> Price (RM) </th>
                           <th> Action </th>
                         </tr>
                       </thead>
@@ -237,7 +237,7 @@ if ($_SESSION["agentID"] == NULL) {
                               <td><input type="number" class="form-control" name="quantity" min="1" max="<?= $row['productQuantity']; ?>" step="1" value="1"></td>
                               <td><?= $row['productDesc']; ?></td>
                               <td><?= $row['productSKU']; ?></td>
-                              <td><?php echo "RM" . $row['productPrice']; ?></td>
+                              <td><?= $row['productPrice']; ?></td>
                               <td align="center" width="50" height="40"><?php if ($row['productQuantity'] == '0') { ?> <i style="color:red; font-weight:bold;">Sold Out </i> <?php } else { ?>
                                   <button type="submit" value="add2cart" title="Add to Cart" class="btn btn-primary btn-block"><i class="fa-solid fa-cart-plus"></i></button></a> <?php } ?>
                               </td>
@@ -261,16 +261,16 @@ if ($_SESSION["agentID"] == NULL) {
                 if (mysqli_num_rows($query_run) > 0) {
                 ?>
                   <div class="table-responsive">
-                    <table class="table border table-hover">
+                    <table class="table table-bordered table-hover">
                       <thead style="text-align: center">
                         <tr class="bg-dark text-white">
                           <th> Photo </th>
                           <th> Name </th>
                           <th> Stock </th>
-                          <th width=10%;> Quantity </th>
+                          <th> Quantity </th>
                           <th> Description </th>
                           <th> SKU </th>
-                          <th> Price </th>
+                          <th> Price (RM) </th>
                           <th> Action </th>
                         </tr>
                       </thead>
@@ -284,7 +284,7 @@ if ($_SESSION["agentID"] == NULL) {
                               <td><input type="number" class="form-control" name="quantity" min="1" max="<?= $row['productQuantity']; ?>" step="1" value="1"></td>
                               <td><?= $row['productDesc']; ?></td>
                               <td><?= $row['productSKU']; ?></td>
-                              <td><?php echo "RM" . $row['productPrice']; ?></td>
+                              <td><?= $row['productPrice']; ?></td>
                               <td align="center" width="50" height="40"><?php if ($row['productQuantity'] == '0') { ?> <i style="color:red; font-weight:bold;">Sold Out </i> <?php } else { ?>
                                   <button type="submit" value="add2cart" title="Add to Cart" class="btn btn-primary btn-block"><i class="fa-solid fa-cart-plus"></i></button></a> <?php } ?>
                               </td>
@@ -306,16 +306,16 @@ if ($_SESSION["agentID"] == NULL) {
                 if (mysqli_num_rows($query_run) > 0) {
                 ?>
                   <div class="table-responsive">
-                    <table class="table border table-hover">
+                    <table class="table table-bordered table-hover">
                       <thead style="text-align: center">
                         <tr class="bg-dark text-white">
                           <th> Photo </th>
                           <th> Name </th>
                           <th> Stock </th>
-                          <th width=10%;> Quantity </th>
+                          <th> Quantity </th>
                           <th> Description </th>
                           <th> SKU </th>
-                          <th> Price </th>
+                          <th> Price (RM) </th>
                           <th> Action </th>
                         </tr>
                       </thead>
@@ -329,7 +329,7 @@ if ($_SESSION["agentID"] == NULL) {
                               <td><input type="number" class="form-control" name="quantity" min="1" max="<?= $row['productQuantity']; ?>" step="1" value="1"></td>
                               <td><?= $row['productDesc']; ?></td>
                               <td><?= $row['productSKU']; ?></td>
-                              <td><?php echo "RM" . $row['productPrice']; ?></td>
+                              <td><?= $row['productPrice']; ?></td>
                               <td align="center" width="50" height="40"><?php if ($row['productQuantity'] == '0') { ?> <i style="color:red; font-weight:bold;">Sold Out </i> <?php } else { ?>
                                   <button type="submit" value="add2cart" title="Add to Cart" class="btn btn-primary btn-block"><i class="fa-solid fa-cart-plus"></i></button></a> <?php } ?>
                               </td>
@@ -382,39 +382,6 @@ if ($_SESSION["agentID"] == NULL) {
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
   </script>
   <script src="dist/js/adminlte.min.js"></script>
-  <script src="plugins/datatables/jquery.dataTables.min.js"></script>
-  <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-  <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-  <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-  <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-  <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-  <script src="plugins/jszip/jszip.min.js"></script>
-  <script src="plugins/pdfmake/pdfmake.min.js"></script>
-  <script src="plugins/pdfmake/vfs_fonts.js"></script>
-  <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-  <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
-  <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-  <script>
-    $(function() {
-      $("#example1").DataTable({
-        "responsive": true,
-        "lengthChange": false,
-        "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
-    });
-  </script>
-
-
 </body>
 
 </html>

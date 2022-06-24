@@ -194,7 +194,7 @@ if ($_SESSION["agentID"] == NULL) {
                                 <td><?= $row['productName']; ?></td>
                                 <td><?= $row['productSKU']; ?></td>
                                 <td><?= $row['productPrice']; ?></td>
-                                <td> <input type="hidden" name="productID[]" value="<?= $row['productID']; ?>"><input type="number" name="cart_quantity[]" class="form-control" value="<?= $row['quantity']; ?>" min="1" max="<?= $row['productQuantity']; ?>"></td>
+                                <td> <input type="hidden" name="productID[]" value="<?= $row['productID']; ?>"><input type="number" name="cart_quantity[]" class="form-control" value="<?= $row['quantity']; ?>" min="1" max="<?= $row['productQuantity']; ?>" required></td>
                                 <td><?= $row['subtotal']; ?></td>
                               </tr>
 

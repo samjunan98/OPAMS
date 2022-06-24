@@ -148,6 +148,14 @@ if ($_SESSION["adminID"] == NULL) {
                      </a>
                   </li>
                   <li class="nav-item">
+                     <a href="analysis.php" class="nav-link">
+                        <i class="nav-icon fa fa-magnifying-glass-chart"></i>
+                        <p>
+                           Analysis
+                        </p>
+                     </a>
+                  </li>
+                  <li class="nav-item">
                      <a href="info.php" class="nav-link">
                         <i class="nav-icon fa fa-user-circle"></i>
                         <p>
@@ -216,7 +224,7 @@ if ($_SESSION["adminID"] == NULL) {
                                     </div>
                                  </div>
                                  <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Product Price</label>
+                                    <label class="col-sm-2 col-form-label">Product Price (RM)</label>
                                     <div class="col-sm-10">
                                        <input type="number" min="1" name="productPrice" value="<?php echo $row['productPrice']; ?>" class="form-control" min="1" placeholder="Enter Product Price" required>
                                     </div>

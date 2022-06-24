@@ -1,6 +1,5 @@
 <?php
 session_start();
-echo '<script>$(document).ready(function(){run()};</script>';
 include('config.php');
 include('reserve_check.php');
 $agentID = $_SESSION['agentID'];
@@ -76,69 +75,69 @@ if (!empty($_SESSION['success'])) {
             if (mysqli_num_rows($query_run) > 0) {
               foreach ($query_run as $row) { ?>
                 <a href="#" class="d-block"><?php echo $row['agentName']; ?></a>
-          </div>
-        </div> <?php }
+            <?php }
             } else {
               echo "error";
             } ?>
+          </div>
+        </div>
 
-    <!-- Sidebar Menu -->
-    <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <!-- Add icons to the links using the .nav-icon class
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-        <li class="nav-item">
-          <a href="main_agent.php" class="nav-link active">
-            <i class="nav-icon fa fa-home"></i>
-            <p>
-              Home
-            </p>
-          </a>
-        </li>
-        </li>
-        <li class="nav-item">
-          <a href="product.php" class="nav-link">
-            <i class="nav-icon fa fa-shopping-bag"></i>
-            <p>
-              Product
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="order.php" class="nav-link">
-            <i class="nav-icon fa fa-check-square"></i>
-            <p>
-              Order
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="salesrpt_agent.php" class="nav-link">
-            <i class="nav-icon ion ion-stats-bars"></i>
-            <p>
-              Sales Report
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="agentinfo.php" class="nav-link">
-            <i class="nav-icon fa fa-user-circle"></i>
-            <p>
-              Info
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="logout.php" class="nav-link">
-            <i class="nav-icon ion ion-log-out"></i>
-            <p>
-              Logout
-            </p>
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <!-- /.sidebar-menu -->
+            <li class="nav-item">
+              <a href="main_agent.php" class="nav-link active">
+                <i class="nav-icon fa fa-home"></i>
+                <p>
+                  Home
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="product.php" class="nav-link">
+                <i class="nav-icon fa fa-shopping-bag"></i>
+                <p>
+                  Product
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="order.php" class="nav-link">
+                <i class="nav-icon fa fa-check-square"></i>
+                <p>
+                  Order
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="salesrpt_agent.php" class="nav-link">
+                <i class="nav-icon ion ion-stats-bars"></i>
+                <p>
+                  Sales Report
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="agentinfo.php" class="nav-link">
+                <i class="nav-icon fa fa-user-circle"></i>
+                <p>
+                  Info
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="logout.php" class="nav-link">
+                <i class="nav-icon ion ion-log-out"></i>
+                <p>
+                  Logout
+                </p>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
       </div>
       <!-- /.sidebar -->
     </aside>
@@ -352,6 +351,7 @@ if (!empty($_SESSION['success'])) {
               <!-- /.card-footer -->
             </div>
           </div>
+        </div>
       </section>
 
       <a id="back-to-top" href="#" class="btn btn-primary back-to-top " role="button" aria-label="Scroll to top">
@@ -376,12 +376,19 @@ if (!empty($_SESSION['success'])) {
   <!-- ./wrapper -->
 
   <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+  </script>
+  <!-- bootstrap 4 popper js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <!-- bootstrap 4 js -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+  </script>
   <script src="plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap 4 -->
   <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
   <script src="dist/js/adminlte.min.js"></script>
-
   <script>
     $(document).ready(function() {
       $.ajax({
@@ -394,7 +401,7 @@ if (!empty($_SESSION['success'])) {
           var sales = [];
 
           for (var i in data) {
-            
+
             month.push(data[i].salesMonth);
             sales.push(data[i].salesGenerated);
           }
@@ -425,9 +432,10 @@ if (!empty($_SESSION['success'])) {
     });
   </script>
   <script>
-    $(document).ready(function(){
-    <?=isset($hasData) && $hasData === true ? 'run();' : ''?>
-});
+    $(document).ready(function() {
+      <?= isset($hasData) && $hasData === true ? 'run();' : '' ?>
+    });
+
     function run() {
       $(document).Toasts('create', {
         class: 'bg-success',

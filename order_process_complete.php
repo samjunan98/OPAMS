@@ -148,6 +148,14 @@ if ($_SESSION["adminID"] == NULL) {
               </a>
             </li>
             <li class="nav-item">
+              <a href="analysis.php" class="nav-link">
+                <i class="nav-icon fa fa-magnifying-glass-chart"></i>
+                <p>
+                  Analysis
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="info.php" class="nav-link">
                 <i class="nav-icon fa fa-user-circle"></i>
                 <p>

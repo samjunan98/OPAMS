@@ -34,6 +34,11 @@ if ($_SESSION["agentID"] == NULL) {
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
@@ -75,8 +80,8 @@ if ($_SESSION["agentID"] == NULL) {
                             echo "error";
                         } ?>
 
-         <!-- Sidebar Menu -->
-         <nav class="mt-2">
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
@@ -201,12 +206,13 @@ if ($_SESSION["agentID"] == NULL) {
                                 if (mysqli_num_rows($query_run) > 0) {
                             ?>
                                     <div class="table-responsive">
-                                        <table class="table border table-hover">
+                                        <table class="table table-bordered table-hover">
                                             <thead style="text-align: center">
                                                 <tr class="bg-dark text-white">
+                                                    <th> Info</th>
                                                     <th> ID </th>
                                                     <th> Product </th>
-                                                    <th width=10%;> Quantity </th>
+                                                    <th> Quantity </th>
                                                     <th> Grandtotal </th>
                                                     <th> Created At </th>
                                                     <th> Method </th>
@@ -215,7 +221,10 @@ if ($_SESSION["agentID"] == NULL) {
                                             </thead>
                                             <tbody style="text-align: center">
                                                 <?php foreach ($query_run as $row) { ?>
-                                                    <tr data-href="orderinfo.php?orderID=<?php echo $row['orderID']; ?>" style="height:100px; cursor:pointer;">
+                                                    <tr>
+                                                        <td align="center" width="50" height="40" id="example2">
+                                                            <button onclick="document.location='orderinfo.php?orderID=<?php echo $row['orderID']; ?>'" title="Info" class="btn btn-warning btn-block"><i class="fa-solid fa-circle-info"></i></button>
+                                                        </td>
                                                         <td><?= $row['orderID']; ?></td>
                                                         <td><?php $productID = explode(',', $row['productID']);
                                                             foreach ($productID as $productID1) {
@@ -253,12 +262,13 @@ if ($_SESSION["agentID"] == NULL) {
                                 if (mysqli_num_rows($query_run) > 0) {
                                 ?>
                                     <div class="table-responsive">
-                                        <table class="table border table-hover">
+                                        <table class="table table-bordered table-hover" id="example2">
                                             <thead style="text-align: center">
                                                 <tr class="bg-dark text-white">
+                                                    <th> Info </th>
                                                     <th> ID </th>
                                                     <th> Product </th>
-                                                    <th width=10%;> Quantity </th>
+                                                    <th> Quantity </th>
                                                     <th> Grandtotal </th>
                                                     <th> Created At </th>
                                                     <th> Method </th>
@@ -267,7 +277,10 @@ if ($_SESSION["agentID"] == NULL) {
                                             </thead>
                                             <tbody style="text-align: center">
                                                 <?php foreach ($query_run as $row) { ?>
-                                                    <tr data-url="orderinfo.php?orderID=<?php echo $row['orderID']; ?>" style="height:100px; cursor:pointer;">
+                                                    <tr>
+                                                        <td align="center" width="50" height="40">
+                                                            <button onclick="document.location='orderinfo.php?orderID=<?php echo $row['orderID']; ?>'" title="Info" class="btn btn-warning btn-block"><i class="fa-solid fa-circle-info"></i></button>
+                                                        </td>
                                                         <td><?= $row['orderID']; ?></td>
                                                         <td><?php $productID = explode(',', $row['productID']);
                                                             foreach ($productID as $productID1) {
@@ -304,12 +317,13 @@ if ($_SESSION["agentID"] == NULL) {
                                 if (mysqli_num_rows($query_run) > 0) {
                     ?>
                         <div class="table-responsive">
-                            <table class="table border table-hover">
+                            <table class="table table-bordered table-hover" id="example2">
                                 <thead style="text-align: center">
                                     <tr class="bg-dark text-white">
+                                        <th> Info</th>
                                         <th> ID </th>
                                         <th> Product </th>
-                                        <th width=10%;> Quantity </th>
+                                        <th> Quantity </th>
                                         <th> Grandtotal </th>
                                         <th> Created At </th>
                                         <th> Method </th>
@@ -318,7 +332,10 @@ if ($_SESSION["agentID"] == NULL) {
                                 </thead>
                                 <tbody style="text-align: center">
                                     <?php foreach ($query_run as $row) { ?>
-                                        <tr data-url="orderinfo.php?orderID=<?php echo $row['orderID']; ?>" style="height:100px; cursor:pointer;">
+                                        <tr>
+                                            <td align="center" width="50" height="40">
+                                                <button onclick="document.location='orderinfo.php?orderID=<?php echo $row['orderID']; ?>'" title="Info" class="btn btn-warning btn-block"><i class="fa-solid fa-circle-info"></i></button>
+                                            </td>
                                             <td><?= $row['orderID']; ?></td>
                                             <td><?php $productID = explode(',', $row['productID']);
                                                 foreach ($productID as $productID1) {
@@ -378,14 +395,37 @@ if ($_SESSION["agentID"] == NULL) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
     <script src="dist/js/adminlte.min.js"></script>
+    <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="plugins/jszip/jszip.min.js"></script>
+    <script src="plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <script>
         $(function() {
-            $('table.table tr').click(function() {
-                window.location.href = $(this).data('url');
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": false,
             });
-        })
+        });
     </script>
-
 </body>
 
 </html>

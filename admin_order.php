@@ -2,7 +2,7 @@
 session_start();
 include('config.php');
 $adminID = $_SESSION['adminID'];
-$_SESSION['chk']="Yes";
+$_SESSION['chk'] = "Yes";
 $adminSessionid = $_SESSION['adminSessionid'];
 if ($_SESSION["adminID"] == NULL) {
     header("location: index.html");
@@ -35,6 +35,10 @@ if ($_SESSION["adminID"] == NULL) {
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
 </head>
 
@@ -77,98 +81,106 @@ if ($_SESSION["adminID"] == NULL) {
                         } ?>
                     </div>
                 </div>
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-            <li class="nav-item">
-              <a href="main_admin.php" class="nav-link">
-                <i class="nav-icon fa fa-home"></i>
-                <p>
-                  Home
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="agentlist_test.php" class="nav-link">
-                <i class="nav-icon fa fa-users"></i>
-                <p>
-                  Agent
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fa fa-shopping-bag"></i>
-                <p>
-                  Product
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="product_edit.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>View Product List</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="add_product.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Add Product</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="category_admin.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Manage Category</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a href="admin_order.php" class="nav-link active">
-                <i class="nav-icon fa fa-check-square"></i>
-                <p>
-                  Order
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="salesrpt.php" class="nav-link">
-                <i class="nav-icon ion ion-stats-bars"></i>
-                <p>
-                  Sales Report
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="info.php" class="nav-link">
-                <i class="nav-icon fa fa-user-circle"></i>
-                <p>
-                  Info
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="logout.php" class="nav-link">
-                <i class="nav-icon ion ion-log-out"></i>
-                <p>
-                  Logout
-                </p>
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
-      </div>
-      <!-- /.sidebar -->
-    </aside>
+                        <li class="nav-item">
+                            <a href="main_admin.php" class="nav-link">
+                                <i class="nav-icon fa fa-home"></i>
+                                <p>
+                                    Home
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="agentlist_test.php" class="nav-link">
+                                <i class="nav-icon fa fa-users"></i>
+                                <p>
+                                    Agent
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa fa-shopping-bag"></i>
+                                <p>
+                                    Product
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="product_edit.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>View Product List</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="add_product.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Product</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="category_admin.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Manage Category</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="admin_order.php" class="nav-link active">
+                                <i class="nav-icon fa fa-check-square"></i>
+                                <p>
+                                    Order
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="salesrpt.php" class="nav-link">
+                                <i class="nav-icon ion ion-stats-bars"></i>
+                                <p>
+                                    Sales Report
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="analysis.php" class="nav-link">
+                                <i class="nav-icon fa fa-magnifying-glass-chart"></i>
+                                <p>
+                                    Analysis
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="info.php" class="nav-link">
+                                <i class="nav-icon fa fa-user-circle"></i>
+                                <p>
+                                    Info
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="logout.php" class="nav-link">
+                                <i class="nav-icon ion ion-log-out"></i>
+                                <p>
+                                    Logout
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
 
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -234,13 +246,14 @@ if ($_SESSION["adminID"] == NULL) {
                                 if (mysqli_num_rows($query_run) > 0) {
                             ?>
                                     <div class="table-responsive">
-                                        <table class="table border table-hover">
+                                        <table class="table table-bordered table-hover" id="example2">
                                             <thead style="text-align: center">
                                                 <tr class="bg-dark text-white">
+                                                    <th> Info </th>
                                                     <th> Order ID </th>
                                                     <th> Agent ID </th>
                                                     <th> Product </th>
-                                                    <th width=10%;> Quantity </th>
+                                                    <th> Quantity </th>
                                                     <th> Grandtotal </th>
                                                     <th> Created At </th>
                                                     <th> Method </th>
@@ -250,7 +263,10 @@ if ($_SESSION["adminID"] == NULL) {
                                             </thead>
                                             <tbody style="text-align: center">
                                                 <?php foreach ($query_run as $row) { ?>
-                                                    <tr data-href="admin_orderinfo.php?orderID=<?php echo $row['orderID']; ?>" style="height:100px; cursor:pointer;">
+                                                    <tr>
+                                                        <td align="center" width="50" height="40">
+                                                            <button onclick="document.location='admin_orderinfo.php?orderID=<?php echo $row['orderID']; ?>'" title="Info" class="btn btn-warning btn-block"><i class="fa-solid fa-circle-info"></i></button>
+                                                        </td>
                                                         <td><?= $row['orderID']; ?></td>
                                                         <td><?= $row['agentID']; ?></td>
                                                         <td><?php $productID = explode(',', $row['productID']);
@@ -290,13 +306,14 @@ if ($_SESSION["adminID"] == NULL) {
                                 if (mysqli_num_rows($query_run) > 0) {
                                 ?>
                                     <div class="table-responsive">
-                                        <table class="table border table-hover">
+                                        <table class="table table-bordered table-hover" id="example2">
                                             <thead style="text-align: center">
                                                 <tr class="bg-dark text-white">
+                                                    <th> Info </th>
                                                     <th> Order ID </th>
                                                     <th> Agent ID </th>
                                                     <th> Product </th>
-                                                    <th width=10%;> Quantity </th>
+                                                    <th> Quantity </th>
                                                     <th> Grandtotal </th>
                                                     <th> Created At </th>
                                                     <th> Method </th>
@@ -306,7 +323,10 @@ if ($_SESSION["adminID"] == NULL) {
                                             </thead>
                                             <tbody style="text-align: center">
                                                 <?php foreach ($query_run as $row) { ?>
-                                                    <tr data-url="admin_orderinfo.php?orderID=<?php echo $row['orderID']; ?>" style="height:100px; cursor:pointer;">
+                                                    <tr>
+                                                        <td align="center" width="50" height="40">
+                                                            <button onclick="document.location='admin_orderinfo.php?orderID=<?php echo $row['orderID']; ?>'" title="Info" class="btn btn-warning btn-block"><i class="fa-solid fa-circle-info"></i></button>
+                                                        </td>
                                                         <td><?= $row['orderID']; ?></td>
                                                         <td><?= $row['agentID']; ?></td>
                                                         <td><?php $productID = explode(',', $row['productID']);
@@ -345,13 +365,14 @@ if ($_SESSION["adminID"] == NULL) {
                                 if (mysqli_num_rows($query_run) > 0) {
                     ?>
                         <div class="table-responsive">
-                            <table class="table border table-hover">
+                            <table class="table table-bordered table-hover" id="example2">
                                 <thead style="text-align: center">
                                     <tr class="bg-dark text-white">
+                                        <th> Info </th>
                                         <th> Order ID </th>
                                         <th> Agent ID </th>
                                         <th> Product </th>
-                                        <th width=10%;> Quantity </th>
+                                        <th> Quantity </th>
                                         <th> Grandtotal </th>
                                         <th> Created At </th>
                                         <th> Method </th>
@@ -361,7 +382,10 @@ if ($_SESSION["adminID"] == NULL) {
                                 </thead>
                                 <tbody style="text-align: center">
                                     <?php foreach ($query_run as $row) { ?>
-                                        <tr data-url="admin_orderinfo.php?orderID=<?php echo $row['orderID']; ?>" style="height:100px; cursor:pointer;">
+                                        <tr>
+                                            <td align="center" width="50" height="40">
+                                                <button onclick="document.location='admin_orderinfo.php?orderID=<?php echo $row['orderID']; ?>'" title="Info" class="btn btn-warning btn-block"><i class="fa-solid fa-circle-info"></i></button>
+                                            </td>
                                             <td><?= $row['orderID']; ?></td>
                                             <td><?= $row['agentID']; ?></td>
                                             <td><?php $productID = explode(',', $row['productID']);
@@ -427,13 +451,38 @@ if ($_SESSION["adminID"] == NULL) {
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.min.js"></script>
+    <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="plugins/jszip/jszip.min.js"></script>
+    <script src="plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <script>
         $(function() {
-            $('table.table tr').click(function() {
-                window.location.href = $(this).data('url');
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": false,
             });
-        })
+        });
     </script>
+
 </body>
 
 </html>

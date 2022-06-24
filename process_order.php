@@ -22,7 +22,7 @@ if (empty($_SESSION['chk'])) {
     echo 'alert("Error");';
     echo 'window.location.href = "main_admin.php";';
     echo '</script>';
-  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -149,6 +149,14 @@ if (empty($_SESSION['chk'])) {
                                 <i class="nav-icon ion ion-stats-bars"></i>
                                 <p>
                                     Sales Report
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="analysis.php" class="nav-link">
+                                <i class="nav-icon fa fa-magnifying-glass-chart"></i>
+                                <p>
+                                    Analysis
                                 </p>
                             </a>
                         </li>

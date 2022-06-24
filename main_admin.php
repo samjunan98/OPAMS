@@ -395,7 +395,7 @@ if (!empty($_SESSION['success'])) {
                         <tbody>
                           <?php foreach ($query_run as $row) { ?>
                             <tr>
-                              <td><a href="orderinfo.php?orderID=<?php echo $row['orderID']; ?>"><?php echo $row['orderID']; ?></a></td>
+                              <td><a href="admin_orderinfo.php?orderID=<?php echo $row['orderID']; ?>"><?php echo $row['orderID']; ?></a></td>
                               <td><?php $productID = explode(',', $row['productID']);
                                   foreach ($productID as $productID1) {
                                     $rsp = mysqli_query($db,  "SELECT * FROM product WHERE productID='$productID1'") or die('Error querying database. ' .  mysqli_error($db));
@@ -424,7 +424,8 @@ if (!empty($_SESSION['success'])) {
               <!-- /.card-footer -->
             </div>
             <!-- /.col -->
-          </div><!-- /.container-fluid -->
+          </div>
+        </div>
       </section>
 
 
