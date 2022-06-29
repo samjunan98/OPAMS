@@ -464,7 +464,8 @@ if (!empty($_SESSION['success'])) {
   <!-- AdminLTE App -->
   <script src="dist/js/adminlte.min.js"></script>
   <script>
-    window.onload = function() {
+    window.onload = function () {
+    setTimeout(function () {
       $.ajax({
         url: "http://localhost/webdev/create_chart_all.php",
         method: "GET",
@@ -503,6 +504,7 @@ if (!empty($_SESSION['success'])) {
           console.log(data);
         }
       });
+    }, 1000);
     };
   </script>
   <script>
