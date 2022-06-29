@@ -2,6 +2,7 @@
 session_start();
 include('config.php');
 //setting header to json
+ob_clean();
 header('Content-Type: application/json');
 //query to get data from the table
 $joinYear = date("Y");
