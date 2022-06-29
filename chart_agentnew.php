@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('config.php');
-
+ob_start(); //turn on output buffering
 //query to get data from the table
 $joinYear = date("Y");
 $query = sprintf("SELECT count(*) AS agentno,MONTH(agentCreatedate) AS joinMonth FROM agent WHERE YEAR(agentCreatedate) = '$joinYear' GROUP BY MONTH(agentCreatedate)");
