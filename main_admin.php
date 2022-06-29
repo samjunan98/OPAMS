@@ -4,7 +4,7 @@ include('config.php');
 $adminID = $_SESSION['adminID'];
 $adminSessionid = $_SESSION['adminSessionid'];
 if ($_SESSION["adminID"] == NULL) {
-  header("location: index.html");
+  header("location: index.php");
 } else {
   $checkk = "SELECT * FROM admin WHERE adminID='$adminID'";
   $resultt = mysqli_query($db, $checkk) or die('Error querying database. ' .  mysqli_error($db));
