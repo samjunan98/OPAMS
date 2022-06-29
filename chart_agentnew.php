@@ -1,7 +1,8 @@
 <?php
 session_start();
 include('config.php');
-ob_start(); //turn on output buffering
+//setting header to json
+header('Access-Control-Allow-Headers', 'application/json');
 //query to get data from the table
 $joinYear = date("Y");
 $query = sprintf("SELECT count(*) AS agentno,MONTH(agentCreatedate) AS joinMonth FROM agent WHERE YEAR(agentCreatedate) = '$joinYear' GROUP BY MONTH(agentCreatedate)");
@@ -18,6 +19,5 @@ foreach ($result as $row) {
 
 //free memory associated with result
 $result->close();
-//setting header to json
-header('Content-Type: application/json');
+
 print json_encode($data);
