@@ -12,7 +12,7 @@ if ($_SESSION["adminID"] == NULL) {
     if ($_SESSION['adminSessionid'] != $row['adminSessionid']) {
       echo '<script type="text/javascript">';
       echo 'alert("New login is detected");';
-      echo 'window.location.href = "index.html";';
+      echo 'window.location.href = "index.php";';
       echo '</script>';
     }
   }
