@@ -7,6 +7,6 @@ $adminID = $_SESSION['adminID'];
   $row = mysqli_fetch_assoc($result);
   mysqli_close($db);
 
-  header("Content-type: image/jpeg");
+  header("Content-type: https://petshopagentmanagementsystem.herokuapp.com/image/jpeg");
   echo $row['adminPhoto'];
 ?>
