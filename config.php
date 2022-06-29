@@ -8,7 +8,6 @@
 {die ('Error querying database. ');}
 ?>
 
-/*
 <?php
 /*
    define('DB_SERVER', 'localhost');
