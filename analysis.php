@@ -558,7 +558,7 @@ if ($_SESSION["adminID"] == NULL) {
     });
   </script>
   <script>
-jQuery(document).ready(function($) {
+    $(document).ready(function() {
       $.ajax({
         url: "http://localhost/webdev/chart_agentnew.php",
         method: "GET",
