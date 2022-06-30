@@ -392,7 +392,7 @@ if (!empty($_SESSION['success'])) {
   <script>
     $(document).ready(function() {
       $.ajax({
-        url: "http://localhost/webdev/create_chart.php",
+        url: "https://petshopagentmanagementsystem.herokuapp.com/create_chart.php",
         method: "GET",
         success: function(data) {
           console.log(data);
