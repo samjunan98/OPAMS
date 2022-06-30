@@ -560,7 +560,7 @@ if ($_SESSION["adminID"] == NULL) {
   <script>
     $(document).ready(function() {
       $.ajax({
-        url: "http://localhost/webdev/chart_agentnew.php",
+        url: "https://petshopagentmanagementsystem.herokuapp.com/webdev/chart_agentnew.php",
         method: "GET",
         success: function(data) {
           console.log(data);
@@ -595,7 +595,7 @@ if ($_SESSION["adminID"] == NULL) {
           });
 
           $.ajax({
-            url: "http://localhost/webdev/piechart_category.php",
+            url: "https://petshopagentmanagementsystem.herokuapp.com/piechart_category.php",
             method: "GET",
             success: function(data) {
               console.log(data);
@@ -629,7 +629,7 @@ if ($_SESSION["adminID"] == NULL) {
                 options: donutOptions
               })
               $.ajax({
-                url: "http://localhost/webdev/piechart_order.php",
+                url: "https://petshopagentmanagementsystem.herokuapp.com/piechart_order.php",
                 method: "GET",
                 success: function(data) {
                   console.log(data);
@@ -664,7 +664,7 @@ if ($_SESSION["adminID"] == NULL) {
                   })
 
                   $.ajax({
-                    url: "http://localhost/webdev/piechart_agent.php",
+                    url: "https://petshopagentmanagementsystem.herokuapp.com/piechart_agent.php",
                     method: "GET",
                     success: function(data) {
                       console.log(data);
@@ -698,7 +698,7 @@ if ($_SESSION["adminID"] == NULL) {
                         options: donutOptions
                       })
                       $.ajax({
-                        url: "http://localhost/webdev/create_chart_all.php",
+                        url: "https://petshopagentmanagementsystem.herokuapp.com/create_chart_all.php",
                         method: "GET",
                         success: function(data) {
                           console.log(data);
