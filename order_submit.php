@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("config.php");
-date_default_timezone_set("Asia/Malaysia");
+date_default_timezone_set("Asia/Singapore");
 $orderOption = $_POST['orderOption'];
 if (empty($_POST['deliveryAddress'])) {
     $deliveryAddress = "NULL";
