@@ -21,4 +21,3 @@ foreach ($result as $row) {
 $result->close();
 
 print json_encode($data);
-?>
