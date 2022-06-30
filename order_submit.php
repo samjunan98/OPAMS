@@ -25,7 +25,7 @@ while ($row = mysqli_fetch_array($result7)) {
     $grandtotal = $row['grandtotal'];
 }
 $datenow = date('d-m-y h:i:s');
-$query = "INSERT into orderlist(orderID,agentID, orderOption, orderStatus, orderCreatedate, orderGrandtotal) VALUES ('0','$agentID','$orderOption','Pending',$datenow,'$grandtotal') ";
+$query = "INSERT into orderlist(orderID,agentID, orderOption, orderStatus, orderCreatedate, orderGrandtotal) VALUES ('0','$agentID','$orderOption','Pending','$datenow','$grandtotal') ";
 $rs = mysqli_query($db, $query);
 if ($rs) {
     $query2 = "SELECT * FROM cart_product WHERE cartID='$cartID'";
