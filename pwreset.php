@@ -16,7 +16,7 @@ if (isset($_POST['agentEmail']) & !empty($_POST['agentEmail'])) {
         $password_hash = md5($password);
         $r = mysqli_fetch_assoc($res);
         $mail = new PHPMailer;
-        $mail->isSMTP();                      // Set mailer to use SMTP 
+        // $mail->isSMTP();                      // Set mailer to use SMTP 
         $mail->Host = 'smtp.gmail.com';       // Specify main and backup SMTP servers 
         $mail->SMTPAuth = true;               // Enable SMTP authentication 
         $mail->Username = 'sampetshop2022@gmail.com';   // SMTP username 
