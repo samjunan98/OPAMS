@@ -560,7 +560,7 @@ if ($_SESSION["adminID"] == NULL) {
   <script>
     $(document).ready(function() {
       $.ajax({
-        url: "https://petshopagentmanagementsystem.herokuapp.com/webdev/chart_agentnew.php",
+        url: "https://petshopagentmanagementsystem.herokuapp.com/chart_agentnew.php",
         method: "GET",
         success: function(data) {
           console.log(data);
