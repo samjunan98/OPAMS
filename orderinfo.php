@@ -4,7 +4,7 @@ include('config.php');
 $agentID = $_SESSION['agentID'];
 $agentSessionid = $_SESSION['agentSessionid'];
 if ($_SESSION["agentID"] == NULL) {
-    header("location: index.html");
+    header("location: index.php");
 } else {
     $checkk = "SELECT * FROM agent WHERE agentID='$agentID'";
     $resultt = mysqli_query($db, $checkk) or die('Error querying database. ' .  mysqli_error($db));
@@ -12,7 +12,7 @@ if ($_SESSION["agentID"] == NULL) {
         if ($_SESSION['agentSessionid'] != $row['agentSessionid']) {
             echo '<script type="text/javascript">';
             echo 'alert("New login is detected");';
-            echo 'window.location.href = "index.html";';
+            echo 'window.location.href = "index.php";';
             echo '</script>';
         }
     }

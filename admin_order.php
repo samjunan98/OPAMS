@@ -5,7 +5,7 @@ $adminID = $_SESSION['adminID'];
 $_SESSION['chk'] = "Yes";
 $adminSessionid = $_SESSION['adminSessionid'];
 if ($_SESSION["adminID"] == NULL) {
-    header("location: index.html");
+    header("location: index.php");
 } else {
     $checkk = "SELECT * FROM admin WHERE adminID='$adminID'";
     $resultt = mysqli_query($db, $checkk) or die('Error querying database. ' .  mysqli_error($db));
@@ -13,7 +13,7 @@ if ($_SESSION["adminID"] == NULL) {
         if ($_SESSION['adminSessionid'] != $row['adminSessionid']) {
             echo '<script type="text/javascript">';
             echo 'alert("New login is detected");';
-            echo 'window.location.href = "index.html";';
+            echo 'window.location.href = "index.php";';
             echo '</script>';
         }
     }
