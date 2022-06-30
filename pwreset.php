@@ -20,7 +20,7 @@ if (isset($_POST['agentEmail']) & !empty($_POST['agentEmail'])) {
         $mail->Host = 'smtp.gmail.com';       // Specify main and backup SMTP servers 
         $mail->SMTPAuth = true;               // Enable SMTP authentication 
         $mail->Username = 'sampetshop2022@gmail.com';   // SMTP username 
-        $mail->Password = 'rafztuasivibfsdt';   // SMTP password 
+        $mail->Password = 'sufmqefjyowxlesq';   // SMTP password 
         $mail->SMTPSecure = 'tls';            // Enable TLS encryption, `ssl` also accepted 
         $mail->Port = 587;                    // TCP port to connect to 
         // Sender info 
