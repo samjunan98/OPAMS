@@ -6,7 +6,7 @@
   $result = mysqli_query($db, $query);
   $row = mysqli_fetch_assoc($result);
   mysqli_close($db);
-
+  ob_clean();
   header("Content-type: image/jpeg");
   echo $row['productPhoto'];
 ?>
