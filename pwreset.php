@@ -39,8 +39,6 @@ if (isset($_POST['agentEmail']) & !empty($_POST['agentEmail'])) {
         // Mail body content 
         $bodyContent = "<b>Your New Password:" .  $password_hash . '</b>';
         $mail->Body    = $bodyContent;
-        $mail->SMTPDebug=2;
-
         // Send email 
         if (!$mail->send()) {
             echo 'Message could not be sent.';
