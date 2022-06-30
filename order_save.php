@@ -11,7 +11,8 @@ if(isset($_POST['submit']) && isset($_POST['pickupLocation'])){
     $rs = mysqli_query($db, $query);
     if($rs){ 
         $orderStatus = "Completed";
-        mysqli_query($db, "UPDATE orderlist SET orderStatus = '$orderStatus', orderCompletedate = now() WHERE orderID = '$orderID'") or die('Error querying database. ' .  mysqli_error($db));
+        $datenow = date("Y-m-d H:i:s");
+        mysqli_query($db, "UPDATE orderlist SET orderStatus = '$orderStatus', orderCompletedate = '$datenow' WHERE orderID = '$orderID'") or die('Error querying database. ' .  mysqli_error($db));
             header('location:order_process_complete.php');
             }
     else {
