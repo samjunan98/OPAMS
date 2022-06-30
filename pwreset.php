@@ -16,12 +16,12 @@ if (isset($_POST['agentEmail']) & !empty($_POST['agentEmail'])) {
         $password_hash = md5($password);
         $r = mysqli_fetch_assoc($res);
         $mail = new PHPMailer;
-        // $mail->isSMTP();                      // Set mailer to use SMTP 
+        $mail->isSMTP();                      // Set mailer to use SMTP 
         $mail->Host = 'smtp.gmail.com';       // Specify main and backup SMTP servers 
         $mail->SMTPAuth = true;               // Enable SMTP authentication 
         $mail->Username = 'sampetshop2022@gmail.com';   // SMTP username 
         $mail->Password = 'Sampetshop2022@';   // SMTP password 
-        $mail->SMTPSecure = 'tls';            // Enable TLS encryption, `ssl` also accepted 
+        $mail->SMTPSecure = 'ssl';            // Enable TLS encryption, `ssl` also accepted 
         $mail->Port = 587;                    // TCP port to connect to 
         // Sender info 
         $mail->setFrom('sampetshop2022@gmail.com', 'Sam Petshop Management');
