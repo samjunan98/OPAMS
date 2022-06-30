@@ -21,7 +21,7 @@ if (isset($_POST['agentEmail']) & !empty($_POST['agentEmail'])) {
         $mail->SMTPAuth = true;               // Enable SMTP authentication 
         $mail->Username = 'sampetshop2022@gmail.com';   // SMTP username 
         $mail->Password = 'Sampetshop2022@';   // SMTP password 
-        $mail->SMTPSecure = 'ssl';            // Enable TLS encryption, `ssl` also accepted 
+        $mail->SMTPSecure = 'tls';            // Enable TLS encryption, `ssl` also accepted 
         $mail->Port = 587;                    // TCP port to connect to 
         // Sender info 
         $mail->setFrom('sampetshop2022@gmail.com', 'Sam Petshop Management');
@@ -39,6 +39,7 @@ if (isset($_POST['agentEmail']) & !empty($_POST['agentEmail'])) {
         // Mail body content 
         $bodyContent = "<b>Your New Password:" .  $password_hash . '</b>';
         $mail->Body    = $bodyContent;
+        $mail->SMTPDebug=2;
 
         // Send email 
         if (!$mail->send()) {
