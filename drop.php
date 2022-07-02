@@ -1324,3 +1324,25 @@ $.ajax({
                   console.log(data);
                 }
               });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <?php $resprod = mysqli_query($db, "SELECT SUM(order_product.order_productQuantity) AS totalProduct FROM order_product INNER JOIN orderlist ON order_product.orderID=orderlist.orderID WHERE orderlist.orderStatus = 'Completed' AND YEAR(orderlist.orderCreatedate) = 2022");
+                  if (mysqli_num_rows($resprod) > 0) {
+                    $row = mysqli_fetch_array($resprod);
+                    $totalProduct = $row['totalProduct']; ?>
+                    <h4><?php echo "Total Quantity of" ?></h4>
+                    <h3><?php echo $totalProduct; ?></h3>
+                  <?php } else {
+                  } ?>

@@ -4,10 +4,18 @@
       font-size: 35.2px;
       font-weight: bold;
     }
+    .responsive-font-example1 {
+      font-size: 35.2px;
+      font-weight: bold;
+    }
   }
   /* If the screen size is smaller than 1200px, set the font-size to 80px */
   @media (max-width: 1199.98px) {
     .responsive-font-example {
+      font-size: 25px;
+      font-weight: bold;
+    }
+    .responsive-font-example1 {
       font-size: 25px;
       font-weight: bold;
     }

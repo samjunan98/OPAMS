@@ -40,6 +40,7 @@ if (!empty($_SESSION['success'])) {
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="css/font.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
@@ -156,7 +157,9 @@ if (!empty($_SESSION['success'])) {
         </div><!-- /.container-fluid -->
       </section>
       <?php
-      $res = mysqli_query($db, "SELECT * FROM orderlist WHERE agentID='$agentID'");
+      $orderMonth = date("m");
+      $orderYear = date("Y");
+      $res = mysqli_query($db, "SELECT * FROM orderlist WHERE agentID='$agentID'AND MONTH(orderCreatedate)='$orderMonth' AND YEAR(orderCreatedate)='$orderYear'");
       ?>
       <!-- Main content -->
       <section class="content">
@@ -168,8 +171,8 @@ if (!empty($_SESSION['success'])) {
               <!-- small card -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h3><?php echo mysqli_num_rows($res); ?></h3>
-                  <p>Total Orders</p>
+                  <h4 class="responsive-font-example"><?php echo mysqli_num_rows($res); ?></h4>
+                  <p>Total Orders of this Month</p>
                 </div>
                 <div class="icon">
                   <i class="fas fa-shopping-cart"></i>
@@ -192,7 +195,7 @@ if (!empty($_SESSION['success'])) {
                 <!-- small card -->
                 <div class="small-box bg-success">
                   <div class="inner">
-                    <h3><?php echo "RM" . $salesGenerated ?></h3>
+                    <h4 class="responsive-font-example"><?php echo "RM" . $salesGenerated ?></h4>
                     <p>Sales of this month</p>
                   </div>
                   <div class="icon">
@@ -207,7 +210,7 @@ if (!empty($_SESSION['success'])) {
                 <!-- small card -->
                 <div class="small-box bg-danger">
                   <div class="inner">
-                    <h3><?php echo "RM" . $salesCommission ?></h3>
+                    <h4 class="responsive-font-example"><?php echo "RM" . $salesCommission ?></h4>
 
                     <p>Commission of this month</p>
                   </div>
@@ -223,7 +226,7 @@ if (!empty($_SESSION['success'])) {
                 <!-- small card -->
                 <div class="small-box bg-success">
                   <div class="inner">
-                    <h3>RM 0.00</h3>
+                    <h4 class="responsive-font-example">RM 0.00</h4>
                     <p>Sales of this month</p>
                   </div>
                   <div class="icon">
@@ -238,7 +241,7 @@ if (!empty($_SESSION['success'])) {
                 <!-- small card -->
                 <div class="small-box bg-danger">
                   <div class="inner">
-                    <h3>RM 0.00</h3>
+                    <h4 class="responsive-font-example">RM 0.00</h4>
                     <p>Commission of this month</p>
                   </div>
                   <div class="icon">
@@ -261,7 +264,7 @@ if (!empty($_SESSION['success'])) {
                   $interval1 = $today1->diff($from1);
                   $elapsed1 = $interval1->format('%a Days');
                   ?>
-                  <h3><?php echo $elapsed1; ?></h3>
+                  <h4 class="responsive-font-example"><?php echo $elapsed1; ?></h4>
                   <p>Agent For</p>
                 </div>
                 <div class="icon">

@@ -10,9 +10,11 @@ if (isset($_POST['agentLogin'])) {
     while ($row =  mysqli_fetch_array($result)) {
         $savedpw = $row['agentPw'];
         $agentID = $row['agentID'];
+        $agentDelete = $row['agentDelete'];
     }
     $verify = password_verify($agentPw, $savedpw);
     if ($verify) {
+        if ($agentDelete == 0){
         $_SESSION['agentID'] = $agentID;
         session_regenerate_id();
         $agentSessionid = session_id();
@@ -20,12 +22,20 @@ if (isset($_POST['agentLogin'])) {
         $_SESSION['agentSessionid'] = $agentSessionid;
         $_SESSION['success'] = 'Yes';
         header('location: main_agent.php');
+    }
+    else {
+        echo '<script type="text/javascript">';
+        echo 'alert("You have been banned! Contact admin if it is a mistake.");';
+        echo 'window.location.href = "agent_login.php";';
+        echo '</script>';
+    }
     } else {
         echo '<script type="text/javascript">';
         echo 'alert("Invalid Login");';
         echo 'window.location.href = "agent_login.php";';
         echo '</script>';
     }
+    
 }
 else{
     echo '<script type="text/javascript">';

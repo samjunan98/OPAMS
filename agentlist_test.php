@@ -231,7 +231,7 @@ if (!empty($_SESSION['agsuccess'])) {
               <?php
               if (isset($_GET['agentName'])) {
                 $agentName = mysqli_real_escape_string($db, $_GET['agentName']);
-                $query = "SELECT agentID, agentPhoto, agentName, agentEmail, agentAge, agentPhone, agentGender, agentDOB, agentLocation, agentCreatedate FROM agent WHERE  agentName LIKE  '%" . $agentName . "%'";
+                $query = "SELECT * FROM agent WHERE  agentName LIKE  '%" . $agentName . "%'";
                 $query_run = mysqli_query($db, $query);
                 if (mysqli_num_rows($query_run) > 0) { ?>
                   <div class="table-responsive">
@@ -248,6 +248,7 @@ if (!empty($_SESSION['agsuccess'])) {
                           <th> Date of Birth </th>
                           <th> Location </th>
                           <th> Joined Time </th>
+                          <th> Status </th>
                           <th> Action </th>
                         </tr>
                       </thead>
@@ -265,8 +266,19 @@ if (!empty($_SESSION['agsuccess'])) {
                             <td><?= $row['agentDOB']; ?></td>
                             <td><?= $row['agentLocation']; ?></td>
                             <td><?= $row['agentCreatedate']; ?></td>
-                            <td width="50" height="40">
-                              <a href="update.php?agentID=<?php echo $row['agentID']; ?>"><button type="button" title="Edit Agent Info" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button>
+                            <td><span <?php if ($row['agentDelete'] == 1) { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php if ($row['agentDelete'] == 0) {
+                                                                                                                                                                                                        echo "Active";
+                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                        echo "Banned";
+                                                                                                                                                                                                    } ?> </span></td>
+                            <td>
+                              <div class="btn-group"><a href="update.php?agentID=<?php echo $row['agentID']; ?>"><button type="button" title="Edit Agent Info" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button></a>
+                                <?php if ($row['agentDelete'] == 0) { ?>
+                                  <a href="agent_delete.php?agentID=<?php echo $row['agentID']; ?>"><button type="button" title="Ban Agent" class="btn btn-danger"><i class="fa-solid fa-user-slash"></i></button></a>
+                                <?php } else { ?>
+                                  <a href="agent_retrieve.php?agentID=<?php echo $row['agentID']; ?>"><button type="button" title="Active Agent" class="btn btn-success"><i class="fa-solid fa-clock-rotate-left"></i></button></a>
+                                <?php } ?>
+                              </div>
                             </td>
                           </tr>
                         <?php
@@ -281,7 +293,7 @@ if (!empty($_SESSION['agsuccess'])) {
                 <?php }
               } else { ?>
                 <?php
-                $query = "SELECT agentID, agentPhoto, agentName, agentEmail, agentAge, agentPhone, agentGender, agentDOB, agentLocation, agentCreatedate FROM agent";
+                $query = "SELECT * FROM agent";
                 $query_run = mysqli_query($db, $query);
                 if (mysqli_num_rows($query_run) > 0) { ?>
                   <div class="table-responsive">
@@ -298,6 +310,7 @@ if (!empty($_SESSION['agsuccess'])) {
                           <th> Date of Birth </th>
                           <th> Location </th>
                           <th> Joined Time </th>
+                          <th> Status </th>
                           <th> Action </th>
                         </tr>
                       </thead>
@@ -315,8 +328,19 @@ if (!empty($_SESSION['agsuccess'])) {
                             <td><?= $row['agentDOB']; ?></td>
                             <td><?= $row['agentLocation']; ?></td>
                             <td><?= $row['agentCreatedate']; ?></td>
-                            <td width="50" height="40">
-                              <a href="update.php?agentID=<?php echo $row['agentID']; ?>"><button type="button" title="Edit Agent Info" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button>
+                            <td><span <?php if ($row['agentDelete'] == 1) { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php if ($row['agentDelete'] == 0) {
+                                                                                                                                                                                                        echo "Active";
+                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                        echo "Banned";
+                                                                                                                                                                                                    } ?> </span></td>
+                            <td>
+                              <div class="btn-group"><a href="update.php?agentID=<?php echo $row['agentID']; ?>"><button type="button" title="Edit Agent Info" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button></a>
+                                <?php if ($row['agentDelete'] == 0) { ?>
+                                  <a href="agent_delete.php?agentID=<?php echo $row['agentID']; ?>"><button type="button" title="Ban Agent" class="btn btn-danger"><i class="fa-solid fa-user-slash"></i></button></a>
+                                <?php } else { ?>
+                                  <a href="agent_retrieve.php?agentID=<?php echo $row['agentID']; ?>"><button type="button" title="Active Agent" class="btn btn-success"><i class="fa-solid fa-clock-rotate-left"></i></button></a>
+                                <?php } ?>
+                              </div>
                             </td>
                           </tr>
 

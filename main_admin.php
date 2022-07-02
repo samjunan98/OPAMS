@@ -198,9 +198,9 @@ if (!empty($_SESSION['success'])) {
         </div><!-- /.container-fluid -->
       </section>
       <?php
-
-      $thismonth= date("m");
-      $ress = mysqli_query($db, "SELECT * FROM orderlist WHERE YEAR($thismonth) = orderCreatedate");
+      $orderMonth = date("m");
+      $orderYear = date("Y");
+      $ress = mysqli_query($db, "SELECT * FROM orderlist WHERE  orderStatus='Pending'");
       ?>
       <!-- Main content -->
       <section class="content">
@@ -213,7 +213,7 @@ if (!empty($_SESSION['success'])) {
               <div class="small-box bg-info">
                 <div class="inner">
                   <h4 class="responsive-font-example"><?php echo mysqli_num_rows($ress); ?></h4>
-                  <p>Total Order of the Month</p>
+                  <p>Total Pending Orders</p>
                 </div>
                 <div class="icon">
                   <i class="fas fa-shopping-cart"></i>
@@ -259,7 +259,7 @@ if (!empty($_SESSION['success'])) {
                 </div>
               </div>
             <?php }
-            $res2 = mysqli_query($db, "SELECT * FROM product WHERE productDelete = 0");
+            $res2 = mysqli_query($db, "SELECT * FROM product WHERE productDelete = 0 AND productQuantity < 10");
             ?>
             <!-- ./col -->
             <div class="col-lg-3 col-6">
@@ -267,16 +267,16 @@ if (!empty($_SESSION['success'])) {
               <div class="small-box bg-warning">
                 <div class="inner">
                   <h4 class="responsive-font-example"><?php echo mysqli_num_rows($res2); ?></h4>
-                  <p>Total Product</p>
+                  <p>Product Low in Stock</p>
                 </div>
                 <div class="icon">
-                  <i class="ion ion-cube"></i>
+                  <i class="ion ion-alert"></i>
                 </div>
                 <a href="product_edit.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <?php
-            $res1 = mysqli_query($db, "SELECT * FROM agent");
+            $res1 = mysqli_query($db, "SELECT * FROM product WHERE productDelete = 0");
             ?>
             <!-- ./col -->
             <div class="col-lg-3 col-6">
@@ -284,19 +284,19 @@ if (!empty($_SESSION['success'])) {
               <div class="small-box bg-danger">
                 <div class="inner">
                   <h4 class="responsive-font-example"><?php echo mysqli_num_rows($res1); ?></h4>
-                  <p>Total amount of Agent</p>
+                  <p>Listing Product</p>
                 </div>
                 <div class="icon">
-                  <i class="ion ion-person"></i>
+                  <i class="ion ion-cube"></i>
                 </div>
-                <a href="agentlist_test.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="product_edit.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
           </div>
           <!-- /.row -->
           <div class="row">
-            <div class="col-lg-6 col-6">
+            <div class="col-lg-6 col-12">
               <!-- small box -->
               <div class="small-box bg-secondary">
                 <div class="inner">
@@ -313,8 +313,8 @@ if (!empty($_SESSION['success'])) {
                       $count += 1;
                     }
                     $avg = $total_elapsed / $count;
-                  ?><h4><?php echo "Average Within "; ?></h4>
-                    <h3><?php echo number_format($avg) . " Days" ?></h3>
+                  ?>
+                    <h4 class="responsive-font-example"><?php  echo "Within " .number_format($avg) . " Days" ?></h4>
                   <?php } else {
                     echo "error";
                   } ?>
@@ -323,53 +323,30 @@ if (!empty($_SESSION['success'])) {
                 <div class="icon">
                   <i class="ion ion-clipboard"></i>
                 </div>
+                <a href="admin_order.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-            <div class="col-lg-6 col-6">
+            <div class="col-lg-6 col-12">
               <!-- small box -->
               <div class="small-box bg-secondary">
                 <div class="inner">
-                  <?php $resprod = mysqli_query($db, "SELECT SUM(order_product.order_productQuantity) AS totalProduct FROM order_product INNER JOIN orderlist ON order_product.orderID=orderlist.orderID WHERE orderlist.orderStatus = 'Completed' AND YEAR(orderlist.orderCreatedate) = 2022");
-                  if (mysqli_num_rows($resprod) > 0) {
-                    $row = mysqli_fetch_array($resprod);
-                    $totalProduct = $row['totalProduct']; ?>
-                    <h4><?php echo "Total Quantity of" ?></h4>
-                    <h3><?php echo $totalProduct; ?></h3>
-                  <?php } else {
-                  } ?>
-                  <p>Product Sold</p>
+                  <?php $agentMonth = date("m");
+                  $agentYear = date("Y");
+                  $agentqy =  mysqli_query($db, "SELECT * FROM agent WHERE MONTH(agentCreatedate)='$agentMonth' AND YEAR(agentCreatedate)='$agentYear'")   ?>
+                  <h4 class="responsive-font-example"><?php echo mysqli_num_rows($agentqy) ?></h4>
+                  <p>New Agent Joined this Month</p>
                 </div>
                 <div class="icon">
-                  <i class="ion ion-cash"></i>
+                  <i class="ion ion-person"></i>
                 </div>
+                <a href="agentlist_test.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
           </div>
 
           <!-- Bar chart -->
           <div class="row">
-            <div class="col-md-6">
-              <!-- BAR CHART -->
-              <div class="card card-success">
-                <div class="card-header">
-                  <h3 class="card-title">Monthly Sales</h3>
-
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                      <i class="fas fa-minus"></i>
-                    </button>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <div class="chart">
-                    <canvas id="myChart" width="400" height="250"></canvas>
-                  </div>
-                  <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-              </div>
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
               <!-- TABLE: LATEST ORDERS -->
               <div class="card card-success">
                 <div class="card-header border-transparent">
@@ -392,6 +369,7 @@ if (!empty($_SESSION['success'])) {
                           <tr>
                             <th>Order ID</th>
                             <th>Product</th>
+                            <th>Quantity </th>
                             <th>Order Created Time</th>
                             <th>Status</th>
                           </tr>
@@ -404,8 +382,12 @@ if (!empty($_SESSION['success'])) {
                                   foreach ($productID as $productID1) {
                                     $rsp = mysqli_query($db,  "SELECT * FROM product WHERE productID='$productID1'") or die('Error querying database. ' .  mysqli_error($db));
                                     $row1 = mysqli_fetch_array($rsp);
-                                    echo $row1['productName'] . '<br />';
+                                    echo '[' . $row1['productName'] . ']'. '<br />';
                                   } ?></td>
+                                  <td><?php $quantity = explode(',', $row['quantity']);
+                                                            foreach ($quantity as $quantity1) {
+                                                                echo "x" . $quantity1 . '<br />';
+                                                            } ?></td>
                               <td><?= $row['orderCreatedate']; ?></td>
                               <td><span <?php if ($row['orderStatus'] == 'Pending') { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php echo $row['orderStatus']; ?></span></td>
                             </tr>
@@ -422,6 +404,9 @@ if (!empty($_SESSION['success'])) {
                 } ?>
                   <!-- /.table-responsive -->
                   </div>
+                  <div class="card-footer clearfix">
+                <a href="admin_order.php" class="btn btn-sm btn-secondary float-right">View All Orders</a>
+              </div>
                   <!-- /.card-body -->
               </div>
 

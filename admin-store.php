@@ -1,5 +1,6 @@
 <?php
 include("config.php");
+date_default_timezone_set("Asia/Singapore");
 
 if (isset($_POST['reg_admin'])) {
     $adminName = mysqli_real_escape_string($db, $_POST['adminName']);
@@ -7,6 +8,7 @@ if (isset($_POST['reg_admin'])) {
     $adminPw = mysqli_real_escape_string($db, $_POST['adminPw']);
     $user_check_query = "SELECT * FROM admin WHERE adminEmail='$adminEmail'";
     $result = mysqli_query($db, $user_check_query) or die('Error querying database.');
+    $datenow = date("Y-m-d H:i:s");
     if (mysqli_num_rows($result) > 0) {
         echo '<script type="text/javascript">';
         echo 'alert("User Existed");';
@@ -14,7 +16,7 @@ if (isset($_POST['reg_admin'])) {
         echo '</script>';
     } else {
         $secure_pass = password_hash($adminPw, PASSWORD_BCRYPT);
-        $query = "INSERT INTO admin(adminID,adminName, adminEmail, adminPw, adminCreatedate) VALUES ('0','$adminName','$adminEmail' ,'$secure_pass' ,now())";
+        $query = "INSERT INTO admin(adminID,adminName, adminEmail, adminPw, adminCreatedate) VALUES ('0','$adminName','$adminEmail' ,'$secure_pass' ,$datenow())";
         $rs = mysqli_query($db, $query);
         if ($rs) {
             $query1 = "SELECT * FROM admin WHERE adminEmail='$adminEmail'";

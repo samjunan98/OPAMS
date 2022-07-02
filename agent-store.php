@@ -14,6 +14,7 @@ if($res['success']){
         $agentGender = mysqli_real_escape_string($db, $_POST['agentGender']);
         $agentDOB = mysqli_real_escape_string($db, $_POST['agentDOB']);
         $agentLocation = mysqli_real_escape_string($db, $_POST['agentLocation']);
+        $datenow = date("Y-m-d H:i:s");
         if(is_uploaded_file($_FILES['agentPhoto']['tmp_name'])){
         $agentPhoto = addslashes(file_get_contents($_FILES['agentPhoto']['tmp_name']));  
         $user_check_query = "SELECT * FROM agent WHERE agentEmail='$agentEmail'";
@@ -26,7 +27,8 @@ if($res['success']){
                 echo '</script>';
         } else {
                 $secure_pass = password_hash($agentPw1, PASSWORD_BCRYPT);
-                $query = "INSERT INTO agent(agentID,agentPhoto,agentName, agentAge, agentPhone, agentEmail, agentPw, agentGender, agentDOB, agentLocation, agentCreatedate) VALUES ('0','$agentPhoto','$agentName', '$agentAge', '$agentPhone' ,'$agentEmail' ,'$secure_pass' ,'$agentGender' ,'$agentDOB' ,'$agentLocation', now())";
+
+                $query = "INSERT INTO agent(agentID,agentPhoto,agentName, agentAge, agentPhone, agentEmail, agentPw, agentGender, agentDOB, agentLocation, agentCreatedate) VALUES ('0','$agentPhoto','$agentName', '$agentAge', '$agentPhone' ,'$agentEmail' ,'$secure_pass' ,'$agentGender' ,'$agentDOB' ,'$agentLocation', $datenow)";
                 $rs = mysqli_query($db, $query);
                 if ($rs) {
                         $query1 = "SELECT * FROM agent WHERE agentEmail='$agentEmail'";
@@ -69,7 +71,7 @@ else{
                 echo '</script>';
         } else {
                 $secure_pass = password_hash($agentPw1, PASSWORD_BCRYPT);
-                $query = "INSERT INTO agent(agentID,agentPhoto,agentName, agentAge, agentPhone, agentEmail, agentPw, agentGender, agentDOB, agentLocation, agentCreatedate) VALUES ('0','$agentPhoto','$agentName', '$agentAge', '$agentPhone' ,'$agentEmail' ,'$secure_pass' ,'$agentGender' ,'$agentDOB' ,'$agentLocation', now())";
+                $query = "INSERT INTO agent(agentID,agentPhoto,agentName, agentAge, agentPhone, agentEmail, agentPw, agentGender, agentDOB, agentLocation, agentCreatedate) VALUES ('0','$agentPhoto','$agentName', '$agentAge', '$agentPhone' ,'$agentEmail' ,'$secure_pass' ,'$agentGender' ,'$agentDOB' ,'$agentLocation', $datenow)";
                 $rs = mysqli_query($db, $query);
                 if ($rs) {
                         $query1 = "SELECT * FROM agent WHERE agentEmail='$agentEmail'";

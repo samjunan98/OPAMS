@@ -34,7 +34,7 @@ if ($_SESSION["adminID"] == NULL) {
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
-
+  <link rel="stylesheet" href="css/font.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -194,17 +194,17 @@ if ($_SESSION["adminID"] == NULL) {
         </div><!-- /.container-fluid -->
       </section>
       <?php
-      $ress = mysqli_query($db, "SELECT * FROM orderlist");
+      $ress = mysqli_query($db, "SELECT * FROM orderlist WHERE orderStatus = 'Pending'");
       ?>
       <section class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-lg-3 col-6">
+            <div class="col-sm-12 col-md-6 col-lg-3">
               <!-- small card -->
-              <div class="small-box bg-info">
+              <div class="small-box bg-secondary">
                 <div class="inner">
-                  <h3><?php echo mysqli_num_rows($ress); ?></h3>
-                  <p>Total Order</p>
+                  <h4 class="responsive-font-example"><?php echo mysqli_num_rows($ress); ?></h4>
+                  <p>Total Pending Orders</p>
                 </div>
                 <div class="icon">
                   <i class="fas fa-shopping-cart"></i>
@@ -212,101 +212,26 @@ if ($_SESSION["adminID"] == NULL) {
                 <a href="admin_order.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-            <?php
-            $salesMonth = date("m");
-            $salesYear = date("Y");
-            $querydash = "SELECT SUM(salesGenerated) AS salesGenerated FROM salesreport WHERE salesMonth='$salesMonth' AND salesYear='$salesYear'";
-            $resultdash = mysqli_query($db, $querydash) or die('Error querying database. ' .  mysqli_error($db));
-            if (mysqli_num_rows($resultdash) > 0) {
-              $row = mysqli_fetch_array($resultdash);
-              $salesGenerated = $row['salesGenerated'];
-            ?>
-              <!-- ./col -->
-              <div class="col-lg-3 col-6">
-                <!-- small card -->
-                <div class="small-box bg-success">
-                  <div class="inner">
-                    <h3><?php echo "RM" . $salesGenerated ?></h3></sup>
-                    <p>Sales of this Month</p>
-                  </div>
-                  <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
-                  </div>
-                  <a href="salesrpt.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-              </div>
-            <?php } else { ?>
-              <div class="col-lg-3 col-6">
-                <!-- small card -->
-                <div class="small-box bg-success">
-                  <div class="inner">
-                    <h3>RM 0.00</h3>
-                    <p>Sales of this month</p>
-                  </div>
-                  <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
-                  </div>
-                  <a href="salesrpt.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-              </div>
-            <?php }
-            $res2 = mysqli_query($db, "SELECT * FROM product WHERE productDelete = 0");
-            ?>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small card -->
-              <div class="small-box bg-warning">
-                <div class="inner">
-                  <h3><?php echo mysqli_num_rows($res2); ?></h3>
-                  <p>Total Product</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-cube"></i>
-                </div>
-                <a href="product_edit.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <?php
-            $res1 = mysqli_query($db, "SELECT * FROM agent");
-            ?>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small card -->
-              <div class="small-box bg-danger">
-                <div class="inner">
-                  <h3><?php echo mysqli_num_rows($res1); ?></h3>
-                  <p>Total amount of Agent</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-person"></i>
-                </div>
-                <a href="agentlist_test.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
-          </div>
-          <!-- /.row -->
-          <div class="row">
-            <div class="col-lg-6 col-6">
+            <div class="col-sm-12 col-md-6 col-lg-3">
               <!-- small box -->
               <div class="small-box bg-secondary">
                 <div class="inner">
-                  <?php $resprod = mysqli_query($db, "SELECT SUM(order_product.order_productQuantity) AS totalProduct FROM order_product INNER JOIN orderlist ON order_product.orderID=orderlist.orderID WHERE orderlist.orderStatus = 'Completed' AND YEAR(orderlist.orderCreatedate) = 2022");
-                  if (mysqli_num_rows($resprod) > 0) {
-                    $row = mysqli_fetch_array($resprod);
-                    $totalProduct = $row['totalProduct']; ?>
-                    <h4><?php echo "Total Quantity of" ?></h4>
-                    <h3><?php echo $totalProduct; ?></h3>
-                  <?php } else {
-                  } ?>
-                  <p>Product Sold</p>
+
+                  <?php
+                  $orderMonth = date("m");
+                  $orderYear = date("Y");
+                  $resorder = mysqli_query($db, "SELECT * FROM orderlist WHERE MONTH(orderCreatedate)='$orderMonth' AND YEAR(orderCreatedate)='$orderYear'");
+                  ?>
+                  <h4 class="responsive-font-example"><?php echo mysqli_num_rows($resorder) ?></h4>
+                  <p>Total Order of this Month</p>
                 </div>
                 <div class="icon">
-                  <i class="ion ion-cash"></i>
+                  <i class="ion ion-clipboard"></i>
                 </div>
+                <a href="admin_order.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-            <div class="col-lg-6 col-6">
+            <div class="col-sm-12 col-md-6 col-lg-3">
               <!-- small box -->
               <div class="small-box bg-secondary">
                 <div class="inner">
@@ -323,16 +248,125 @@ if ($_SESSION["adminID"] == NULL) {
                       $count += 1;
                     }
                     $avg = $total_elapsed / $count;
-                  ?><h4><?php echo "Average Within "; ?></h4>
-                    <h3><?php echo number_format($avg) . " Days" ?></h3>
+                  ?>
+                    <h4 class="responsive-font-example"><?php echo "Within " . number_format($avg) . " Days" ?></h4>
                   <?php } else {
                     echo "error";
                   } ?>
                   <p>Order Process Performance</p>
                 </div>
                 <div class="icon">
-                  <i class="ion ion-clipboard"></i>
+                  <i class="ion ion-clock"></i>
                 </div>
+                <a href="admin_order.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+
+            <?php
+            $salesMonth = date("m");
+            $salesYear = date("Y");
+            $querydash = "SELECT SUM(salesGenerated) AS salesGenerated FROM salesreport WHERE salesMonth='$salesMonth' AND salesYear='$salesYear'";
+            $resultdash = mysqli_query($db, $querydash) or die('Error querying database. ' .  mysqli_error($db));
+            if (mysqli_num_rows($resultdash) > 0) {
+              $row = mysqli_fetch_array($resultdash);
+              $salesGenerated = $row['salesGenerated'];
+            ?>
+              <!-- ./col -->
+              <div class="col-sm-12 col-md-6 col-lg-3">
+                <!-- small card -->
+                <div class="small-box bg-secondary">
+                  <div class="inner">
+                    <h4 class="responsive-font-example"><?php echo "RM" . $salesGenerated ?></h4>
+                    <p>Sales of this Month</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                  </div>
+                  <a href="salesrpt.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+            <?php } else { ?>
+              <div class="col-sm-12 col-md-6 col-lg-3">
+                <!-- small card -->
+                <div class="small-box bg-secondary">
+                  <div class="inner">
+                    <h4 class="responsive-font-example">RM 0.00</h4>
+                    <p>Sales of this Month</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                  </div>
+                  <a href="salesrpt.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+            <?php }
+            $res2 = mysqli_query($db, "SELECT * FROM product WHERE productDelete = 0 AND productQuantity < 10");
+            ?>
+
+            <!-- ./col -->
+          </div>
+          <!-- /.row -->
+          <div class="row">
+            <?php
+            $res1 = mysqli_query($db, "SELECT * FROM product WHERE productDelete = 0");
+            ?>
+            <!-- ./col -->
+            <div class="col-sm-12 col-md-6 col-lg-3">
+              <!-- small card -->
+              <div class="small-box bg-secondary">
+                <div class="inner">
+                  <h4 class="responsive-font-example"><?php echo mysqli_num_rows($res1); ?></h4>
+                  <p>Listing Product</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-cube"></i>
+                </div>
+                <a href="product_edit.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-sm-12 col-md-6 col-lg-3">
+              <!-- small card -->
+              <div class="small-box bg-secondary">
+                <div class="inner">
+                  <h4 class="responsive-font-example"><?php echo mysqli_num_rows($res2); ?></h4>
+                  <p>Product Low in Stock</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-alert"></i>
+                </div>
+                <a href="product_edit.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3">
+              <!-- small box -->
+              <div class="small-box bg-secondary">
+                <div class="inner">
+                  <?php $agentMonth = date("m");
+                  $agentYear = date("Y");
+                  $agentqy =  mysqli_query($db, "SELECT * FROM agent WHERE MONTH(agentCreatedate)='$agentMonth' AND YEAR(agentCreatedate)='$agentYear'")   ?>
+                  <h4 class="responsive-font-example"><?php echo mysqli_num_rows($agentqy) ?></h4>
+                  <p>New Agent Joined this Month</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person"></i>
+                </div>
+                <a href="agentlist_test.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3">
+              <!-- small box -->
+              <div class="small-box bg-secondary">
+                <div class="inner">
+                  <?php
+                  $agentd =  mysqli_query($db, "SELECT * FROM agent WHERE agentDelete=1")   ?>
+                  <h4 class="responsive-font-example"><?php echo mysqli_num_rows($agentd) ?></h4>
+                  <p>Banned Agent</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-close"></i>
+                </div>
+                <a href="agentlist_test.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
           </div>
@@ -340,11 +374,12 @@ if ($_SESSION["adminID"] == NULL) {
             <div class="col-lg-6">
               <div class="card card-success">
                 <div class="card-header border-transparent">
-                  <h3 class="card-title">Total Products Sold (This Year)</h3>
+                  <h3 class="card-title">Product Sales (This Month)</h3>
                 </div>
                 <?php
                 $year = date("Y");
-                $query2 = "SELECT product.productID, product.productName,product.productPrice, SUM(order_product.order_productQuantity) AS Soldquantity FROM product INNER JOIN order_product ON product.productID = order_product.productID INNER JOIN orderlist ON order_product.orderID = orderlist.orderID WHERE YEAR(orderlist.orderCreatedate)= $year  GROUP BY order_product.productID";
+                $month = date("m");
+                $query2 = "SELECT product.productID, product.productName,product.productPrice, SUM(order_product.order_productQuantity) AS Soldquantity FROM product INNER JOIN order_product ON product.productID = order_product.productID INNER JOIN orderlist ON order_product.orderID = orderlist.orderID WHERE YEAR(orderlist.orderCreatedate)= '$year' AND MONTH(orderlist.orderCreatedate)= '$month' GROUP BY order_product.productID";
                 $query_run2 = mysqli_query($db, $query2) or die('Error querying database. ' .  mysqli_error($db)); ?>
                 <div class="card-body table-responsive p-0">
                   <table class="table table-striped table-bordered table-valign-middle example2">
@@ -380,7 +415,7 @@ if ($_SESSION["adminID"] == NULL) {
             <div class="col-lg-6">
               <div class="card card-success">
                 <div class="card-header border-transparent">
-                  <h3 class="card-title">Order Process Performance</h3>
+                  <h3 class="card-title">Order Process Performance (Lifetime)</h3>
                 </div>
                 <?php $resop = mysqli_query($db, "SELECT * FROM orderlist WHERE orderStatus = 'Completed'");
                 if (mysqli_num_rows($resop) > 0) {
@@ -424,7 +459,7 @@ if ($_SESSION["adminID"] == NULL) {
             <!-- /.col-md-6 -->
           </div>
           <div class="row">
-          <div class="col-md-12">
+            <div class="col-md-12">
               <!-- BAR CHART -->
               <div class="card card-success">
                 <div class="card-header">
