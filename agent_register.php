@@ -28,18 +28,18 @@
                 <form action="agent-store.php" method="post" enctype="multipart/form-data">
                     <div class="form-group mb-3">
                         <label class="col-sm-3 col-form-label">Photo</label>
-                        <input name="agentPhoto" type="file" accept="image/*" class="form-control" style="height:50px" onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])"  required>
+                        <input name="agentPhoto" type="file" accept="image/*" class="form-control" style="height:50px">
                     </div>
                     <div class="form-group mb-3">
                         <input type="text" class="form-control" placeholder="Full name" name="agentName" required>
                        
                     </div>
                     <div class="form-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email" name="agentEmail" required>
+                        <input type="email" class="form-control" placeholder="Email (xxx@xxmail.com)" name="agentEmail" required>
                         
                     </div>
                     <div class="form-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password" name="agentPw1" pattern=".{8,}"   required title="8 digits or characters minimum">
+                        <input type="password" class="form-control" placeholder="Password (At Least 8 Characters or Digits)" name="agentPw1" pattern=".{8,}"   required title="8 digits or characters minimum">
                        
                     </div>
                     <div class="form-group mb-3">

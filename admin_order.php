@@ -57,7 +57,7 @@ if ($_SESSION["adminID"] == NULL) {
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="#" class="brand-link">
+            <a href="main_admin.php" class="brand-link">
                 <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Petshop</span>
             </a>
@@ -74,7 +74,7 @@ if ($_SESSION["adminID"] == NULL) {
                         $query_run = mysqli_query($db, $query);
                         if (mysqli_num_rows($query_run) > 0) {
                             foreach ($query_run as $row) { ?>
-                                <a href="#" class="d-block"><?php echo $row['adminName']; ?></a>
+                                <a href="info.php" class="d-block"><?php echo $row['adminName']; ?></a>
                         <?php }
                         } else {
                             echo "error";
@@ -199,17 +199,22 @@ if ($_SESSION["adminID"] == NULL) {
                         <div class="card mt-12">
                             <div class="card-body">
                                 <form action="" method="GET">
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <input type="text" placeholder="Order ID" name="orderID" value="<?php if (isset($_GET['orderID'])) {
-                                                                                                                echo $_GET['orderID'];
-                                                                                                            } ?>" class="form-control"><br>
+                                <div class="form-group row">
+                                        <div class='col-sm-12 col-md-6 col-lg-4'>
+                                            <div class="input-group">
+                                                <input type="text" placeholder="Order ID" name="orderID" value="<?php if (isset($_GET['orderID'])) {
+                                                                                                                    echo $_GET['orderID'];
+                                                                                                                } ?>" class="form-control">
+                                                <div class="input-group-append">
+                                                    <button type="submit" title="Search" class="btn btn-info">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                    <button onclick="document.location='admin_order.php'" type="button" title="Refresh" class="btn btn-secondary">
+                                                        <i class="fa fa-refresh"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-1">
-                                            <button type="submit" title="Search" class="btn btn-block btn-info btn-md"><i class="fa fa-search"></i></button><br>
-                                        </div>
-                                        <div class="col-sm-1"><button onclick="document.location='admin_order.php'" type="button" title="Refresh" class="btn btn-block btn-secondary btn-md"><i class="fa-solid fa-arrows-rotate"></i></button></div>
-                                        <div class="col-sm-7"></div>
                                     </div>
                                 </form>
                                 <form method="GET" action="">
@@ -240,7 +245,7 @@ if ($_SESSION["adminID"] == NULL) {
                             <?php
                             if (isset($_GET['orderID'])) {
                                 $orderID = $_GET['orderID'];
-                                $query = "SELECT orderlist.orderID,orderlist.orderOption,orderlist.agentID,SUM(order_product.order_productSubtotal) AS grandtotal ,GROUP_CONCAT(order_product.productID) AS productID ,GROUP_CONCAT(order_product.order_productQuantity) AS quantity,orderlist.orderCreatedate,orderlist.orderStatus AS orderStatus FROM orderlist INNER JOIN order_product ON orderlist.orderID = order_product.orderID WHERE  '$orderID'= order_product.orderID  GROUP BY orderlist.orderID ORDER BY orderID DESC";
+                                $query = "SELECT orderlist.orderCompletedate,orderlist.orderID,orderlist.orderOption,orderlist.agentID,SUM(order_product.order_productSubtotal) AS grandtotal ,GROUP_CONCAT(order_product.productID) AS productID ,GROUP_CONCAT(order_product.order_productQuantity) AS quantity,orderlist.orderCreatedate,orderlist.orderStatus AS orderStatus FROM orderlist INNER JOIN order_product ON orderlist.orderID = order_product.orderID WHERE  '$orderID'= order_product.orderID  GROUP BY orderlist.orderID ORDER BY orderID DESC";
                                 $query_run = mysqli_query($db, $query);
                                 echo mysqli_error($db);
                                 if (mysqli_num_rows($query_run) > 0) {
@@ -249,24 +254,23 @@ if ($_SESSION["adminID"] == NULL) {
                                         <table class="table table-bordered table-hover" id="example2">
                                             <thead style="text-align: center">
                                                 <tr class="bg-dark text-white">
-                                                    <th> Info </th>
                                                     <th> Order ID </th>
                                                     <th> Agent ID </th>
                                                     <th> Product </th>
                                                     <th> Quantity </th>
-                                                    <th> Grandtotal </th>
+                                                    <th> Grandtotal (RM) </th>
                                                     <th> Created At </th>
                                                     <th> Method </th>
                                                     <th> Status </th>
+                                                    <th> Completed At </th>
+                                                    <th> Info </th>
                                                     <th> Action </th>
+
                                                 </tr>
                                             </thead>
                                             <tbody style="text-align: center">
                                                 <?php foreach ($query_run as $row) { ?>
                                                     <tr>
-                                                        <td align="center" width="50" height="40">
-                                                            <button onclick="document.location='admin_orderinfo.php?orderID=<?php echo $row['orderID']; ?>'" title="Info" class="btn btn-warning btn-block"><i class="fa-solid fa-circle-info"></i></button>
-                                                        </td>
                                                         <td><?= $row['orderID']; ?></td>
                                                         <td><?= $row['agentID']; ?></td>
                                                         <td><?php $productID = explode(',', $row['productID']);
@@ -279,11 +283,16 @@ if ($_SESSION["adminID"] == NULL) {
                                                             foreach ($quantity as $quantity1) {
                                                                 echo "x" . $quantity1 . '<br />';
                                                             } ?></td>
-                                                        <td><?php echo "RM" . $row['grandtotal']; ?></td>
+                                                        <td><?= $row['grandtotal']; ?></td>
                                                         <td><?= $row['orderCreatedate']; ?></td>
                                                         <td><?= $row['orderOption']; ?></td>
                                                         <td><span <?php if ($row['orderStatus'] == 'Pending') { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php echo $row['orderStatus']; ?></span></td>
+                                                        <td><?= $row['orderCompletedate']; ?></td>
+                                                        <td align="center" width="50" height="40">
+                                                            <button onclick="document.location='admin_orderinfo.php?orderID=<?php echo $row['orderID']; ?>'" title="Info" class="btn btn-warning btn-block"><i class="fa-solid fa-circle-info"></i></button>
+                                                        </td>
                                                         <td><a href="process_order.php?orderID=<?php echo $row['orderID']; ?>"><button <?php if ($row['orderStatus'] == 'Completed') { ?> style="display: none;" <?php } ?> type="submit" class="btn btn-block btn-success btn-md"> Process Order </button></td>
+
                                                     </tr>
                                                 <?php
                                                 } ?>
@@ -300,7 +309,7 @@ if ($_SESSION["adminID"] == NULL) {
                             } else if (isset($_GET['date1'], $_GET['date2'])) {
                                 $date1 = date("Y-m-d", strtotime($_GET['date1']));
                                 $date2 = date("Y-m-d", strtotime($_GET['date2']));
-                                $query = "SELECT orderlist.orderID,orderlist.orderOption,orderlist.agentID,SUM(order_product.order_productSubtotal) AS grandtotal ,GROUP_CONCAT(order_product.productID) AS productID ,GROUP_CONCAT(order_product.order_productQuantity) AS quantity,orderlist.orderCreatedate,orderlist.orderStatus AS orderStatus FROM orderlist INNER JOIN order_product ON orderlist.orderID = order_product.orderID WHERE  orderlist.orderCreatedate BETWEEN '$date1' AND '$date2'  GROUP BY orderlist.orderID ORDER BY orderID DESC";
+                                $query = "SELECT orderlist.orderCompletedate,orderlist.orderID,orderlist.orderOption,orderlist.agentID,SUM(order_product.order_productSubtotal) AS grandtotal ,GROUP_CONCAT(order_product.productID) AS productID ,GROUP_CONCAT(order_product.order_productQuantity) AS quantity,orderlist.orderCreatedate,orderlist.orderStatus AS orderStatus FROM orderlist INNER JOIN order_product ON orderlist.orderID = order_product.orderID WHERE  orderlist.orderCreatedate BETWEEN '$date1' AND '$date2'  GROUP BY orderlist.orderID ORDER BY orderID DESC";
                                 $query_run = mysqli_query($db, $query);
                                 echo mysqli_error($db);
                                 if (mysqli_num_rows($query_run) > 0) {
@@ -309,24 +318,24 @@ if ($_SESSION["adminID"] == NULL) {
                                         <table class="table table-bordered table-hover" id="example2">
                                             <thead style="text-align: center">
                                                 <tr class="bg-dark text-white">
-                                                    <th> Info </th>
                                                     <th> Order ID </th>
                                                     <th> Agent ID </th>
                                                     <th> Product </th>
                                                     <th> Quantity </th>
-                                                    <th> Grandtotal </th>
+                                                    <th> Grandtotal (RM) </th>
                                                     <th> Created At </th>
                                                     <th> Method </th>
                                                     <th> Status </th>
+                                                    <th> Completed At </th>
+                                                    <th> Info </th>
                                                     <th> Action </th>
+
                                                 </tr>
                                             </thead>
                                             <tbody style="text-align: center">
                                                 <?php foreach ($query_run as $row) { ?>
                                                     <tr>
-                                                        <td align="center" width="50" height="40">
-                                                            <button onclick="document.location='admin_orderinfo.php?orderID=<?php echo $row['orderID']; ?>'" title="Info" class="btn btn-warning btn-block"><i class="fa-solid fa-circle-info"></i></button>
-                                                        </td>
+
                                                         <td><?= $row['orderID']; ?></td>
                                                         <td><?= $row['agentID']; ?></td>
                                                         <td><?php $productID = explode(',', $row['productID']);
@@ -339,11 +348,16 @@ if ($_SESSION["adminID"] == NULL) {
                                                             foreach ($quantity as $quantity1) {
                                                                 echo "x" . $quantity1 . '<br />';
                                                             } ?></td>
-                                                        <td><?php echo "RM" . $row['grandtotal']; ?></td>
+                                                        <td><?= $row['grandtotal']; ?></td>
                                                         <td><?= $row['orderCreatedate']; ?></td>
                                                         <td><?= $row['orderOption']; ?></td>
                                                         <td><span <?php if ($row['orderStatus'] == 'Pending') { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php echo $row['orderStatus']; ?></span></td>
+                                                        <td><?= $row['orderCompletedate']; ?></td>
+                                                        <td align="center" width="50" height="40">
+                                                            <button onclick="document.location='admin_orderinfo.php?orderID=<?php echo $row['orderID']; ?>'" title="Info" class="btn btn-warning btn-block"><i class="fa-solid fa-circle-info"></i></button>
+                                                        </td>
                                                         <td><a href="process_order.php?orderID=<?php echo $row['orderID']; ?>"><button <?php if ($row['orderStatus'] == 'Completed') { ?> style="display: none;" <?php } ?> type="submit" class="btn btn-block btn-success btn-md"> Process Order </button></td>
+
                                                     </tr>
                                                 <?php
                                                 } ?>
@@ -359,7 +373,7 @@ if ($_SESSION["adminID"] == NULL) {
                     <?php
                                 }
                             } else {
-                                $query = "SELECT orderlist.orderID,orderlist.orderOption,orderlist.agentID,SUM(order_product.order_productSubtotal) AS grandtotal ,GROUP_CONCAT(order_product.productID) AS productID ,GROUP_CONCAT(order_product.order_productQuantity) AS quantity,orderlist.orderCreatedate,orderlist.orderStatus AS orderStatus FROM orderlist INNER JOIN order_product ON orderlist.orderID = order_product.orderID GROUP BY orderlist.orderID ORDER BY orderID DESC";
+                                $query = "SELECT orderlist.orderCompletedate, orderlist.orderID,orderlist.orderOption,orderlist.agentID,SUM(order_product.order_productSubtotal) AS grandtotal ,GROUP_CONCAT(order_product.productID) AS productID ,GROUP_CONCAT(order_product.order_productQuantity) AS quantity,orderlist.orderCreatedate,orderlist.orderStatus AS orderStatus FROM orderlist INNER JOIN order_product ON orderlist.orderID = order_product.orderID GROUP BY orderlist.orderID ORDER BY orderID DESC";
                                 $query_run = mysqli_query($db, $query);
                                 echo mysqli_error($db);
                                 if (mysqli_num_rows($query_run) > 0) {
@@ -368,24 +382,23 @@ if ($_SESSION["adminID"] == NULL) {
                             <table class="table table-bordered table-hover" id="example2">
                                 <thead style="text-align: center">
                                     <tr class="bg-dark text-white">
-                                        <th> Info </th>
                                         <th> Order ID </th>
                                         <th> Agent ID </th>
                                         <th> Product </th>
                                         <th> Quantity </th>
-                                        <th> Grandtotal </th>
+                                        <th> Grandtotal (RM) </th>
                                         <th> Created At </th>
                                         <th> Method </th>
                                         <th> Status </th>
+                                        <th> Completed At</th>
+                                        <th> Info </th>
                                         <th> Action </th>
+
                                     </tr>
                                 </thead>
                                 <tbody style="text-align: center">
                                     <?php foreach ($query_run as $row) { ?>
                                         <tr>
-                                            <td align="center" width="50" height="40">
-                                                <button onclick="document.location='admin_orderinfo.php?orderID=<?php echo $row['orderID']; ?>'" title="Info" class="btn btn-warning btn-block"><i class="fa-solid fa-circle-info"></i></button>
-                                            </td>
                                             <td><?= $row['orderID']; ?></td>
                                             <td><?= $row['agentID']; ?></td>
                                             <td><?php $productID = explode(',', $row['productID']);
@@ -398,10 +411,14 @@ if ($_SESSION["adminID"] == NULL) {
                                                 foreach ($quantity as $quantity1) {
                                                     echo "x" . $quantity1 . '<br />';
                                                 } ?></td>
-                                            <td><?php echo "RM" . $row['grandtotal']; ?></td>
+                                            <td><?= $row['grandtotal']; ?></td>
                                             <td><?= $row['orderCreatedate']; ?></td>
                                             <td><?= $row['orderOption']; ?></td>
                                             <td><span <?php if ($row['orderStatus'] == 'Pending') { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php echo $row['orderStatus']; ?></span></td>
+                                            <td><?= $row['orderCompletedate']; ?></td>
+                                            <td align="center" width="50" height="40">
+                                                <button onclick="document.location='admin_orderinfo.php?orderID=<?php echo $row['orderID']; ?>'" title="Info" class="btn btn-warning btn-block"><i class="fa-solid fa-circle-info"></i></button>
+                                            </td>
                                             <td><a href="process_order.php?orderID=<?php echo $row['orderID']; ?>"><button <?php if ($row['orderStatus'] == 'Completed') { ?> style="display: none;" <?php } ?> type="submit" class="btn btn-block btn-success btn-md"> Process Order </button></td>
                                         </tr>
                                     <?php

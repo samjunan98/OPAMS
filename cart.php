@@ -52,7 +52,7 @@ if ($_SESSION["agentID"] == NULL) {
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="#" class="brand-link">
+      <a href="main_agent.php" class="brand-link">
         <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Petshop</span>
       </a>
@@ -69,7 +69,7 @@ if ($_SESSION["agentID"] == NULL) {
             $query_run = mysqli_query($db, $query);
             if (mysqli_num_rows($query_run) > 0) {
               foreach ($query_run as $row) { ?>
-                <a href="#" class="d-block"><?php echo $row['agentName']; ?></a>
+                <a href="agentinfo.php" class="d-block"><?php echo $row['agentName']; ?></a>
           </div>
         </div> <?php }
             } else {
@@ -167,9 +167,9 @@ if ($_SESSION["agentID"] == NULL) {
                         <th> Photo </th>
                         <th> Name </th>
                         <th> SKU </th>
-                        <th> Price </th>
-                        <th width=10%;> Quantity </th>
-                        <th> Subtotal </th>
+                        <th> Price (RM) </th>
+                        <th > Quantity </th>
+                        <th> Subtotal (RM) </th>
                       </tr>
                     </thead>
                     <tbody style="text-align: center">

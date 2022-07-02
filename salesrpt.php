@@ -36,8 +36,8 @@ if ($_SESSION["adminID"] == NULL) {
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
@@ -55,7 +55,7 @@ if ($_SESSION["adminID"] == NULL) {
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="#" class="brand-link">
+      <a href="main_admin.php" class="brand-link">
         <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Petshop</span>
       </a>
@@ -72,7 +72,7 @@ if ($_SESSION["adminID"] == NULL) {
             $query_run = mysqli_query($db, $query);
             if (mysqli_num_rows($query_run) > 0) {
               foreach ($query_run as $row) { ?>
-                <a href="#" class="d-block"><?php echo $row['adminName']; ?></a>
+                <a href="info.php" class="d-block"><?php echo $row['adminName']; ?></a>
             <?php }
             } else {
               echo "error";
@@ -198,36 +198,42 @@ if ($_SESSION["adminID"] == NULL) {
             <div class="card mt-12">
               <div class="card-body">
                 <form method="GET" action="">
-                  <div class="row">
-                    <div class="col-sm-auto"><label>Agent:</label></div>
-                    <div class="col-sm-3">
-                      <select id="box1" class="form-control" name="agentID">
-                        <option disabled selected value> Showing: <?php
+                  <div class="form-group row">
+                    <div class="col-sm-12 col-md-1 col-lg-1"><label>Agent:</label></div>
+                    <div class='col-sm-12 col-md-6 col-lg-4'>
+                      <div class="input-group">
+                        <select id="box1" class="form-control" name="agentID">
+                          <option disabled selected value> Showing: <?php
 
-                                                                  if (isset($_GET['agentID'])) {
-                                                                    $agentID_select = $_GET['agentID'];
-                                                                    $query0 = "SELECT agent.agentName FROM salesreport INNER JOIN agent ON salesreport.agentID = agent.agentID WHERE '$agentID_select' = agent.agentID";
-                                                                    $query_run0 = mysqli_query($db, $query0);
-                                                                    while ($row =  mysqli_fetch_array($query_run0)) {
-                                                                      $agentName_echo = $row['agentName'];
-                                                                    }
-                                                                    echo "ID:[" . $agentID_select . "] Name: " . $agentName_echo;
-                                                                  } else {
-                                                                    echo " All ";
-                                                                  } ?> </option>
+                                                                    if (isset($_GET['agentID'])) {
+                                                                      $agentID_select = $_GET['agentID'];
+                                                                      $query0 = "SELECT agent.agentName FROM salesreport INNER JOIN agent ON salesreport.agentID = agent.agentID WHERE '$agentID_select' = agent.agentID";
+                                                                      $query_run0 = mysqli_query($db, $query0);
+                                                                      while ($row =  mysqli_fetch_array($query_run0)) {
+                                                                        $agentName_echo = $row['agentName'];
+                                                                      }
+                                                                      echo "ID:[" . $agentID_select . "] Name: " . $agentName_echo;
+                                                                    } else {
+                                                                      echo " All ";
+                                                                    } ?> </option>
 
-                        <?php $query = "SELECT salesreport.agentID,agent.agentName FROM agent INNER JOIN salesreport ON agent.agentID= salesreport.agentID  GROUP BY salesreport.agentID";
-                        $result1 = mysqli_query($db, $query);
-                        while ($row1 = mysqli_fetch_array($result1)) :; ?>
-                          <option value="<?php echo $row1['agentID']; ?>"><?php echo "ID:[" .  $row1['agentID'] . "] Name: " . $row1['agentName']; ?></option>
-                        <?php endwhile; ?>
-                      </select>
+                          <?php $query = "SELECT salesreport.agentID,agent.agentName FROM agent INNER JOIN salesreport ON agent.agentID= salesreport.agentID  GROUP BY salesreport.agentID";
+                          $result1 = mysqli_query($db, $query);
+                          while ($row1 = mysqli_fetch_array($result1)) :; ?>
+                            <option value="<?php echo $row1['agentID']; ?>"><?php echo "ID:[" .  $row1['agentID'] . "] Name: " . $row1['agentName']; ?></option>
+                          <?php endwhile; ?>
+                        </select>
+                        <div class="input-group-append">
+                          <button type="submit" title="Search" class="btn btn-info">
+                            <i class="fa fa-search"></i>
+                          </button>
+                          <button onclick="document.location='salesrpt.php'" type="button" title="Refresh" class="btn btn-secondary">
+                            <i class="fa fa-refresh"></i>
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-sm-1">
-                      <button class="btn btn-block btn-info btn-md" type="submit" title="Search"><span class="fa-solid fa-search"></span></button>
-                    </div>
-                    <div class="col-sm-1"><button onclick="document.location='salesrpt.php'" type="button" title="Refresh" class="btn btn-block btn-secondary btn-md"><i class="fa-solid fa-arrows-rotate"></i></button></div>
-                  </div>
+
                 </form>
               </div>
             </div>
@@ -257,7 +263,8 @@ if ($_SESSION["adminID"] == NULL) {
                         </tr>
                       </thead>
                       <tbody style="text-align: center">
-                        <?php foreach ($query_run as $row) { ?>
+                        <?php foreach ($query_run as $row) {
+                          $row['salesMonth'] = date("F", mktime(0, 0, 0, $row['salesMonth'], 10)); ?>
                           <tr>
                             <td><?= $row['agentID']; ?></td>
                             <td><?= $row['salesMonth']; ?></td>
@@ -291,7 +298,8 @@ if ($_SESSION["adminID"] == NULL) {
                               </tr>
                             </thead>
                             <tbody style="text-align: center">
-                              <?php foreach ($query_run as $row) { ?>
+                              <?php foreach ($query_run as $row) {
+                                $row['salesMonth'] = date("F", mktime(0, 0, 0, $row['salesMonth'], 10)); ?>
                                 <tr>
                                   <td><?= $row['agentID']; ?></td>
                                   <td><?= $row['salesMonth']; ?></td>

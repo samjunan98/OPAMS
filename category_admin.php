@@ -60,7 +60,7 @@ if (!empty($_SESSION['catsuccess1'])) {
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="#" class="brand-link">
+            <a href="main_admin.php" class="brand-link">
                 <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Petshop</span>
             </a>
@@ -77,7 +77,7 @@ if (!empty($_SESSION['catsuccess1'])) {
                         $query_run = mysqli_query($db, $query);
                         if (mysqli_num_rows($query_run) > 0) {
                             foreach ($query_run as $row) { ?>
-                                <a href="#" class="d-block"><?php echo $row['adminName']; ?></a>
+                                <a href="info.php" class="d-block"><?php echo $row['adminName']; ?></a>
                         <?php }
                         } else {
                             echo "error";
@@ -223,22 +223,23 @@ if (!empty($_SESSION['catsuccess1'])) {
                                         <table class="table border table-hover">
                                             <thead style="text-align: center">
                                                 <tr class="bg-dark text-white">
-                                                    <th> Status </th>
+                                                    
                                                     <th> Category ID </th>
-                                                    <th> Category Name </th>
+                                                    <th> Category Name </th><th> Status </th>
                                                     <th> Action </th>
                                                 </tr>
                                             </thead>
                                             <tbody style="text-align: center">
                                                 <?php foreach ($query_run as $row) { ?>
                                                     <tr>
+                                                    
+                                                        <td><?= $row['categoryID']; ?></td>
+                                                        <td><?= $row['categoryName']; ?></td>
                                                         <td><span <?php if ($row['categoryDelete'] == 1) { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php if ($row['categoryDelete'] == 0) {
                                                                                                                                                                                                         echo "Listed";
                                                                                                                                                                                                     } else {
                                                                                                                                                                                                         echo "Unlisted";
                                                                                                                                                                                                     } ?> </span></td>
-                                                        <td><?= $row['categoryID']; ?></td>
-                                                        <td><?= $row['categoryName']; ?></td>
                                                         <td>
 
                                                             <div class="btn-group"> <a href="category_edit.php?categoryID=<?php echo $row['categoryID']; ?>"><button type="button" title="Edit Category" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></button></a>

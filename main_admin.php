@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set("Asia/Singapore");
 session_start();
 include('config.php');
 $adminID = $_SESSION['adminID'];
@@ -39,6 +40,7 @@ if (!empty($_SESSION['success'])) {
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="css/font.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
@@ -57,7 +59,7 @@ if (!empty($_SESSION['success'])) {
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="#" class="brand-link">
+      <a href="main_admin.php" class="brand-link">
         <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Petshop</span>
       </a>
@@ -74,7 +76,7 @@ if (!empty($_SESSION['success'])) {
             $query_run = mysqli_query($db, $query);
             if (mysqli_num_rows($query_run) > 0) {
               foreach ($query_run as $row) { ?>
-                <a href="#" class="d-block"><?php echo $row['adminName']; ?></a>
+                <a href="info.php" class="d-block"><?php echo $row['adminName']; ?></a>
             <?php }
             } else {
               echo "error";
@@ -196,7 +198,9 @@ if (!empty($_SESSION['success'])) {
         </div><!-- /.container-fluid -->
       </section>
       <?php
-      $ress = mysqli_query($db, "SELECT * FROM orderlist");
+
+      $thismonth= date("m");
+      $ress = mysqli_query($db, "SELECT * FROM orderlist WHERE YEAR($thismonth) = orderCreatedate");
       ?>
       <!-- Main content -->
       <section class="content">
@@ -208,8 +212,8 @@ if (!empty($_SESSION['success'])) {
               <!-- small card -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h3><?php echo mysqli_num_rows($ress); ?></h3>
-                  <p>Total Order</p>
+                  <h4 class="responsive-font-example"><?php echo mysqli_num_rows($ress); ?></h4>
+                  <p>Total Order of the Month</p>
                 </div>
                 <div class="icon">
                   <i class="fas fa-shopping-cart"></i>
@@ -231,7 +235,7 @@ if (!empty($_SESSION['success'])) {
                 <!-- small card -->
                 <div class="small-box bg-success">
                   <div class="inner">
-                    <h3><?php echo "RM" . $salesGenerated ?></h3></sup>
+                    <h4 class="responsive-font-example"><?php echo "RM" . $salesGenerated ?></h4>
                     <p>Sales of this Month</p>
                   </div>
                   <div class="icon">
@@ -245,7 +249,7 @@ if (!empty($_SESSION['success'])) {
                 <!-- small card -->
                 <div class="small-box bg-success">
                   <div class="inner">
-                    <h3>RM 0.00</h3>
+                    <h4 class="responsive-font-example">RM 0.00</h4>
                     <p>Sales of this month</p>
                   </div>
                   <div class="icon">
@@ -262,7 +266,7 @@ if (!empty($_SESSION['success'])) {
               <!-- small card -->
               <div class="small-box bg-warning">
                 <div class="inner">
-                  <h3><?php echo mysqli_num_rows($res2); ?></h3>
+                  <h4 class="responsive-font-example"><?php echo mysqli_num_rows($res2); ?></h4>
                   <p>Total Product</p>
                 </div>
                 <div class="icon">
@@ -279,7 +283,7 @@ if (!empty($_SESSION['success'])) {
               <!-- small card -->
               <div class="small-box bg-danger">
                 <div class="inner">
-                  <h3><?php echo mysqli_num_rows($res1); ?></h3>
+                  <h4 class="responsive-font-example"><?php echo mysqli_num_rows($res1); ?></h4>
                   <p>Total amount of Agent</p>
                 </div>
                 <div class="icon">

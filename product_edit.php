@@ -63,7 +63,7 @@ if (!empty($_SESSION['editpsuccess'])) {
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+      <a href="main_admin.php" class="brand-link">
         <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Petshop</span>
       </a>
@@ -80,7 +80,7 @@ if (!empty($_SESSION['editpsuccess'])) {
             $query_run = mysqli_query($db, $query);
             if (mysqli_num_rows($query_run) > 0) {
               foreach ($query_run as $row) { ?>
-                <a href="#" class="d-block"><?php echo $row['adminName']; ?></a>
+                <a href="info.php" class="d-block"><?php echo $row['adminName']; ?></a>
             <?php }
             } else {
               echo "error";
@@ -208,234 +208,260 @@ if (!empty($_SESSION['editpsuccess'])) {
             <div class="card mt-12">
               <div class="card-body">
                 <form action="" method="GET">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <input type="text" placeholder="Name" name="productName" value="<?php if (isset($_GET['productName'])) {
-                                                                                        echo $_GET['productName'];
-                                                                                      } ?>" class="form-control"><br>
+                  <div class="form-group row">
+                    <div class='col-sm-12 col-md-6 col-lg-4'>
+                      <div class="input-group">
+                        <input type="search" placeholder="Name" name="productName" value="<?php if (isset($_GET['productName'])) {
+                                                                                            echo $_GET['productName'];
+                                                                                          } ?>" class="form-control">
+                        <div class="input-group-append">
+                          <button type="submit" class="btn btn-info">
+                            <i class="fa fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-sm-1">
-                      <button type="submit" title="Search" class="btn btn-block btn-info btn-md"><i class="fa fa-search"></i></button><br>
-                    </div>
-                    <div class="col-sm-1"><button onclick="document.location='product_edit.php'" type="button" title="Refresh" class="btn btn-block btn-secondary btn-md"><i class="fa-solid fa-arrows-rotate"></i></button></div>
                   </div>
                 </form>
-                <form method="GET" action="">
+                <form action="" method="GET">
                   <div class="row">
-                    <div class="col-sm-3"><?php
-                                          $query = "SELECT * FROM category";
-                                          $result1 = mysqli_query($db, $query);
-                                          ?>
-                      <select id="box1" class="form-control" name="taskOption">
-                        <option disabled selected value> Category : <?php if (isset($_GET['taskOption'])) {
-                                                                      $categoryID = $_GET['taskOption'];
-                                                                      $query22 = "SELECT * FROM category WHERE '$categoryID' = categoryID";
+                    <div class='col-sm-12 col-md-4 col-lg-4'><?php
+                                                              $query = "SELECT * FROM category";
+                                                              $result1 = mysqli_query($db, $query);
+                                                              ?>
+                      <div class="input-group">
+                        <select id="box1" class="form-control" name="taskOption">
+                          <option disabled selected value> Category : <?php if (isset($_GET['taskOption'])) {
+                                                                        $categoryID = $_GET['taskOption'];
+                                                                        $query22 = "SELECT * FROM category WHERE '$categoryID' = categoryID";
 
-                                                                      $query_run22 = mysqli_query($db, $query22);
-                                                                      while ($row =  mysqli_fetch_array($query_run22)) {
-                                                                        $categoryName = $row['categoryName'];
-                                                                      }
-                                                                      echo $categoryName;
-                                                                    } else {
-                                                                      echo " All ";
-                                                                    } ?> </option>
-                        <?php while ($row1 = mysqli_fetch_array($result1)) :; ?>
-                          <option value="<?php echo $row1[0]; ?>"><?php echo $row1[1]; ?></option>
-                        <?php endwhile; ?>
-                      </select>
+                                                                        $query_run22 = mysqli_query($db, $query22);
+                                                                        while ($row =  mysqli_fetch_array($query_run22)) {
+                                                                          $categoryName = $row['categoryName'];
+                                                                        }
+                                                                        echo $categoryName;
+                                                                      } else {
+                                                                        echo " All ";
+                                                                      } ?> </option>
+                          <?php while ($row1 = mysqli_fetch_array($result1)) :; ?>
+                            <option value="<?php echo $row1[0]; ?>"><?php echo $row1[1]; ?></option>
+                          <?php endwhile; ?>
+                        </select>
+                        <div class="input-group-append">
+                          <button type="submit" title="Filter" class="btn btn-info">
+                            <i class="fa-solid fa-filter"></i>
+                          </button>
+                          <button onclick="document.location='product_edit.php'" type="button" title="Refresh" class="btn btn-secondary">
+                            <i class="fa fa-refresh"></i>
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-sm-1"><button type="submit" title="Filter" class="btn btn-block bg-gradient-info btn"></i> <i class="fa-solid fa-filter"></i> </button></a></div>
-                    <div class="col-sm-8"></div>
                   </div>
+                </form>
               </div>
-              <?php
-              $option = isset($_POST['taskOption']) ? $_POST['taskOption'] : false;
-              ?>
-              </form>
             </div>
-          </div>
-          <div class="card mt-12">
-            <div class="card-body">
-              <?php
-              if (isset($_GET['productName'])) {
-                $productName = mysqli_real_escape_string($db,$_GET['productName']);
-                $query = "SELECT * FROM product WHERE productName LIKE  '%".$productName."%'";
-                $query_run = mysqli_query($db, $query);
-                if (mysqli_num_rows($query_run) > 0) {
-              ?>
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-hover" id="example2">
-                      <thead style="text-align: center">
-                        <tr class="bg-dark text-white">
-                          <th> Status </th>
-                          <th> Photo </th>
-                          <th> Name </th>
-                          <th> Quantity </th>
-                          <th> Price (RM) </th>
-                          <th> Description </th>
-                          <th> SKU </th>
-                          <th> Action </th>
-                        </tr>
-                      </thead>
-                      <tbody style="text-align: center">
-                        <?php foreach ($query_run as $row) { ?>
-                          <tr data-href="productinfo.php?productID=<?php echo $row['productID']; ?>" style="height:100px; cursor:pointer;">
-                          <td><span <?php if ($row['productDelete'] == 1 ) { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?> ><?php if ($row['productDelete'] == 0 ) { echo"Listed";} else{ echo "Unlisted";} ?> </span></td>
-                          <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
-                            <td><?= $row['productName']; ?></td>
-                            <td><?= $row['productQuantity']; ?></td>
-                            <td><?= $row['productPrice']; ?></td>
-                            <td><?= $row['productDesc']; ?></td>
-                            <td><?= $row['productSKU']; ?></td>
-                            <td width="50" height="40">
-                              <div class="btn-group"><a href="updateprod.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Edit Product" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button></a>
-                                <?php if ($row['productDelete'] == 0) { ?>
-                                  <a href="product_delete.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button></a>
-                                <?php } else { ?>
-                                  <a href="product_retrieve.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Retrieve Product" class="btn btn-success"><i class="fa-solid fa-clock-rotate-left"></i></button></a>
-                                <?php } ?>
-                              </div>
-                            </td>
-                          </tr>
-                        <?php } ?>
-                      </tbody>
-                    </table>
-                  </div>
-                <?php } else { ?>
-                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://icon-library.com/images/product-icon-png/product-icon-png-11.jpg" width="130" height="130" class="img-fluid mb-4 mr-3">
-                    <h3><strong>Product Not Found</strong></h3>
-                  </div>
-                <?php
-                }
-              } else if (isset($_GET['taskOption'])) {
-                $categoryID = $_GET['taskOption'];
-                $query = "SELECT * FROM product WHERE '$categoryID' = categoryID";
-                $query_run = mysqli_query($db, $query);
-                if (mysqli_num_rows($query_run) > 0) {
-                ?>
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-hover" id="example2">
-                      <thead style="text-align: center">
-                        <tr class="bg-dark text-white">
-                          <th> Status </th>
-                          <th> Photo </th>
-                          <th> Name </th>
-                          <th> Quantity </th>
-                          <th> Price (RM) </th>
-                          <th> Description </th>
-                          <th> SKU </th>
-                          <th> Action </th>
-                        </tr>
-                      </thead>
-                      <tbody style="text-align: center">
-                        <?php foreach ($query_run as $row) {
-                        ?>
-                          <tr data-href="productinfo.php?productID=<?php echo $row['productID']; ?>" style="height:100px; cursor:pointer;">
-                          <td><span <?php if ($row['productDelete'] == 1 ) { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?> ><?php if ($row['productDelete'] == 0 ) { echo"Listed";} else{ echo "Unlisted";} ?> </span></td>
-                          <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
-                            <td><?= $row['productName']; ?></td>
-                            <td><?= $row['productQuantity']; ?></td>
-                            <td><?= $row['productPrice']; ?></td>
-                            <td><?= $row['productDesc']; ?></td>
-                            <td><?= $row['productSKU']; ?></td>
-                            <td width="50" height="40">
-                              <div class="btn-group"><a href="updateprod.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Edit Product" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button></a>
-                                <?php if ($row['productDelete'] == 0) { ?>
-                                  <a href="product_delete.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button></a>
-                                <?php } else { ?>
-                                  <a href="product_retrieve.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Retrieve Product" class="btn btn-success"><i class="fa-solid fa-clock-rotate-left"></i></button></a>
-                                <?php } ?>
-                              </div>
-                            </td>
-                          </tr>
-                        <?php } ?>
-                      </tbody>
-                    </table>
-                  </div>
-                <?php } else { ?>
-                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://icon-library.com/images/product-icon-png/product-icon-png-11.jpg" width="130" height="130" class="img-fluid mb-4 mr-3">
-                    <h3><strong>Product Not Found</strong></h3>
-                  </div>
-                <?php
-                }
-              } else {
-                $query = "SELECT * FROM product";
-                $query_run = mysqli_query($db, $query);
-                if (mysqli_num_rows($query_run) > 0) {
-                ?>
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-hover" id="example2">
-                      <thead style="text-align: center">
-                        <tr class="bg-dark text-white">
-                          <th> Status </th>
-                          <th> Photo </th>
-                          <th> Name </th>
-                          <th> Quantity </th>
-                          <th> Price (RM) </th>
-                          <th> Description </th>
-                          <th> SKU </th>
-                          <th> Action </th>
-                        </tr>
-                      </thead>
-                      <tbody style="text-align: center">
-                        <?php foreach ($query_run as $row) {
-                        ?>
-                          <tr data-href="productinfo.php?productID=<?php echo $row['productID']; ?>" style="height:100px; cursor:pointer;">
-                            <td><span <?php if ($row['productDelete'] == 1) { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php if ($row['productDelete'] == 0) {
-                                                                                                                                                                        echo "Listed";
-                                                                                                                                                                      } else {
-                                                                                                                                                                        echo "Unlisted";
-                                                                                                                                                                      } ?> </span></td>
-                            <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
-                            <td><?= $row['productName']; ?></td>
-                            <td><?= $row['productQuantity']; ?></td>
-                            <td><?= $row['productPrice']; ?></td>
-                            <td><?= $row['productDesc']; ?></td>
-                            <td><?= $row['productSKU']; ?></td>
-                            <td width="50" height="40">
-                              <div class="btn-group"><a href="updateprod.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Edit Product" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button></a>
-                                <?php if ($row['productDelete'] == 0) { ?>
-                                  <a href="product_delete.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button></a>
-                                <?php } else { ?>
-                                  <a href="product_retrieve.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Retrieve Product" class="btn btn-success"><i class="fa-solid fa-clock-rotate-left"></i></button> </a>
-                                <?php } ?>
-                              </div>
-                            </td>
-                          </tr>
-                        <?php } ?>
-                      </tbody>
-                    </table>
-                  </div>
-                <?php } else { ?>
-                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://icon-library.com/images/product-icon-png/product-icon-png-11.jpg" width="130" height="130" class="img-fluid mb-4 mr-3">
-                    <h3><strong>Product Not Found</strong></h3>
-                  </div>
-              <?php
-                }
-              }
-              ?>
-            </div>
+            <?php
+            ?>
+            </form>
           </div>
         </div>
-      </section>
+        <div class="card mt-12">
+          <div class="card-body">
+            <?php
+            if (isset($_GET['productName'])) {
+              $productName = mysqli_real_escape_string($db, $_GET['productName']);
+              $query = "SELECT * FROM product WHERE productName LIKE  '%" . $productName . "%'";
+              $query_run = mysqli_query($db, $query);
+              if (mysqli_num_rows($query_run) > 0) {
+            ?>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-hover" id="example2">
+                    <thead style="text-align: center">
+                      <tr class="bg-dark text-white">
 
-      <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
-        <i class="fas fa-chevron-up"></i>
-      </a>
+                        <th> Photo </th>
+                        <th> Name </th>
+                        <th> Quantity </th>
+                        <th> Price (RM) </th>
+                        <th> Description </th>
+                        <th> SKU </th>
+                        <th> Status </th>
+                        <th> Action </th>
+                      </tr>
+                    </thead>
+                    <tbody style="text-align: center">
+                      <?php foreach ($query_run as $row) { ?>
+                        <tr>
+
+                          <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
+                          <td><?= $row['productName']; ?></td>
+                          <td><?= $row['productQuantity']; ?></td>
+                          <td><?= $row['productPrice']; ?></td>
+                          <td><?= $row['productDesc']; ?></td>
+                          <td><?= $row['productSKU']; ?></td>
+                          <td><span <?php if ($row['productDelete'] == 1) { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php if ($row['productDelete'] == 0) {
+                                                                                                                                                                      echo "Listed";
+                                                                                                                                                                    } else {
+                                                                                                                                                                      echo "Unlisted";
+                                                                                                                                                                    } ?> </span></td>
+                          <td width="50" height="40">
+                            <div class="btn-group"><a href="updateprod.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Edit Product" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button></a>
+                              <?php if ($row['productDelete'] == 0) { ?>
+                                <a href="product_delete.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button></a>
+                              <?php } else { ?>
+                                <a href="product_retrieve.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Retrieve Product" class="btn btn-success"><i class="fa-solid fa-clock-rotate-left"></i></button></a>
+                              <?php } ?>
+                            </div>
+                          </td>
+                        </tr>
+                      <?php } ?>
+                    </tbody>
+                  </table>
+                </div>
+              <?php } else { ?>
+                <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://icon-library.com/images/product-icon-png/product-icon-png-11.jpg" width="130" height="130" class="img-fluid mb-4 mr-3">
+                  <h3><strong>Product Not Found</strong></h3>
+                </div>
+              <?php
+              }
+            } else if (isset($_GET['taskOption'])) {
+              $categoryID = $_GET['taskOption'];
+              $query = "SELECT * FROM product WHERE '$categoryID' = categoryID";
+              $query_run = mysqli_query($db, $query);
+              if (mysqli_num_rows($query_run) > 0) {
+              ?>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-hover" id="example2">
+                    <thead style="text-align: center">
+                      <tr class="bg-dark text-white">
+
+                        <th> Photo </th>
+                        <th> Name </th>
+                        <th> Quantity </th>
+                        <th> Price (RM) </th>
+                        <th> Description </th>
+                        <th> SKU </th>
+                        <th> Status </th>
+                        <th> Action </th>
+                      </tr>
+                    </thead>
+                    <tbody style="text-align: center">
+                      <?php foreach ($query_run as $row) {
+                      ?>
+                        <tr>
+
+                          <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
+                          <td><?= $row['productName']; ?></td>
+                          <td><?= $row['productQuantity']; ?></td>
+                          <td><?= $row['productPrice']; ?></td>
+                          <td><?= $row['productDesc']; ?></td>
+                          <td><?= $row['productSKU']; ?></td>
+                          <td><span <?php if ($row['productDelete'] == 1) { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php if ($row['productDelete'] == 0) {
+                                                                                                                                                                      echo "Listed";
+                                                                                                                                                                    } else {
+                                                                                                                                                                      echo "Unlisted";
+                                                                                                                                                                    } ?> </span></td>
+                          <td width="50" height="40">
+                            <div class="btn-group"><a href="updateprod.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Edit Product" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button></a>
+                              <?php if ($row['productDelete'] == 0) { ?>
+                                <a href="product_delete.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button></a>
+                              <?php } else { ?>
+                                <a href="product_retrieve.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Retrieve Product" class="btn btn-success"><i class="fa-solid fa-clock-rotate-left"></i></button></a>
+                              <?php } ?>
+                            </div>
+                          </td>
+                        </tr>
+                      <?php } ?>
+                    </tbody>
+                  </table>
+                </div>
+              <?php } else { ?>
+                <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://icon-library.com/images/product-icon-png/product-icon-png-11.jpg" width="130" height="130" class="img-fluid mb-4 mr-3">
+                  <h3><strong>Product Not Found</strong></h3>
+                </div>
+              <?php
+              }
+            } else {
+              $query = "SELECT * FROM product";
+              $query_run = mysqli_query($db, $query);
+              if (mysqli_num_rows($query_run) > 0) {
+              ?>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-hover" id="example2">
+                    <thead style="text-align: center">
+                      <tr class="bg-dark text-white">
+
+                        <th> Photo </th>
+                        <th> Name </th>
+                        <th> Quantity </th>
+                        <th> Price (RM) </th>
+                        <th> Description </th>
+                        <th> SKU </th>
+                        <th> Status </th>
+                        <th> Action </th>
+                      </tr>
+                    </thead>
+                    <tbody style="text-align: center">
+                      <?php foreach ($query_run as $row) {
+                      ?>
+                        <tr>
+
+                          <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
+                          <td><?= $row['productName']; ?></td>
+                          <td><?= $row['productQuantity']; ?></td>
+                          <td><?= $row['productPrice']; ?></td>
+                          <td><?= $row['productDesc']; ?></td>
+                          <td><?= $row['productSKU']; ?></td>
+                          <td><span <?php if ($row['productDelete'] == 1) { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php if ($row['productDelete'] == 0) {
+                                                                                                                                                                      echo "Listed";
+                                                                                                                                                                    } else {
+                                                                                                                                                                      echo "Unlisted";
+                                                                                                                                                                    } ?> </span></td>
+                          <td width="50" height="40">
+                            <div class="btn-group"><a href="updateprod.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Edit Product" class="btn btn-warning "><i class="fa-solid fa-pen-to-square"></i></button></a>
+                              <?php if ($row['productDelete'] == 0) { ?>
+                                <a href="product_delete.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Delete Product" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button></a>
+                              <?php } else { ?>
+                                <a href="product_retrieve.php?productID=<?php echo $row['productID']; ?>"><button type="button" title="Retrieve Product" class="btn btn-success"><i class="fa-solid fa-clock-rotate-left"></i></button> </a>
+                              <?php } ?>
+                            </div>
+                          </td>
+                        </tr>
+                      <?php } ?>
+                    </tbody>
+                  </table>
+                </div>
+              <?php } else { ?>
+                <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://icon-library.com/images/product-icon-png/product-icon-png-11.jpg" width="130" height="130" class="img-fluid mb-4 mr-3">
+                  <h3><strong>Product Not Found</strong></h3>
+                </div>
+            <?php
+              }
+            }
+            ?>
+          </div>
+        </div>
     </div>
-    <!-- /.content-wrapper -->
-    <footer class="main-footer">
-      <div class="float-right d-none d-sm-block">
-        <b>Version</b> 1.0
-      </div>
-      <strong>SAM JUN AN 181021172</a></strong>
-    </footer>
+    </section>
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-      <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+    <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
+      <i class="fas fa-chevron-up"></i>
+    </a>
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 1.0
+    </div>
+    <strong>SAM JUN AN 181021172</a></strong>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
 
@@ -483,11 +509,12 @@ if (!empty($_SESSION['editpsuccess'])) {
       });
     });
   </script>
-    <script>
-    $(document).ready(function(){
-    <?=isset($hasData1) && $hasData1 === true ? 'run1();' : ''?>
-    <?=isset($hasData) && $hasData === true ? 'run();' : ''?>
-});
+  <script>
+    $(document).ready(function() {
+      <?= isset($hasData1) && $hasData1 === true ? 'run1();' : '' ?>
+      <?= isset($hasData) && $hasData === true ? 'run();' : '' ?>
+    });
+
     function run1() {
       $(document).Toasts('create', {
         class: 'bg-success',
@@ -498,8 +525,7 @@ if (!empty($_SESSION['editpsuccess'])) {
       })
     }
   </script>
-      <script>
-
+  <script>
     function run() {
       $(document).Toasts('create', {
         class: 'bg-success',

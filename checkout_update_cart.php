@@ -38,12 +38,12 @@ foreach (array_combine($_POST['productID'], $_POST['cart_quantity']) as $product
                     $grandtotal += $row['subtotal'];
                 }
                 mysqli_query($db, "UPDATE cart SET grandtotal='$grandtotal' WHERE agentID='{$agentID}'");
-                header('location:cart.php');
+                header("location: stock_check.php");
             }
         } else {
-            echo "ERROR";
+           echo "Error";
         }
     } else {
-        echo "ERROR";
+        echo "Error";
     }
 }

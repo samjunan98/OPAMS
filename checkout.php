@@ -58,7 +58,7 @@ if (empty($_SESSION['checkout'])) {
 
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="#" class="brand-link">
+            <a href="main_agent.php" class="brand-link">
                 <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Petshop</span>
             </a>
@@ -75,73 +75,71 @@ if (empty($_SESSION['checkout'])) {
                         $query_run = mysqli_query($db, $query);
                         if (mysqli_num_rows($query_run) > 0) {
                             foreach ($query_run as $row) { ?>
-                                <a href="#" class="d-block"><?php echo $row['agentName']; ?></a>
+                                <a href="agentinfo.php" class="d-block"><?php echo $row['agentName']; ?></a>
                     </div>
                 </div> <?php }
                         } else {
                             echo "error";
                         } ?>
-
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-home"></i>
-                        <p>
-                            Home
-                        </p>
-                    </a>
-                </li>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon fa fa-shopping-bag"></i>
-                        <p>
-                            Product
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-check-square"></i>
-                        <p>
-                            Order
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon ion ion-stats-bars"></i>
-                        <p>
-                            Sales Report
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-user-circle"></i>
-                        <p>
-                            Info
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon ion ion-log-out"></i>
-                        <p>
-                            Logout
-                        </p>
-                    </a>
-                </li>
-            </ul>
+            <li class="nav-item">
+              <a href="main_agent.php" class="nav-link">
+                <i class="nav-icon fa fa-home"></i>
+                <p>
+                  Home
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="product.php" class="nav-link active">
+                <i class="nav-icon fa fa-shopping-bag"></i>
+                <p>
+                  Product
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="order.php" class="nav-link">
+                <i class="nav-icon fa fa-check-square"></i>
+                <p>
+                  Order
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="salesrpt_agent.php" class="nav-link">
+                <i class="nav-icon ion ion-stats-bars"></i>
+                <p>
+                  Sales Report
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="agentinfo.php" class="nav-link">
+                <i class="nav-icon fa fa-user-circle"></i>
+                <p>
+                  Info
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="logout.php" class="nav-link">
+                <i class="nav-icon ion ion-log-out"></i>
+                <p>
+                  Logout
+                </p>
+              </a>
+            </li>
+          </ul>
         </nav>
         <!-- /.sidebar-menu -->
-            </div>
-            <!-- /.sidebar -->
-        </aside>
+      </div>
+      <!-- /.sidebar -->
+    </aside>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -176,7 +174,7 @@ if (empty($_SESSION['checkout'])) {
                                         </div>
                                         <div class="form-group">
                                             <label>Phone Number</label>
-                                            <input type="text" class="form-control" placeholder="Enter Phone Number" name="deliveryPhone" required>
+                                            <input type="text" class="form-control" placeholder="Enter Phone Number" name="deliveryPhone" pattern="^(\+?6?01)[02-46-9]-*[0-9]{7}$|^(\+?6?01)[1]-*[0-9]{8}$" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Order Option</label>
@@ -266,7 +264,7 @@ if (empty($_SESSION['checkout'])) {
                             </div>
                             <div class="text-center">
                                 <div class="timer">
-                                    <div>Complete Order to Secure Product</div>
+                                    <div>Complete Order to Secure Product. Please do not refresh or return.</div>
                                     <div class="time">
                                         <strong>Session expires in <span id="time">Loading...</span></strong>
                                     </div>

@@ -52,7 +52,7 @@ if ($_SESSION["agentID"] == NULL) {
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="#" class="brand-link">
+      <a href="main_agent.php" class="brand-link">
         <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Petshop</span>
       </a>
@@ -69,7 +69,7 @@ if ($_SESSION["agentID"] == NULL) {
             $query_run = mysqli_query($db, $query);
             if (mysqli_num_rows($query_run) > 0) {
               foreach ($query_run as $row) { ?>
-                <a href="#" class="d-block"><?php echo $row['agentName']; ?></a>
+                <a href="agentinfo.php" class="d-block"><?php echo $row['agentName']; ?></a>
           </div>
         </div> <?php }
             } else {
@@ -156,50 +156,62 @@ if ($_SESSION["agentID"] == NULL) {
             <div class="card mt-12">
               <div class="card-body">
                 <form action="" method="GET">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <input type="text" placeholder="Name" name="productName" value="<?php if (isset($_GET['productName'])) {
-                                                                                        echo $_GET['productName'];
-                                                                                      } ?>" class="form-control"><br>
-                    </div>
-                    <div class="col-sm-1">
-                      <button type="submit" title="Search" class="btn btn-block btn-info btn-md"><i class="fa fa-search"></i></button><br>
-                    </div>
-                    <div class="col-sm-1"><button onclick="document.location='product.php'" type="button" title="Refresh" class="btn btn-block btn-secondary btn-md"><i class="fa-solid fa-arrows-rotate"></i></button></div>
-                    <div class="col-sm-6"></div><br>
-                    <div class="col-sm-1">
-                      <div class="text-right"><button onclick="document.location='cart.php'" type="button" title="Cart" class="btn btn-block btn-success btn-md"><i class="fa-solid fa-cart-shopping"></i> <span class='badge badge-danger' id='lblCartCount'> <?php include('track_cart.php'); ?> </span></button></div>
+                  <div class="form-group row">
+                    <div class='col-sm-12 col-md-6 col-lg-4'>
+                      <div class="input-group">
+                        <input type="search" placeholder="Name" name="productName" value="<?php if (isset($_GET['productName'])) {
+                                                                                            echo $_GET['productName'];
+                                                                                          } ?>" class="form-control">
+                        <div class="input-group-append">
+                          <button type="submit" title="Search" class="btn btn-info">
+                            <i class="fa fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </form>
-                <form method="GET" action="">
+                <form action="" method="GET">
                   <div class="row">
-                    <div class="col-sm-auto"><label for="category">Product Categories:</label><br></div>
-                    <div class="col-sm-3"><?php
-                                          $query = "SELECT * FROM category";
-                                          $result1 = mysqli_query($db, $query);
-                                          ?>
-                      <select id="box1" class="form-control" name="taskOption">
-                        <option disabled selected value> Showing: <?php if (isset($_GET['taskOption'])) {
-                                                                    $categoryID = $_GET['taskOption'];
-                                                                    $query22 = "SELECT * FROM category WHERE '$categoryID' = categoryID";
+                    <div class='col-sm-12 col-md-6 col-lg-4'><?php
+                                                              $query = "SELECT * FROM category";
+                                                              $result1 = mysqli_query($db, $query);
+                                                              ?>
+                      <div class="input-group">
+                        <select id="box1" class="form-control" name="taskOption">
+                          <option disabled selected value> Category : <?php if (isset($_GET['taskOption'])) {
+                                                                        $categoryID = $_GET['taskOption'];
+                                                                        $query22 = "SELECT * FROM category WHERE '$categoryID' = categoryID";
 
-                                                                    $query_run22 = mysqli_query($db, $query22);
-                                                                    while ($row =  mysqli_fetch_array($query_run22)) {
-                                                                      $categoryName = $row['categoryName'];
-                                                                    }
-                                                                    echo $categoryName;
-                                                                  } else {
-                                                                    echo " All ";
-                                                                  } ?> </option>
-                        <?php while ($row1 = mysqli_fetch_array($result1)) :; ?>
-                          <option value="<?php echo $row1[0]; ?>"><?php echo $row1[1]; ?></option>
-                        <?php endwhile; ?>
-                      </select>
+                                                                        $query_run22 = mysqli_query($db, $query22);
+                                                                        while ($row =  mysqli_fetch_array($query_run22)) {
+                                                                          $categoryName = $row['categoryName'];
+                                                                        }
+                                                                        echo $categoryName;
+                                                                      } else {
+                                                                        echo " All ";
+                                                                      } ?> </option>
+                          <?php while ($row1 = mysqli_fetch_array($result1)) :; ?>
+                            <option value="<?php echo $row1[0]; ?>"><?php echo $row1[1]; ?></option>
+                          <?php endwhile; ?>
+                        </select>
+                        <div class="input-group-append">
+                          <button type="submit" title="Filter" class="btn btn-info">
+                            <i class="fa-solid fa-filter"></i>
+                          </button>
+                          <button onclick="document.location='product.php'" type="button" title="Refresh" class="btn btn-secondary">
+                            <i class="fa fa-refresh"></i>
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-sm-1"><button type="submit" title="Filter" class="btn btn-block bg-gradient-info btn"></i> <i class="fa-solid fa-filter"></i> </button></a></div>
+                    <div class='col-sm-12 col-md-4 col-lg-7'>
+                      <br>
+                    </div>
+                    <div class='col-sm-12 col-md-2 col-lg-1'>
+                      <button onclick="document.location='cart.php'" type="button" title="Cart" class="btn btn-block btn-success btn-md float-end"><i class="fa-solid fa-cart-shopping"></i> <span class='badge badge-danger' id='lblCartCount'> <?php include('track_cart.php'); ?> </span></button>
+                    </div>
                   </div>
-
                 </form>
               </div>
             </div>
@@ -208,8 +220,8 @@ if ($_SESSION["agentID"] == NULL) {
             <div class="card-body">
               <?php
               if (isset($_GET['productName'])) {
-                $productName = mysqli_real_escape_string($db,$_GET['productName']);
-                $query = "SELECT * FROM product WHERE '$productDelete' = productDelete AND productName LIKE  '%".$productName."%'";
+                $productName = mysqli_real_escape_string($db, $_GET['productName']);
+                $query = "SELECT * FROM product WHERE '$productDelete' = productDelete AND productName LIKE  '%" . $productName . "%'";
                 $query_run = mysqli_query($db, $query);
                 if (mysqli_num_rows($query_run) > 0) {
               ?>
@@ -234,7 +246,7 @@ if ($_SESSION["agentID"] == NULL) {
                               <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
                               <td><?= $row['productName']; ?></td>
                               <td><?= $row['productQuantity']; ?></td>
-                              <td><input type="number" class="form-control" name="quantity" min="1" max="<?= $row['productQuantity']; ?>" step="1" value="1"></td>
+                              <td><input type="number" class="form-control" name="quantity" min="1" max="<?= $row['productQuantity']; ?>" step="1" value="1" required></td>
                               <td><?= $row['productDesc']; ?></td>
                               <td><?= $row['productSKU']; ?></td>
                               <td><?= $row['productPrice']; ?></td>
@@ -281,7 +293,7 @@ if ($_SESSION["agentID"] == NULL) {
                               <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
                               <td><?= $row['productName']; ?></td>
                               <td><?= $row['productQuantity']; ?></td>
-                              <td><input type="number" class="form-control" name="quantity" min="1" max="<?= $row['productQuantity']; ?>" step="1" value="1"></td>
+                              <td><input type="number" class="form-control" name="quantity" min="1" max="<?= $row['productQuantity']; ?>" step="1" value="1" required></td>
                               <td><?= $row['productDesc']; ?></td>
                               <td><?= $row['productSKU']; ?></td>
                               <td><?= $row['productPrice']; ?></td>
@@ -326,7 +338,7 @@ if ($_SESSION["agentID"] == NULL) {
                               <td><?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" style="width: 70px; height:70px;">'; ?></td>
                               <td><?= $row['productName']; ?></td>
                               <td><?= $row['productQuantity']; ?></td>
-                              <td><input type="number" class="form-control" name="quantity" min="1" max="<?= $row['productQuantity']; ?>" step="1" value="1"></td>
+                              <td><input type="number" class="form-control" name="quantity" min="1" max="<?= $row['productQuantity']; ?>" step="1" value="1" required></td>
                               <td><?= $row['productDesc']; ?></td>
                               <td><?= $row['productSKU']; ?></td>
                               <td><?= $row['productPrice']; ?></td>

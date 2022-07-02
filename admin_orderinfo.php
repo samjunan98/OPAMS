@@ -51,7 +51,7 @@ if ($_SESSION["adminID"] == NULL) {
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="#" class="brand-link">
+            <a href="main_admin.php" class="brand-link">
                 <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Petshop</span>
             </a>
@@ -68,7 +68,7 @@ if ($_SESSION["adminID"] == NULL) {
                         $query_run = mysqli_query($db, $query);
                         if (mysqli_num_rows($query_run) > 0) {
                             foreach ($query_run as $row) { ?>
-                                <a href="#" class="d-block"><?php echo $row['adminName']; ?></a>
+                                <a href="info.php" class="d-block"><?php echo $row['adminName']; ?></a>
                         <?php }
                         } else {
                             echo "error";
@@ -254,40 +254,40 @@ if ($_SESSION["adminID"] == NULL) {
                                         <fieldset disabled="disabled">
                                             <div class="card-body">
                                                 <div class="form-group row">
-                                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
-                                                    <div class="col-sm-10">
+                                                    <label class="col-sm-2 col-md-3 col-form-label">Delivery Name</label>
+                                                    <div class="col-sm-10 col-md-9">
                                                         <input type="text" class="form-control" value="<?php echo $row['deliveryName']; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Phone</label>
-                                                    <div class="col-sm-10">
+                                                    <label class="col-sm-2 col-md-3 col-form-label">Phone</label>
+                                                    <div class="col-sm-10 col-md-9">
                                                         <input type="number" class="form-control" value="<?php echo $row['deliveryPhone']; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label">Method</label>
-                                                    <div class="col-sm-10">
+                                                    <label class="col-sm-2 col-md-3 col-form-label">Method</label>
+                                                    <div class="col-sm-10 col-md-9">
                                                         <input type="text" class="form-control" value="<?php echo $orderOption ?>">
                                                     </div>
                                                 </div>
                                                 <?php if ($orderOption == 'Delivery') { ?>
                                                     <div class="form-group row">
-                                                        <label class="col-sm-2 col-form-label">Courier</label>
-                                                        <div class="col-sm-10">
+                                                        <label class="col-sm-2 col-md-3 col-form-label">Courier</label>
+                                                        <div class="col-sm-10 col-md-9">
                                                             <input type="text" class="form-control" value="<?php echo $row['deliveryCourier']; ?>">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label class="col-sm-2 col-form-label">Address</label>
-                                                        <div class="col-sm-10">
+                                                        <label class="col-sm-2 col-md-3 col-form-label">Address</label>
+                                                        <div class="col-sm-10 col-md-9">
                                                             <input type="text" class="form-control" value="<?php echo $row['deliveryAddress']; ?>">
                                                         </div>
                                                     </div>
                                                 <?php } else { ?>
                                                     <div class="form-group row">
-                                                        <label class="col-sm-2 col-form-label">Pickup Location</label>
-                                                        <div class="col-sm-10">
+                                                        <label class="col-sm-2 col-md-3 col-form-label">Pickup Location</label>
+                                                        <div class="col-sm-10 col-md-9">
                                                             <input type="text" class="form-control" value="<?php echo $row['pickupLocation']; ?>">
                                                         </div>
                                                     </div>
@@ -344,7 +344,7 @@ if ($_SESSION["adminID"] == NULL) {
                                                     <div class=grandt><?php echo "Order Status"; ?></div>
                                                 </td>
                                                 <td>
-                                                    <div class=grandt><span class="badge badge-success"><?php echo $orderStatus; ?></span></div>
+                                                    <div class=grandt><span <?php if ($orderStatus == 'Pending') { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php echo $orderStatus; ?></span></div>
                                                 </td>
                                             </tr>
                                             <?php if ($orderStatus == "Completed") { ?>

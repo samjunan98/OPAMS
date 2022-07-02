@@ -40,7 +40,7 @@ if ($_SESSION["agentID"] == NULL) {
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="#" class="brand-link">
+      <a href="main_agent.php" class="brand-link">
         <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Petshop</span>
       </a>
@@ -57,7 +57,7 @@ if ($_SESSION["agentID"] == NULL) {
             $query_run = mysqli_query($db, $query);
             if (mysqli_num_rows($query_run) > 0) {
               foreach ($query_run as $row) { ?>
-                <a href="#" class="d-block"><?php echo $row['agentName']; ?></a>
+                <a href="agentinfo.php" class="d-block"><?php echo $row['agentName']; ?></a>
           </div>
         </div> <?php }
             } else {
@@ -142,7 +142,7 @@ if ($_SESSION["agentID"] == NULL) {
                         <div class="card-body">
                             <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://icons.veryicon.com/png/o/system/revision-background/order-details-order-status.png" width="130" height="130" class="img-fluid mb-4 mr-3">
                                 <h3><strong>Order Completed</strong></h3>
-                                <a href="product.php" class="btn btn-primary cart-btn-transform m-3" data-abc="true">Continue</a>
+                                <a href="order.php" class="btn btn-primary cart-btn-transform m-3" data-abc="true">Continue</a>
                             </div>
                         </div>
                     </div>

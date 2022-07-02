@@ -42,7 +42,7 @@ if (!empty($_SESSION['agsuccess'])) {
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-  
+
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
@@ -60,7 +60,7 @@ if (!empty($_SESSION['agsuccess'])) {
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="#" class="brand-link">
+      <a href="main_admin.php" class="brand-link">
         <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Petshop</span>
       </a>
@@ -77,7 +77,7 @@ if (!empty($_SESSION['agsuccess'])) {
             $query_run = mysqli_query($db, $query);
             if (mysqli_num_rows($query_run) > 0) {
               foreach ($query_run as $row) { ?>
-                <a href="#" class="d-block"><?php echo $row['adminName']; ?></a>
+                <a href="info.php" class="d-block"><?php echo $row['adminName']; ?></a>
             <?php }
             } else {
               echo "error";
@@ -207,16 +207,21 @@ if (!empty($_SESSION['agsuccess'])) {
               <div class="card-body">
                 <form action="" method="GET">
                   <div class="row">
-                    <div class="col-sm-3">
-                      <input type="text" placeholder="Name" name="agentName" value="<?php if (isset($_GET['agentName'])) {
-                                                                                      echo $_GET['agentName'];
-                                                                                    } ?>" class="form-control">
+                    <div class='col-sm-12 col-md-6 col-lg-4'>
+                      <div class="input-group">
+                        <input type="text" placeholder="Name" name="agentName" value="<?php if (isset($_GET['agentName'])) {
+                                                                                        echo $_GET['agentName'];
+                                                                                      } ?>" class="form-control">
+                        <div class="input-group-append">
+                          <button type="submit" title="Search" class="btn btn-info">
+                            <i class="fa fa-search"></i>
+                          </button>
+                          <button onclick="document.location='agentlist_test.php'" type="button" title="Refresh" class="btn btn-secondary">
+                            <i class="fa fa-refresh"></i>
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-sm-1">
-                      <button type="submit" title="Search" class="btn btn-block btn-info btn-md"><i class="fa fa-search"></i></button>
-                    </div>
-                    <div class="col-sm-1"><button onclick="document.location='agentlist_test.php'" type="button" title="Refresh" class="btn btn-block btn-secondary btn-md"><i class="fa-solid fa-arrows-rotate"></i></button></div>
-                  </div>
                 </form>
               </div>
             </div>
@@ -270,7 +275,7 @@ if (!empty($_SESSION['agsuccess'])) {
                     </table>
                   </div>
                 <?php } else { ?>
-                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://freepikpsd.com/file/2019/10/agent-icon-png-1-Free-PNG-Images-Transparent.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="images/agent.png" width="130" height="130" class="img-fluid mb-4 mr-3">
                     <h3><strong>Agent Not Found</strong></h3>
                   </div>
                 <?php }
@@ -280,7 +285,7 @@ if (!empty($_SESSION['agsuccess'])) {
                 $query_run = mysqli_query($db, $query);
                 if (mysqli_num_rows($query_run) > 0) { ?>
                   <div class="table-responsive">
-                    <table class="table table-bordered table-hover" id="example2" >
+                    <table class="table table-bordered table-hover" id="example2">
                       <thead style="text-align: center">
                         <tr class="bg-dark text-white">
                           <th> ID </th>
@@ -321,7 +326,7 @@ if (!empty($_SESSION['agsuccess'])) {
                     </table>
                   </div>
                 <?php } else { ?>
-                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://freepikpsd.com/file/2019/10/agent-icon-png-1-Free-PNG-Images-Transparent.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                  <div class="col-sm-12 empty-cart-cls text-center"> <img src="images/agent.png" width="130" height="130" class="img-fluid mb-4 mr-3">
                     <h3><strong>Agent Not Found</strong></h3>
                   </div>
               <?php  }
