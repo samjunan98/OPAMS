@@ -196,7 +196,7 @@ if (!empty($_SESSION['success'])) {
                 <div class="small-box bg-success">
                   <div class="inner">
                     <h4 class="responsive-font-example"><?php echo "RM" . $salesGenerated ?></h4>
-                    <p>Sales of this month</p>
+                    <p>Sales of this Month</p>
                   </div>
                   <div class="icon">
                     <i class="ion ion-stats-bars"></i>
@@ -212,7 +212,7 @@ if (!empty($_SESSION['success'])) {
                   <div class="inner">
                     <h4 class="responsive-font-example"><?php echo "RM" . $salesCommission ?></h4>
 
-                    <p>Commission of this month</p>
+                    <p>Commission of this Month</p>
                   </div>
                   <div class="icon">
                     <i class="fas fa-chart-pie"></i>
@@ -227,7 +227,7 @@ if (!empty($_SESSION['success'])) {
                 <div class="small-box bg-success">
                   <div class="inner">
                     <h4 class="responsive-font-example">RM 0.00</h4>
-                    <p>Sales of this month</p>
+                    <p>Sales of this Month</p>
                   </div>
                   <div class="icon">
                     <i class="ion ion-stats-bars"></i>
@@ -242,7 +242,7 @@ if (!empty($_SESSION['success'])) {
                 <div class="small-box bg-danger">
                   <div class="inner">
                     <h4 class="responsive-font-example">RM 0.00</h4>
-                    <p>Commission of this month</p>
+                    <p>Commission of this Month</p>
                   </div>
                   <div class="icon">
                     <i class="fas fa-chart-pie"></i>
@@ -273,12 +273,13 @@ if (!empty($_SESSION['success'])) {
                 <a href="agentinfo.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-            <!-- ./col -->
-            <div class="col-md-6">
-              <!-- BAR CHART -->
+          </div>
+          <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6">
+              <!-- TABLE: LATEST ORDERS -->
               <div class="card card-success">
-                <div class="card-header">
-                  <h3 class="card-title">Monthly Sales</h3>
+                <div class="card-header border-transparent">
+                  <h3 class="card-title">Recently Added Products</h3>
 
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -286,16 +287,43 @@ if (!empty($_SESSION['success'])) {
                     </button>
                   </div>
                 </div>
-                <div class="card-body">
-                  <div class="chart">
-                    <canvas id="myChart" width="400" height="250"></canvas>
+                <!-- /.card-header -->
+                  <div class="card-body p-0">
+                  <ul class="products-list product-list-in-card pl-2 pr-2">
+                  <!-- /.item -->
+                  
+                  <?php 
+                  $query = "SELECT * FROM product GROUP BY productID DESC LIMIT 5 ";
+                $query_run = mysqli_query($db, $query);
+                if (mysqli_num_rows($query_run) > 0) {
+                  foreach ($query_run as $row) { ?>
+                  <li class="item">
+                    <div class="product-img">
+                    <?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" class="img-size-50"">'; ?>
+                    </div>
+                    <div class="product-info">
+                      <a href="product.php" class="product-title"><?= $row['productName'];?>
+                        <span class="badge badge-info float-right"><?php echo "RM".$row['productPrice'];?></span></a>
+                      <span class="product-description">
+                      <?= $row['productDesc'];?>
+                      </span>
+                    </div>
+                  </li>
+                  <?php } } else {?>
+                    <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://icon-library.com/images/product-icon-png/product-icon-png-11.jpg" width="130" height="130" class="img-fluid mb-4 mr-3">
+                    <h3><strong>Product Not Found</strong></h3>
+                  </div>
+                     <?php }?>
+                  <!-- /.item -->
+                </ul>
+                  <!-- /.table-responsive -->
                   </div>
                   <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
               </div>
+
+              <!-- /.card-footer -->
             </div>
-            <div class="col-md-6">
+            <div class="col-sm-12 col-md-6 col-lg-6">
               <!-- TABLE: LATEST ORDERS -->
               <div class="card card-success">
                 <div class="card-header border-transparent">
@@ -353,6 +381,54 @@ if (!empty($_SESSION['success'])) {
               </div>
 
               <!-- /.card-footer -->
+            </div>
+          </div>
+          <div class="row">
+            <!-- ./col -->
+            <div class="col-12">
+              <!-- BAR CHART -->
+              <div class="card card-success">
+                <div class="card-header">
+                  <h3 class="card-title">Monthly Sales</h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart">
+                    <canvas id="myChart" width="400" height="250"></canvas>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <!-- ./col -->
+            <div class="col-12">
+              <!-- BAR CHART -->
+              <div class="card card-success">
+                <div class="card-header">
+                  <h3 class="card-title">Monthly Commission</h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart">
+                    <canvas id="myChart1" width="400" height="250"></canvas>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+              </div>
             </div>
           </div>
         </div>
@@ -428,6 +504,44 @@ if (!empty($_SESSION['success'])) {
             type: 'bar',
             data: chartdata
           });
+          $.ajax({
+        url: "https://petshopagentmanagementsystem.herokuapp.com/create_chart1.php",
+        method: "GET",
+        success: function(data) {
+          console.log(data);
+
+          var month1 = [];
+          var salesCommission = [];
+
+          for (var i in data) {
+
+            month1.push(data[i].salesMonth);
+            salesCommission.push(data[i].salesCommission);
+          }
+
+          var chartdata = {
+            labels: month1,
+            datasets: [{
+              label: 'Total Sales',
+              backgroundColor: 'rgba(60, 179, 113, 0.75)',
+              borderColor: 'rgba(200, 200, 200, 0.75)',
+              hoverBackgroundColor: 'rgba(60, 179, 113, 1)',
+              hoverBorderColor: 'rgba(200, 200, 200, 1)',
+              data: salesCommission,
+            }]
+          };
+
+          var ctx = $("#myChart1");
+
+          var barGraph = new Chart(ctx, {
+            type: 'line',
+            data: chartdata
+          });
+        },
+        error: function(data) {
+          console.log(data);
+        }
+      });
         },
         error: function(data) {
           console.log(data);
