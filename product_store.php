@@ -40,7 +40,7 @@ if (isset($_POST['add_product'])) {
                         echo 'window.location.href = "javascript:history.go(-1)";';
                         echo '</script>';
                 } else {
-                        $query = "INSERT INTO product(productID, adminID, categoryID, productName, productPhoto, productQuantity, productPrice, productDesc, productSKU, productCreatedate) VALUES ('0', '$adminID', '$categoryID', '$productName', '$productPhoto', '$productQuantity', '$productPrice' ,'$productDesc' ,'$productSKU', $datenow())";
+                        $query = "INSERT INTO product(productID, adminID, categoryID, productName, productPhoto, productQuantity, productPrice, productDesc, productSKU, productCreatedate) VALUES ('0', '$adminID', '$categoryID', '$productName', '$productPhoto', '$productQuantity', '$productPrice' ,'$productDesc' ,'$productSKU', '$datenow')";
                         $rs = mysqli_query($db, $query);
                         if ($rs) {
                                 $_SESSION['addpsuccess'] = 'Yes';
