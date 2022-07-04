@@ -28,7 +28,7 @@ if($res['success']){
         } else {
                 $secure_pass = password_hash($agentPw1, PASSWORD_BCRYPT);
 
-                $query = "INSERT INTO agent(agentID,agentPhoto,agentName, agentAge, agentPhone, agentEmail, agentPw, agentGender, agentDOB, agentLocation, agentCreatedate) VALUES ('0','$agentPhoto','$agentName', '$agentAge', '$agentPhone' ,'$agentEmail' ,'$secure_pass' ,'$agentGender' ,'$agentDOB' ,'$agentLocation', $datenow)";
+                $query = "INSERT INTO agent(agentID,agentPhoto,agentName, agentAge, agentPhone, agentEmail, agentPw, agentGender, agentDOB, agentLocation, agentCreatedate) VALUES ('0','$agentPhoto','$agentName', '$agentAge', '$agentPhone' ,'$agentEmail' ,'$secure_pass' ,'$agentGender' ,'$agentDOB' ,'$agentLocation', '$datenow')";
                 $rs = mysqli_query($db, $query);
                 if ($rs) {
                         $query1 = "SELECT * FROM agent WHERE agentEmail='$agentEmail'";
@@ -71,7 +71,7 @@ else{
                 echo '</script>';
         } else {
                 $secure_pass = password_hash($agentPw1, PASSWORD_BCRYPT);
-                $query = "INSERT INTO agent(agentID,agentPhoto,agentName, agentAge, agentPhone, agentEmail, agentPw, agentGender, agentDOB, agentLocation, agentCreatedate) VALUES ('0','$agentPhoto','$agentName', '$agentAge', '$agentPhone' ,'$agentEmail' ,'$secure_pass' ,'$agentGender' ,'$agentDOB' ,'$agentLocation', $datenow)";
+                $query = "INSERT INTO agent(agentID,agentPhoto,agentName, agentAge, agentPhone, agentEmail, agentPw, agentGender, agentDOB, agentLocation, agentCreatedate) VALUES ('0','$agentPhoto','$agentName', '$agentAge', '$agentPhone' ,'$agentEmail' ,'$secure_pass' ,'$agentGender' ,'$agentDOB' ,'$agentLocation', '$datenow')";
                 $rs = mysqli_query($db, $query);
                 if ($rs) {
                         $query1 = "SELECT * FROM agent WHERE agentEmail='$agentEmail'";

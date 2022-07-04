@@ -16,7 +16,7 @@ if (isset($_POST['reg_admin'])) {
         echo '</script>';
     } else {
         $secure_pass = password_hash($adminPw, PASSWORD_BCRYPT);
-        $query = "INSERT INTO admin(adminID,adminName, adminEmail, adminPw, adminCreatedate) VALUES ('0','$adminName','$adminEmail' ,'$secure_pass' ,$datenow())";
+        $query = "INSERT INTO admin(adminID,adminName, adminEmail, adminPw, adminCreatedate) VALUES ('0','$adminName','$adminEmail' ,'$secure_pass' ,'$datenow')";
         $rs = mysqli_query($db, $query);
         if ($rs) {
             $query1 = "SELECT * FROM admin WHERE adminEmail='$adminEmail'";
