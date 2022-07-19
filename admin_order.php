@@ -114,15 +114,7 @@ if ($_SESSION["adminID"] == NULL) {
                                 <li class="nav-item">
                                     <a href="product_edit.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>View Product List</p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="add_product.php" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Product</p>
+                                        <p>Manage Product</p>
                                     </a>
                                 </li>
                             </ul>
@@ -130,7 +122,7 @@ if ($_SESSION["adminID"] == NULL) {
                                 <li class="nav-item">
                                     <a href="category_admin.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Manage Category</p>
+                                        <p>Manage Product Category</p>
                                     </a>
                                 </li>
                             </ul>
@@ -199,7 +191,7 @@ if ($_SESSION["adminID"] == NULL) {
                         <div class="card mt-12">
                             <div class="card-body">
                                 <form action="" method="GET">
-                                <div class="form-group row">
+                                    <div class="form-group row">
                                         <div class='col-sm-12 col-md-6 col-lg-4'>
                                             <div class="input-group">
                                                 <input type="text" placeholder="Order ID" name="orderID" value="<?php if (isset($_GET['orderID'])) {
@@ -265,7 +257,6 @@ if ($_SESSION["adminID"] == NULL) {
                                                     <th> Completed At </th>
                                                     <th> Info </th>
                                                     <th> Action </th>
-
                                                 </tr>
                                             </thead>
                                             <tbody style="text-align: center">
@@ -291,8 +282,7 @@ if ($_SESSION["adminID"] == NULL) {
                                                         <td align="center" width="50" height="40">
                                                             <button onclick="document.location='admin_orderinfo.php?orderID=<?php echo $row['orderID']; ?>'" title="Info" class="btn btn-warning btn-block"><i class="fa-solid fa-circle-info"></i></button>
                                                         </td>
-                                                        <td><a href="process_order.php?orderID=<?php echo $row['orderID']; ?>"><button <?php if ($row['orderStatus'] == 'Completed') { ?> style="display: none;" <?php } ?> type="submit" class="btn btn-block btn-success btn-md"> Process Order </button></td>
-
+                                                        <td><a href="process_order.php?orderID=<?php echo $row['orderID']; ?>"><?php if ($row['orderStatus'] == 'Completed') { ?><button type="submit" class="btn btn-block btn-outline-success btn-md" disabled> Completed </button> <?php } else { ?> <button type="submit" class="btn btn-block btn-success btn-md"> Process Order </button> <?php } ?></td>
                                                     </tr>
                                                 <?php
                                                 } ?>
@@ -329,13 +319,11 @@ if ($_SESSION["adminID"] == NULL) {
                                                     <th> Completed At </th>
                                                     <th> Info </th>
                                                     <th> Action </th>
-
                                                 </tr>
                                             </thead>
                                             <tbody style="text-align: center">
                                                 <?php foreach ($query_run as $row) { ?>
                                                     <tr>
-
                                                         <td><?= $row['orderID']; ?></td>
                                                         <td><?= $row['agentID']; ?></td>
                                                         <td><?php $productID = explode(',', $row['productID']);
@@ -356,8 +344,7 @@ if ($_SESSION["adminID"] == NULL) {
                                                         <td align="center" width="50" height="40">
                                                             <button onclick="document.location='admin_orderinfo.php?orderID=<?php echo $row['orderID']; ?>'" title="Info" class="btn btn-warning btn-block"><i class="fa-solid fa-circle-info"></i></button>
                                                         </td>
-                                                        <td><a href="process_order.php?orderID=<?php echo $row['orderID']; ?>"><button <?php if ($row['orderStatus'] == 'Completed') { ?> style="display: none;" <?php } ?> type="submit" class="btn btn-block btn-success btn-md"> Process Order </button></td>
-
+                                                        <td><a href="process_order.php?orderID=<?php echo $row['orderID']; ?>"><?php if ($row['orderStatus'] == 'Completed') { ?><button type="submit" class="btn btn-block btn-outline-success btn-md" disabled> Completed </button> <?php } else { ?> <button type="submit" class="btn btn-block btn-success btn-md"> Process Order </button> <?php } ?></td>
                                                     </tr>
                                                 <?php
                                                 } ?>
@@ -393,7 +380,6 @@ if ($_SESSION["adminID"] == NULL) {
                                         <th> Completed At</th>
                                         <th> Info </th>
                                         <th> Action </th>
-
                                     </tr>
                                 </thead>
                                 <tbody style="text-align: center">
@@ -419,7 +405,7 @@ if ($_SESSION["adminID"] == NULL) {
                                             <td align="center" width="50" height="40">
                                                 <button onclick="document.location='admin_orderinfo.php?orderID=<?php echo $row['orderID']; ?>'" title="Info" class="btn btn-warning btn-block"><i class="fa-solid fa-circle-info"></i></button>
                                             </td>
-                                            <td><a href="process_order.php?orderID=<?php echo $row['orderID']; ?>"><button <?php if ($row['orderStatus'] == 'Completed') { ?> style="display: none;" <?php } ?> type="submit" class="btn btn-block btn-success btn-md"> Process Order </button></td>
+                                            <td><a href="process_order.php?orderID=<?php echo $row['orderID']; ?>"><?php if ($row['orderStatus'] == 'Completed') { ?><button type="submit" class="btn btn-block btn-outline-success btn-md" disabled> Completed </button> <?php } else { ?> <button type="submit" class="btn btn-block btn-success btn-md"> Process Order </button> <?php } ?></td>
                                         </tr>
                                     <?php
                                     } ?>

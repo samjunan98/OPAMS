@@ -90,7 +90,7 @@ if ($_SESSION["adminID"] == NULL) {
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="agentlist_test.php" class="nav-link">
                                 <i class="nav-icon fa fa-users"></i>
                                 <p>
                                     Agent
@@ -109,15 +109,7 @@ if ($_SESSION["adminID"] == NULL) {
                                 <li class="nav-item">
                                     <a href="product_edit.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>View Product List</p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="product_add.php" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add New Product</p>
+                                        <p>Manage Product</p>
                                     </a>
                                 </li>
                             </ul>
@@ -125,7 +117,7 @@ if ($_SESSION["adminID"] == NULL) {
                                 <li class="nav-item">
                                     <a href="category_admin.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Manage Category</p>
+                                        <p>Manage Product Category</p>
                                     </a>
                                 </li>
                             </ul>

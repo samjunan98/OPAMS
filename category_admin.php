@@ -118,15 +118,7 @@ if (!empty($_SESSION['catsuccess1'])) {
                                 <li class="nav-item">
                                     <a href="product_edit.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>View Product List</p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="add_product.php" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Product</p>
+                                        <p>Manage Product</p>
                                     </a>
                                 </li>
                             </ul>
@@ -134,7 +126,7 @@ if (!empty($_SESSION['catsuccess1'])) {
                                 <li class="nav-item">
                                     <a href="category_admin.php" class="nav-link active">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Manage Category</p>
+                                        <p>Manage Product Category</p>
                                     </a>
                                 </li>
                             </ul>
@@ -223,16 +215,17 @@ if (!empty($_SESSION['catsuccess1'])) {
                                         <table class="table border table-hover">
                                             <thead style="text-align: center">
                                                 <tr class="bg-dark text-white">
-                                                    
+
                                                     <th> Category ID </th>
-                                                    <th> Category Name </th><th> Status </th>
+                                                    <th> Category Name </th>
+                                                    <th> Status </th>
                                                     <th> Action </th>
                                                 </tr>
                                             </thead>
                                             <tbody style="text-align: center">
                                                 <?php foreach ($query_run as $row) { ?>
                                                     <tr>
-                                                    
+
                                                         <td><?= $row['categoryID']; ?></td>
                                                         <td><?= $row['categoryName']; ?></td>
                                                         <td><span <?php if ($row['categoryDelete'] == 1) { ?> class="badge badge-danger" <?php } else { ?> class="badge badge-success" <?php } ?>><?php if ($row['categoryDelete'] == 0) {

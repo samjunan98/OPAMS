@@ -107,29 +107,21 @@ if ($_SESSION["adminID"] == NULL) {
                         </p>
                      </a>
                      <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                           <a href="product_edit.php" class="nav-link active">
-                              <i class="far fa-circle nav-icon"></i>
-                              <p>View Product List</p>
-                           </a>
-                        </li>
-                     </ul>
-                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                           <a href="add_product.php" class="nav-link">
-                              <i class="far fa-circle nav-icon"></i>
-                              <p>Add Product</p>
-                           </a>
-                        </li>
-                     </ul>
-                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                           <a href="category_admin.php" class="nav-link">
-                              <i class="far fa-circle nav-icon"></i>
-                              <p>Manage Category</p>
-                           </a>
-                        </li>
-                     </ul>
+                <li class="nav-item">
+                  <a href="product_edit.php" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Manage Product</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="category_admin.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Manage Product Category</p>
+                  </a>
+                </li>
+              </ul>
                   </li>
                   <li class="nav-item">
                      <a href="admin_order.php" class="nav-link">

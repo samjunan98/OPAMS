@@ -117,15 +117,7 @@ if (!empty($_SESSION['success'])) {
                 <li class="nav-item">
                   <a href="product_edit.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>View Product List</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="add_product.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Add Product</p>
+                    <p>Manage Product</p>
                   </a>
                 </li>
               </ul>
@@ -133,7 +125,7 @@ if (!empty($_SESSION['success'])) {
                 <li class="nav-item">
                   <a href="category_admin.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Manage Category</p>
+                    <p>Manage Product Category</p>
                   </a>
                 </li>
               </ul>
@@ -346,7 +338,7 @@ if (!empty($_SESSION['success'])) {
 
           <!-- Bar chart -->
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-sm-12 col-md-6 col-lg-6">
               <!-- TABLE: LATEST ORDERS -->
               <div class="card card-success">
                 <div class="card-header border-transparent">
@@ -407,6 +399,54 @@ if (!empty($_SESSION['success'])) {
                   <div class="card-footer clearfix">
                 <a href="admin_order.php" class="btn btn-sm btn-secondary float-right">View All Orders</a>
               </div>
+                  <!-- /.card-body -->
+              </div>
+
+              <!-- /.card-footer -->
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+              <!-- TABLE: LATEST ORDERS -->
+              <div class="card card-success">
+                <div class="card-header border-transparent">
+                  <h3 class="card-title">Recently Added Products</h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                  <div class="card-body p-0">
+                  <ul class="products-list product-list-in-card pl-2 pr-2">
+                  <!-- /.item -->
+                  
+                  <?php 
+                  $query = "SELECT * FROM product GROUP BY productID DESC LIMIT 5 ";
+                $query_run = mysqli_query($db, $query);
+                if (mysqli_num_rows($query_run) > 0) {
+                  foreach ($query_run as $row) { ?>
+                  <li class="item">
+                    <div class="product-img">
+                    <?php echo '<img src="data:image;base64,' . base64_encode($row['productPhoto']) . '"alt="Image" class="img-size-50"">'; ?>
+                    </div>
+                    <div class="product-info">
+                      <a href="product.php" class="product-title"><?= $row['productName'];?>
+                        <span class="badge badge-info float-right"><?php echo "RM".$row['productPrice'];?></span></a>
+                      <span class="product-description">
+                      <?= $row['productDesc'];?>
+                      </span>
+                    </div>
+                  </li>
+                  <?php } } else {?>
+                    <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://icon-library.com/images/product-icon-png/product-icon-png-11.jpg" width="130" height="130" class="img-fluid mb-4 mr-3">
+                    <h3><strong>Product Not Found</strong></h3>
+                  </div>
+                     <?php }?>
+                  <!-- /.item -->
+                </ul>
+                  <!-- /.table-responsive -->
+                  </div>
                   <!-- /.card-body -->
               </div>
 
