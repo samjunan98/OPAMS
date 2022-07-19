@@ -422,7 +422,7 @@ if (!empty($_SESSION['success'])) {
                   <!-- /.item -->
                   
                   <?php 
-                  $query = "SELECT * FROM product GROUP BY productID DESC LIMIT 5 ";
+                  $query = "SELECT * FROM product  WHERE productDelete =0  GROUP BY productID DESC LIMIT 5 ";
                 $query_run = mysqli_query($db, $query);
                 if (mysqli_num_rows($query_run) > 0) {
                   foreach ($query_run as $row) { ?>
