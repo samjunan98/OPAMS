@@ -130,7 +130,7 @@ if (!empty($_SESSION['editpsuccess'])) {
                 <li class="nav-item">
                   <a href="category_admin.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Manage Product Category</p>
+                    <p>Manage Category</p>
                   </a>
                 </li>
               </ul>
