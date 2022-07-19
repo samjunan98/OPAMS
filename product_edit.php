@@ -249,9 +249,12 @@ if (!empty($_SESSION['editpsuccess'])) {
                         </div>
                       </div>
                     </div>
-                    <div class="col-sm-12 col-md-8 col-lg-8">
+                    <div class='col-sm-12 col-md-2 col-lg-2'>
+                      <br>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6">
                                         <div class="text-right">
-                                            <a href="add_product.php"><button type="button" title="Add Product" class="btn btn-success" style><i class="fa-solid fa-add"> </i> Add New Product</button></a>
+                                            <a href="add_product.php"><button type="button" title="Add Product" class="btn btn-success"><i class="fa-solid fa-add"> </i> Add New Product</button></a>
                                         </div>
                                     </div>
                   </div>
