@@ -3,4 +3,5 @@
 
 An online dashboard allows petshop owner and agents manage the business. 
 
-![alt text](https://imgur.com/a/vJashRg)
+
+![image](https://user-images.githubusercontent.com/95115804/206956528-8c9cbd25-9bba-4655-b276-ff545414e66d.png)
